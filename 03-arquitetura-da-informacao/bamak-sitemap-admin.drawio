@@ -1,0 +1,113 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="fiJZ05LaFJzLYdCBu0p3">
+    <mxGraphModel dx="1413" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-01 Login" vertex="1">
+          <mxGeometry height="54" width="156" x="808" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-02 Dashboard" vertex="1">
+          <mxGeometry height="54" width="193" x="790" y="124" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-3" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-03 Notícias listagem" vertex="1">
+          <mxGeometry height="54" width="241" x="27" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-04 Notícias formulário" vertex="1">
+          <mxGeometry height="54" width="255" x="20" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-5" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-05 Eventos listagem" vertex="1">
+          <mxGeometry height="54" width="239" x="333" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-6" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-06 Eventos formulário" vertex="1">
+          <mxGeometry height="54" width="253" x="325" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-7" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-07 FAQ listagem" vertex="1">
+          <mxGeometry height="54" width="210" x="636" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-8" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-08 FAQ formulário" vertex="1">
+          <mxGeometry height="54" width="225" x="629" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-9" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-09 Catálogo listagem" vertex="1">
+          <mxGeometry height="54" width="246" x="908" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-10" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-10 Produto formulário" vertex="1">
+          <mxGeometry height="54" width="254" x="904" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-11" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-11 Conteúdo institucional" vertex="1">
+          <mxGeometry height="78" width="260" x="1204" y="228" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-12" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ADM-12 Mensagens de contato" vertex="1">
+          <mxGeometry height="78" width="260" x="1514" y="228" as="geometry" />
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-13" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-1" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-2" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-14" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.63;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="148" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-15" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-3" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-16" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.71;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-5" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="452" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-17" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-5" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-6" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-18" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=0.11;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-7" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="741" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-19" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-7" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-8" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-20" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=0.89;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1031" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-21" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-9" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-22" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.71;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1334" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="apmIt-iX5Kb_mL7s8Okd-23" edge="1" parent="1" source="apmIt-iX5Kb_mL7s8Okd-2" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.62;entryX=0.5;entryY=0;rounded=0;" target="apmIt-iX5Kb_mL7s8Okd-12" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1644" y="203" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
