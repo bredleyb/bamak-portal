@@ -285,7 +285,7 @@ Os três fluxos definidos para a linha de base são:
 
 - atualizar arquitetura, decisões e inventário de telas;
 - criar style tile;
-- produzir protótipos low fidelity;
+- produzir protótipos lo-fi;
 - produzir protótipos mid fidelity públicos;
 - produzir protótipos mid fidelity administrativos;
 - revisar a linha de base;

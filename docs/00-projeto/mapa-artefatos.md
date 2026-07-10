@@ -192,7 +192,7 @@ Os nomes dos arquivos internos dessa pasta serão definidos na issue específica
 
 | Artefato | Caminho | Status | Função |
 |---|---|---|---|
-| Protótipos low fidelity | `docs/20-pre-pac-viii/06-prototipos/low-fi/` | Planejado | Revisar estrutura e fluxos antes do refinamento visual. |
+| Protótipos lo-fi | `docs/20-pre-pac-viii/06-prototipos/lo-fi/` | Planejado | Revisar estrutura e fluxos antes do refinamento visual. |
 | Protótipos mid fidelity públicos | `docs/20-pre-pac-viii/06-prototipos/mid-fi/publico/` | Planejado | Detalhar as oito áreas públicas e rotas derivadas. |
 | Protótipos mid fidelity administrativos | `docs/20-pre-pac-viii/06-prototipos/mid-fi/admin/` | Planejado | Detalhar Painel, Atendimentos, Comunicação e Configurações. |
 
