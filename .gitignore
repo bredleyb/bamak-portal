@@ -141,3 +141,21 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Operating system
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary and lock files
+~$*
+*.tmp
+*.temp
+*.bak
+*.autosave
+*.crdownload
+*.part
+
+# Local working material
+.local/
