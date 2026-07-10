@@ -1,280 +1,371 @@
-# Portal Web Institucional-Comercial para a Bamak
+# Portal Bamak
 
-Repositório acadêmico do projeto **Portal Web Institucional-Comercial para a Bamak**, desenvolvido no **PAC VII do curso de Engenharia de Software**.
+Repositório do projeto extensionista **Portal Bamak**, desenvolvido no curso de Engenharia de Software em parceria com a **Bamak Equipamentos LTDA**.
 
-Este repositório documenta a primeira etapa do projeto: diagnóstico, definição de escopo, arquitetura da informação, arquitetura técnica, decisões de interface em baixa fidelidade e planejamento de continuidade. O foco deste semestre foi estruturar a proposta com base técnica suficiente para orientar a evolução no PAC 8.
+Este projeto faz parte da trajetória de **PAC Extensionista** e **Portfólio**. No contexto deste repositório, PAC é a etapa curricular que conecta prática de Engenharia de Software, documentação técnica, validação com parceiro externo e impacto extensionista. O projeto parte de uma demanda real da empresa parceira e evolui por fases documentadas, validadas e rastreáveis.
 
-O projeto parte de uma necessidade específica da **Bamak Equipamentos LTDA**: reorganizar sua presença digital para que o site deixe de funcionar como uma apresentação institucional pouco articulada e passe a orientar melhor o visitante antes do contato comercial.
-
----
-
-## Sumário
-
-- [Contexto](#contexto)
-- [Problema trabalhado](#problema-trabalhado)
-- [Objetivo da proposta](#objetivo-da-proposta)
-- [Escopo definido no PAC VII](#escopo-definido-no-pac-vii)
-- [Fora do escopo atual](#fora-do-escopo-atual)
-- [Critérios usados na análise](#critérios-usados-na-análise)
-- [Área pública proposta](#área-pública-proposta)
-- [Módulo administrativo proposto](#módulo-administrativo-proposto)
-- [Arquitetura definida](#arquitetura-definida)
-- [Stack tecnológica proposta](#stack-tecnológica-proposta)
-- [Artefatos produzidos](#artefatos-produzidos)
-- [Status atual](#status-atual)
-- [Autor](#autor)
+O Portal Bamak propõe uma solução Web Apps institucional-comercial para organizar a presença digital da empresa, apresentar aplicações, produtos, conteúdos e canais de contato, além de preparar uma base técnica para execução no PAC VIII.
 
 ---
 
-## Contexto
+## Finalidade extensionista
 
-A Bamak Equipamentos LTDA fornece materiais, peças e equipamentos para outras empresas, com destaque para aplicações ligadas à agroindústria.
+A Bamak possui atuação comercial fortemente baseada em relacionamento direto, indicações, contatos por canais tradicionais e visitas presenciais. O projeto extensionista busca apoiar essa realidade com uma estrutura digital mais organizada, sem substituir o atendimento humano que já faz parte da operação da empresa.
 
-Por atuar em um cenário B2B, o contato comercial depende de uma etapa prévia de entendimento. Antes de solicitar orçamento ou iniciar conversa com a empresa, o visitante precisa avaliar se a Bamak atende seu segmento, se os produtos apresentados fazem sentido para sua operação e quais canais de contato devem ser acionados.
+A solução proposta procura gerar valor para a parceira ao:
 
-O portal proposto atua nessa etapa anterior ao contato. Ele organiza a apresentação institucional, a leitura comercial da oferta e os caminhos para que o visitante chegue ao contato com mais contexto.
+- estruturar uma presença digital institucional-comercial mais consistente;
+- facilitar a apresentação da empresa, suas aplicações e produtos;
+- organizar informações que hoje ficam dispersas entre site estático, redes sociais e contato direto;
+- qualificar solicitações iniciais, especialmente no fluxo de Cabo Aéreo;
+- criar uma base técnica, visual e documental para execução no PAC VIII.
 
----
-
-## Problema trabalhado
-
-O site atual da Bamak apresenta limitações na forma como conecta informação institucional, organização comercial e contato.
-
-A análise do projeto identificou problemas principalmente em:
-
-- clareza da apresentação institucional;
-- organização de segmentos atendidos;
-- estruturação de soluções e produtos;
-- orientação sobre orçamento e pedidos;
-- visibilidade dos caminhos de contato;
-- atualização pública de conteúdos;
-- ausência de uma camada administrativa para manutenção recorrente.
-
-O problema central do projeto é reorganizar essa presença digital em um portal institucional-comercial com páginas de função clara, navegação mais orientada ao visitante e base técnica preparada para gestão de conteúdo.
+A proposta considera que a empresa ainda não possui equipe dedicada à gestão de site ou canais digitais. Por isso, o escopo administrativo deve permanecer simples e compatível com a rotina do escritório.
 
 ---
 
-## Objetivo da proposta
+## O que é PAC neste projeto
 
-Conceber a proposta de um portal web institucional-comercial para a Bamak, articulando:
+O repositório está organizado em três momentos:
+
+| Fase | Papel no projeto |
+|---|---|
+| **PAC VII** | Concepção da solução: diagnóstico, problema, escopo, benchmarking, arquitetura, requisitos, protótipos de baixa fidelidade, validação e entregáveis finais. |
+| **Pré-PAC VIII** | Linha de base entre a concepção aprovada e a execução: RFC v2/adendo, refinamento de escopo, baseline, arquitetura revisada, protótipos low/mid fidelity, guia visual e validação com a Bamak. |
+| **PAC VIII** | Execução funcional, QA, testes, validação por pares, validação com a empresa e entrega do MVP. |
+
+O PAC VII já foi concluído. A etapa atual é o **pré-PAC VIII**, usada para consolidar a linha de base antes do desenvolvimento funcional.
+
+---
+
+## Estado atual
+
+| Área | Situação |
+|---|---|
+| Documentação PAC VII | Concluída |
+| Entregáveis PAC VII | Concluídos |
+| Reorganização por fases | Em andamento |
+| Linha de base pré-PAC VIII | Em preparação |
+| Desenvolvimento funcional | Não iniciado |
+| PAC VIII | Não iniciado |
+
+No estado atual, o repositório ainda não contém frontend, backend, banco de dados, autenticação, deploy ou testes automatizados. Esses elementos pertencem à fase PAC VIII.
+
+---
+
+## Objetivo do Portal Bamak
+
+Estruturar e evoluir um portal institucional-comercial para a Bamak, com base documental, visual, arquitetural e funcional suficiente para orientar a implementação no PAC VIII.
+
+O projeto conecta três frentes:
+
+1. **Presença institucional-comercial**  
+   Organização da apresentação pública da empresa, suas aplicações, produtos, conteúdos e canais de contato.
+
+2. **Pré-atendimento qualificado**  
+   Estruturação inicial de fluxos como o Cabo Aéreo, com coleta de informações mínimas para apoiar a análise interna.
+
+3. **Operação administrativa simples**  
+   Painel restrito para acompanhar atendimentos, comunicação e configurações essenciais, sem escopo de CMS completo, CRM, ERP ou automação comercial avançada.
+
+---
+
+## Escopo funcional previsto
+
+### Área pública
+
+A navegação pública refinada do Portal Bamak é:
+
+1. Home
+2. Institucional
+3. Aplicações
+4. Catálogo
+5. Cabo Aéreo
+6. FAQ
+7. Comunicação
+8. Contato
+
+### Área administrativa
+
+A navegação administrativa prevista é:
+
+1. Painel
+2. Atendimentos
+3. Comunicação
+4. Configurações
+
+A área administrativa deve apoiar a operação interna de forma limitada. Ela não substitui sistemas de gestão, CRM, ERP, ferramentas de marketing ou atendimento automatizado.
+
+---
+
+## Cabo Aéreo
+
+O fluxo de Cabo Aéreo é a principal aplicação consultiva prevista na linha de base.
+
+A proposta é permitir que o visitante envie informações iniciais sobre sua necessidade, incluindo dados de contato, contexto da aplicação e evidências mínimas. Internamente, a empresa recebe uma ficha de aplicação para orientar análise e retorno.
+
+O cliente não recebe relatório técnico privado pelo portal. A comunicação permanece por canais humanos, como WhatsApp ou e-mail, com base nas informações enviadas.
+
+---
+
+## Estrutura do repositório
+
+A organização prevista separa materiais globais e fases do projeto.
+
+```text
+bamak-portal/
+├── README.md
+├── docs/
+│   ├── 00-projeto/
+│   │   ├── estado-geral.md
+│   │   ├── mapa-artefatos.md
+│   │   ├── historico-fases.md
+│   │   └── convencoes-repositorio.md
+│   │
+│   ├── 10-pac-vii/
+│   │   ├── README.md
+│   │   ├── 00-visao-geral/
+│   │   ├── 01-diagnostico/
+│   │   ├── 02-benchmarking/
+│   │   ├── 03-escopo/
+│   │   ├── 04-arquitetura-informacao/
+│   │   ├── 05-arquitetura-tecnica/
+│   │   ├── 06-decisoes/
+│   │   ├── 07-wireframes-lo-fi/
+│   │   └── 08-planejamento-continuidade/
+│   │
+│   ├── 20-pre-pac-viii/
+│   │   ├── README.md
+│   │   ├── 00-visao-geral/
+│   │   ├── 01-alinhamento/
+│   │   ├── 02-proposta/
+│   │   ├── 03-produto/
+│   │   ├── 04-arquitetura/
+│   │   ├── 05-design/
+│   │   ├── 06-prototipos/
+│   │   │   ├── low-fi/
+│   │   │   └── mid-fi/
+│   │   │       ├── publico/
+│   │   │       └── admin/
+│   │   └── 07-validacao/
+│   │
+│   └── 30-pac-viii/
+│       ├── README.md
+│       ├── 01-planejamento/
+│       ├── 02-desenvolvimento/
+│       ├── 03-qa-validacao/
+│       ├── 04-evidencias/
+│       └── 05-entrega-final/
+│
+├── entregaveis/
+│   ├── pac-vii/
+│   ├── pre-pac-viii/
+│   └── pac-viii/
+└── .gitignore
+```
+
+---
+
+## Como navegar
+
+| Caminho | Conteúdo |
+|---|---|
+| `docs/00-projeto/` | Visão geral do projeto, mapa global de artefatos, histórico das fases e convenções do repositório. |
+| `docs/10-pac-vii/` | Materiais aprovados no PAC VII: diagnóstico, benchmarking, escopo, arquitetura, decisões, wireframes lo-fi e planejamento de continuidade. |
+| `docs/20-pre-pac-viii/` | Linha de base refinada antes do PAC VIII: RFC v2/adendo, baseline, requisitos, protótipos, guia visual e validações. |
+| `docs/30-pac-viii/` | Espaço reservado para execução, QA, validação e entrega funcional no PAC VIII. |
+| `entregaveis/pac-vii/` | PDFs finais e fontes dos entregáveis concluídos no PAC VII. |
+| `entregaveis/pre-pac-viii/` | Entregáveis consolidados da fase pré-PAC VIII, quando houver. |
+| `entregaveis/pac-viii/` | Entregáveis finais do PAC VIII, quando houver. |
+
+---
+
+## Fases do projeto
+
+### PAC VII: concepção e RFC
+
+O PAC VII consolidou a proposta inicial do Portal Bamak.
+
+Principais entregas:
 
 - diagnóstico do site atual;
-- comparação com referências acadêmicas e web;
-- definição de escopo funcional;
+- problema central;
+- benchmarking e matriz comparativa;
+- escopo funcional;
+- requisitos;
 - arquitetura da informação;
-- arquitetura de software;
-- prototipação lo-fi das páginas públicas principais;
-- planejamento de continuidade para o PAC 8.
+- arquitetura técnica;
+- decisões de escopo e tecnologia;
+- wireframes públicos de baixa fidelidade;
+- artigo, relatório e pitch final.
 
-O resultado deste semestre não é um sistema em produção. A entrega do PAC VII é uma base técnica e documental para orientar a próxima etapa do projeto.
-
----
-
-## Escopo definido no PAC VII
-
-O escopo definido nesta etapa organiza o portal em duas frentes:
-
-1. **Área pública institucional-comercial**, voltada ao visitante, parceiro ou potencial cliente.
-2. **Módulo administrativo autenticado**, voltado à manutenção de conteúdos pela Bamak.
-
-A proposta prioriza a estrutura das páginas públicas principais e a definição arquitetural do sistema. As páginas de detalhe e o aprofundamento visual do painel administrativo permanecem previstos para continuidade.
+Os materiais dessa fase devem ser preservados como histórico aprovado. Ajustes posteriores devem ser registrados na fase pré-PAC VIII.
 
 ---
 
-## Fora do escopo atual
+### Pré-PAC VIII: linha de base
 
-O projeto foi delimitado para resolver um problema de comunicação institucional-comercial, não de transação ou gestão interna.
+A fase pré-PAC VIII refina a proposta antes da execução.
 
-Ficam fora do escopo atual:
+Principais entregas previstas:
 
-- e-commerce;
-- carrinho de compras;
-- checkout;
-- pagamento online;
-- orçamento automatizado;
-- CRM;
-- área de cliente;
-- ERP;
-- automação da negociação comercial;
-- comprovação de impacto comercial.
+- alinhamento com a Bamak;
+- baseline de presença digital e atendimento;
+- mudanças em relação ao PAC VII;
+- RFC v2/adendo;
+- requisitos, user stories, fluxos e métricas;
+- arquitetura e inventário de telas revisados;
+- style tile e guia visual;
+- protótipos low fidelity;
+- protótipos mid fidelity da área pública;
+- protótipos mid fidelity do painel administrativo;
+- validação da linha de base com a Bamak;
+- fechamento do repositório antes do PAC VIII.
 
-Esses itens foram excluídos porque deslocariam o projeto para outro tipo de sistema. A proposta atual prepara melhor o contato comercial, mas não substitui a negociação da empresa.
+Essa fase não inclui desenvolvimento funcional do software.
 
 ---
 
-## Critérios usados na análise
+### PAC VIII: execução, QA e validação
 
-A proposta foi orientada por uma matriz comparativa entre artigos científicos, referências web do setor e o site atual da Bamak.
+O PAC VIII será a fase de implementação, qualidade e validação.
 
-Os critérios analisados foram:
+Escopo previsto:
 
-| Critério | Papel na proposta |
+- desenvolvimento da aplicação;
+- organização de frontend, backend e banco de dados;
+- uso de issues, milestones, pull requests e revisões;
+- testes e evidências de qualidade;
+- validação com a empresa;
+- consolidação do MVP;
+- entrega final.
+
+A estrutura técnica de código será adicionada quando o PAC VIII iniciar.
+
+---
+
+## Stack prevista
+
+A stack técnica prevista para execução é:
+
+| Camada | Tecnologia |
 |---|---|
-| Apresentação institucional clara | Avaliar se o visitante entende quem é a empresa e qual sua área de atuação. |
-| Organização de segmentos e soluções | Verificar se a oferta comercial é apresentada por contextos de uso e frentes de atuação. |
-| Navegação orientada ao usuário | Reduzir dispersão entre páginas e criar um percurso de consulta mais claro. |
-| Contato comercial visível | Facilitar o avanço do visitante para os canais comerciais. |
-| Orientação sobre orçamento e pedidos | Antecipar dúvidas recorrentes antes do contato. |
-| Catálogo de produtos integrado | Evitar que produtos fiquem isolados da leitura institucional e comercial. |
-| Atualização por painel administrativo | Permitir manutenção de conteúdo sem alteração direta no código. |
-| Adequação ao contexto B2B | Manter o portal alinhado à lógica de venda consultiva e contato comercial. |
-| Fluxo entre descoberta, entendimento e contato | Conectar a navegação do visitante do primeiro acesso até o acionamento comercial. |
-| Aderência ao recorte agroindustrial | Manter a proposta próxima da atuação real da Bamak. |
+| Frontend | Next.js + TypeScript |
+| Interface | Tailwind CSS + shadcn/ui |
+| Backend | NestJS + TypeScript |
+| Banco de dados | PostgreSQL |
+| ORM | Prisma |
+| Autenticação | JWT |
+| Ambiente | Docker |
 
-A matriz apontou que a contribuição do projeto não está em copiar uma referência pronta, mas em combinar critérios de clareza, navegação, catálogo, FAQ, contato e gestão de conteúdo em uma proposta específica para a Bamak.
+A stack poderá ser revista durante o PAC VIII caso haja justificativa técnica, acadêmica ou operacional.
 
 ---
 
-## Área pública proposta
+## Organização do trabalho
 
-A área pública foi estruturada em nove páginas principais.
+O projeto usa GitHub Issues, Milestones e Projects para rastrear entregas por fase.
 
-| Página | Função |
-|---|---|
-| **Home** | Apresentar uma visão geral da Bamak e direcionar o visitante para as principais áreas do portal. |
-| **A Bamak** | Organizar a apresentação institucional da empresa. |
-| **Segmentos** | Mostrar os contextos de atuação atendidos pela Bamak. |
-| **Soluções** | Agrupar frentes de solução oferecidas pela empresa. |
-| **Catálogo** | Concentrar produtos em uma área própria de consulta. |
-| **FAQ** | Responder dúvidas comerciais recorrentes antes do pedido de orçamento. |
-| **Contato** | Centralizar canais comerciais e formulário de contato. |
-| **Notícias** | Registrar publicações institucionais e comunicados. |
-| **Agenda** | Apresentar eventos, feiras e acontecimentos relevantes. |
+Convenção de milestones:
 
-A navegação pública foi pensada como um fluxo de entendimento:
-
-```mermaid
-flowchart LR
-    A[Descoberta] --> B[Entendimento institucional]
-    B --> C[Segmentos e soluções]
-    C --> D[Consulta ao catálogo]
-    D --> E[FAQ e orientações]
-    E --> F[Contato comercial]
+```text
+P7-M1, P7-M2, ...       PAC VII
+PRE8-M1, PRE8-M2, ...   Pré-PAC VIII
+P8-M1, P8-M2, ...       PAC VIII
 ```
 
-O catálogo não foi proposto como loja virtual. Ele funciona como área de consulta para apoiar a decisão do visitante antes do contato.
+Convenção de labels:
 
----
-
-## Módulo administrativo proposto
-
-O módulo administrativo foi delimitado em nível funcional, informacional e arquitetural.
-
-Sua função é permitir que a Bamak atualize conteúdos centrais do portal sem depender de alteração direta no código a cada mudança.
-
-Áreas previstas:
-
-| Área administrativa | Finalidade |
-|---|---|
-| **Login administrativo** | Restringir acesso ao painel. |
-| **Painel inicial** | Reunir atalhos e visão geral da manutenção de conteúdo. |
-| **Notícias** | Gerenciar publicações institucionais. |
-| **Agenda** | Manter eventos, feiras e datas relevantes. |
-| **FAQ** | Atualizar perguntas e respostas recorrentes. |
-| **Catálogo** | Gerenciar produtos e informações de consulta. |
-| **Conteúdos institucionais** | Atualizar blocos de apresentação da empresa. |
-| **Mensagens de contato** | Consultar registros enviados pelo formulário. |
-
-O painel foi pensado como ferramenta editorial e comercial. Ele não tem função de CRM, ERP ou sistema operacional interno.
-
----
-
-## Arquitetura definida
-
-A arquitetura proposta segue o modelo **Web Apps**, com separação entre aplicação web, API backend, banco de dados relacional e serviço externo de e-mail.
-
-```mermaid
-flowchart LR
-    visitante[Visitante / parceiro comercial]
-    admin[Administrador da Bamak]
-
-    frontend[Aplicação Web Frontend]
-    api[API Backend]
-    db[(Banco de Dados)]
-    email[Serviço externo de e-mail]
-
-    visitante -->|acessa área pública| frontend
-    admin -->|acessa módulo administrativo| frontend
-
-    frontend -->|consome dados e envia ações| api
-    api -->|lê e grava conteúdos| db
-    api -->|encaminha mensagens de contato| email
+```text
+area:...
+tipo:...
+etapa:...
 ```
 
-### Responsabilidades
+Exemplos:
 
-| Componente | Responsabilidade |
-|---|---|
-| **Aplicação Web Frontend** | Exibir páginas públicas, fluxos de navegação e acesso administrativo. |
-| **API Backend** | Concentrar regras de negócio, autenticação, validações e operações de conteúdo. |
-| **Banco de Dados** | Armazenar usuários administrativos, produtos, FAQ, notícias, agenda, conteúdos institucionais e mensagens de contato. |
-| **Serviço de e-mail** | Encaminhar mensagens recebidas pelo formulário de contato. |
-
-Essa separação evita que a interface concentre regras de negócio e persistência. A aplicação web apresenta o portal, enquanto a API e o banco sustentam a lógica e os dados administráveis.
-
----
-
-## Stack tecnológica proposta
-
-A stack foi definida como decisão técnica para a continuidade do projeto.
-
-| Camada | Tecnologia | Motivo da escolha |
-|---|---|---|
-| **Frontend** | Next.js + TypeScript | Permite estruturar área pública e administrativa em uma base web tipada e componentizada. |
-| **Interface** | Tailwind CSS + shadcn/ui | Dá flexibilidade para evoluir dos wireframes lo-fi para uma interface própria, sem prender o projeto a um tema fechado. |
-| **Backend** | NestJS + TypeScript | Favorece organização modular para autenticação, catálogo, FAQ, notícias, agenda, conteúdos institucionais e contato. |
-| **Banco de dados** | PostgreSQL | Adequado para conteúdos relacionais e administráveis. |
-| **ORM** | Prisma | Apoia modelagem, migrations e acesso tipado ao banco. |
-| **Autenticação** | JWT | Restringe operações administrativas ao usuário autenticado. |
-| **Ambiente** | Docker | Padroniza o ambiente de desenvolvimento para a continuidade. |
-
-A stack reforça a linha Web Apps do projeto: frontend próprio, backend próprio, banco relacional e autenticação administrativa explícita.
+```text
+area:arquitetura
+area:prototipacao
+area:validacao
+tipo:documentacao
+tipo:prototipo
+tipo:evidencia
+etapa:pac-vii
+etapa:pre-pac-viii
+```
 
 ---
 
-## Artefatos produzidos
+## Privacidade e dados sensíveis
 
-Durante o PAC VII, foram produzidos artefatos para transformar o diagnóstico em proposta técnica.
+Este repositório é público e não deve armazenar dados reais sensíveis.
 
-| Artefato | Função no projeto |
-|---|---|
-| **Matriz comparativa** | Comparar artigos, referências web e o caso da Bamak para definir critérios de decisão. |
-| **Definição de escopo** | Delimitar área pública, módulo administrativo e funcionalidades fora do recorte. |
-| **Sitemap público** | Organizar a estrutura de páginas abertas ao visitante. |
-| **Sitemap administrativo** | Organizar a estrutura funcional do painel de manutenção. |
-| **Inventário de telas** | Registrar telas, funções e dependências entre áreas do portal. |
-| **Wireflows** | Representar percursos de navegação pública e administrativa. |
-| **Diagramas C1 e C2** | Modelar a visão de contexto e containers da arquitetura. |
-| **Definição de stack** | Registrar tecnologias propostas para a continuidade. |
-| **Wireframes lo-fi** | Materializar a estrutura inicial das páginas públicas principais. |
-| **Cronograma projetado** | Planejar a continuidade no PAC 8. |
+Não devem ser versionados:
 
-Esses artefatos não são peças isoladas. A matriz define critérios; os sitemaps organizam a estrutura; os wireflows mostram percursos; os diagramas conectam a solução ao modelo técnico; e os wireframes transformam a proposta em telas iniciais.
+- contatos reais de clientes;
+- números de telefone;
+- e-mails pessoais;
+- endereços específicos;
+- prints de conversas;
+- fotos privadas de propriedades;
+- áudios;
+- coordenadas ou localizações precisas;
+- documentos internos não autorizados;
+- chaves de API;
+- variáveis de ambiente com valores reais.
+
+Quando necessário para documentação, devem ser usados dados fictícios, anonimizados ou descrições sintéticas.
 
 ---
 
-## Status atual
+## Status de implementação
 
-Estado do projeto ao final do PAC VII:
+Ainda não há aplicação funcional neste repositório.
 
-- diagnóstico do portal atual consolidado;
-- critérios de análise definidos por matriz comparativa;
-- escopo público e administrativo delimitado;
-- páginas públicas principais definidas;
-- módulo administrativo descrito em nível funcional;
-- arquitetura Web Apps definida;
-- stack tecnológica selecionada;
-- wireframes lo-fi das páginas públicas principais produzidos;
-- continuidade planejada para o PAC 8.
+Não existem, nesta fase:
 
-Ainda não fazem parte do estado atual:
+- frontend implementado;
+- backend implementado;
+- banco modelado em código;
+- autenticação funcional;
+- deploy;
+- testes automatizados;
+- release.
 
-- implementação funcional;
-- telas finais de alta fidelidade;
-- dashboard administrativo detalhado visualmente;
-- páginas de detalhe completas;
-- validação de uso com sistema funcional;
-- métricas de impacto comercial.
+Esses itens pertencem ao PAC VIII.
+
+---
+
+## Entregáveis
+
+### PAC VII
+
+```text
+entregaveis/pac-vii/bamak-pac-vii-artigo.pdf
+entregaveis/pac-vii/bamak-pac-vii-pitch.pdf
+entregaveis/pac-vii/bamak-pac-vii-relatorio.pdf
+```
+
+### Pré-PAC VIII
+
+```text
+entregaveis/pre-pac-viii/
+```
+
+### PAC VIII
+
+```text
+entregaveis/pac-viii/
+```
+
+---
+
+## Licença e uso
+
+Este é um repositório acadêmico de projeto aplicado.
+
+Até a definição de uma licença formal, o conteúdo não deve ser tratado como material livre para reutilização externa. O uso de nomes, marca, materiais visuais e informações da empresa depende de autorização da Bamak.
 
 ---
 
@@ -284,14 +375,3 @@ Ainda não fazem parte do estado atual:
 Curso de Engenharia de Software  
 Centro Universitário Católica de Santa Catarina  
 Jaraguá do Sul, SC, Brasil
-
----
-
-## Referências do projeto
-
-- Chakraborty, G.; Srivastava, P.; Warren, D. L. *Understanding corporate B2B web sites’ effectiveness from North American and European perspective*. Industrial Marketing Management, 2005.
-- Chiou, W.-C.; Lin, C.-C.; Perng, C. *A strategic framework for website evaluation based on a review of the literature from 1995–2006*. Information & Management, 2010.
-- Ramos, R. F.; Rita, P.; Moro, S. *From institutional websites to social media and mobile applications: A usability perspective*. European Research on Management and Business Economics, 2019.
-- Bamak Equipamentos LTDA. Site oficial da Bamak Equipamentos LTDA.
-- Texas Equipamentos. Página institucional.
-- OBR Equipamentos Industriais. Página inicial.
