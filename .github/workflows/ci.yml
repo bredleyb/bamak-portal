@@ -34,10 +34,10 @@ jobs:
           cache: npm
           cache-dependency-path: apps/api/package-lock.json
 
-      - name: Instalar dependências
+      - name: Instalar dependÃªncias
         run: npm ci
 
-      - name: Auditar dependências de produção
+      - name: Auditar dependÃªncias de produÃ§Ã£o
         run: npm audit --omit=dev --audit-level=high
 
       - name: Validar Prisma
@@ -68,10 +68,10 @@ jobs:
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
 
-      - name: Instalar dependências
+      - name: Instalar dependÃªncias
         run: npm ci
 
-      - name: Auditar dependências de produção
+      - name: Auditar dependÃªncias de produÃ§Ã£o
         run: npm audit --omit=dev --audit-level=high
 
       - name: Lint
