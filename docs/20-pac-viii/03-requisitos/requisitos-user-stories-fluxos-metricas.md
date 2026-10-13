@@ -88,15 +88,15 @@ A primeira versão deve contemplar:
 
 | ID | Requisito | Prioridade | Critério de aceite | Fluxo |
 |---|---|---|---|---|
-| RF-CAB-01 | Exibir conteúdo explicativo antes do formulário. | Alta | Visitante entende finalidade, tipo de informação solicitada e continuidade do atendimento. | FL-03 |
-| RF-CAB-02 | Receber dados de contato e contexto da instalação. | Alta | Campos obrigatórios são validados no frontend e backend. | FL-03 |
-| RF-CAB-03 | Permitir descrição textual da localização. | Alta | Solicitação pode ser enviada sem uso do mapa. | FL-03 |
-| RF-CAB-04 | Permitir marcação opcional em mapa Leaflet com OpenStreetMap. | Média | Coordenada pode ser registrada e aparece na ficha interna. | FL-03 |
-| RF-CAB-05 | Permitir anexar imagens JPG, PNG e WebP. | Alta | Sistema aceita até cinco imagens de até 10 MB cada. | FL-03 |
-| RF-CAB-06 | Bloquear formatos e tamanhos fora das regras. | Alta | Upload inválido exibe erro específico e não é salvo. | FL-03 |
-| RF-CAB-07 | Exigir checkbox explícito de consentimento. | Alta | Envio permanece bloqueado sem consentimento. | FL-03 |
-| RF-CAB-08 | Registrar a solicitação no banco. | Alta | Atendimento recebe identificador, data, dados e referências de anexos. | FL-03 |
-| RF-CAB-09 | Exibir confirmação após o envio. | Alta | Visitante recebe mensagem de sucesso sem acesso à ficha interna. | FL-03 |
+| RF-CAB-01 | Exibir conteúdo explicativo antes do formulário. | Alta | Visitante entende finalidade, tipo de informação solicitada e continuidade do atendimento. | FL-02 |
+| RF-CAB-02 | Receber dados de contato e contexto da instalação. | Alta | Campos obrigatórios são validados no frontend e backend. | FL-02 |
+| RF-CAB-03 | Permitir descrição textual da localização. | Alta | Solicitação pode ser enviada sem uso do mapa. | FL-02 |
+| RF-CAB-04 | Permitir marcação opcional em mapa Leaflet com OpenStreetMap. | Média | Coordenada pode ser registrada e aparece na ficha interna. | FL-02 |
+| RF-CAB-05 | Permitir anexar imagens JPG, PNG e WebP. | Alta | Sistema aceita até cinco imagens de até 10 MB cada. | FL-02 |
+| RF-CAB-06 | Bloquear formatos e tamanhos fora das regras. | Alta | Upload inválido exibe erro específico e não é salvo. | FL-02 |
+| RF-CAB-07 | Exigir checkbox explícito de consentimento. | Alta | Envio permanece bloqueado sem consentimento. | FL-02 |
+| RF-CAB-08 | Registrar a solicitação no banco. | Alta | Atendimento recebe identificador, data, dados e referências de anexos. | FL-02 |
+| RF-CAB-09 | Exibir confirmação após o envio. | Alta | Visitante recebe mensagem de sucesso sem acesso à ficha interna. | FL-02 |
 
 ### 3.6 FAQ
 
@@ -110,21 +110,21 @@ A primeira versão deve contemplar:
 
 | ID | Requisito | Prioridade | Critério de aceite | Fluxo |
 |---|---|---|---|---|
-| RF-COM-01 | Listar conteúdos publicados. | Média | Área mostra somente conteúdos com status publicado. | FL-04 |
-| RF-COM-02 | Suportar notícia, agenda, evento, feira e comunicado. | Média | Tipo de conteúdo aparece identificado na listagem e detalhe. | FL-04 |
-| RF-COM-03 | Exibir página de detalhe. | Média | Conteúdo publicado possui rota própria. | FL-04 |
-| RF-COM-04 | Ordenar por data relevante. | Média | Conteúdos recentes ou eventos próximos aparecem conforme regra definida. | FL-04 |
+| RF-COM-01 | Listar conteúdos publicados. | Média | Área mostra somente conteúdos com status publicado. | FL-03 |
+| RF-COM-02 | Suportar notícia, agenda, evento, feira e comunicado. | Média | Tipo de conteúdo aparece identificado na listagem e detalhe. | FL-03 |
+| RF-COM-03 | Exibir página de detalhe. | Média | Conteúdo publicado possui rota própria. | FL-03 |
+| RF-COM-04 | Ordenar por data relevante. | Média | Conteúdos recentes ou eventos próximos aparecem conforme regra definida. | FL-03 |
 
 ### 3.8 Contato geral
 
 | ID | Requisito | Prioridade | Critério de aceite | Fluxo |
 |---|---|---|---|---|
-| RF-CON-01 | Exibir canais de e-mail, WhatsApp, Facebook e Instagram. | Alta | Links externos funcionam. | FL-02 |
-| RF-CON-02 | Receber nome, contato, assunto e mensagem. | Alta | Campos obrigatórios são validados. | FL-02 |
-| RF-CON-03 | Exigir checkbox explícito de consentimento. | Alta | Envio permanece bloqueado sem consentimento. | FL-02 |
-| RF-CON-04 | Registrar a solicitação no banco. | Alta | Contato aparece em Atendimentos como tipo geral. | FL-02 |
-| RF-CON-05 | Exibir confirmação após o envio. | Alta | Visitante recebe retorno visual de sucesso ou erro. | FL-02 |
-| RF-CON-06 | Permitir notificação da empresa por e-mail. | Média | Sistema registra resultado da tentativa de envio. | FL-02 |
+| RF-CON-01 | Exibir canais de e-mail, WhatsApp, Facebook e Instagram. | Alta | Links externos funcionam. | FL-01 |
+| RF-CON-02 | Receber nome, contato, assunto e mensagem. | Alta | Campos obrigatórios são validados. | FL-01 |
+| RF-CON-03 | Exigir checkbox explícito de consentimento. | Alta | Envio permanece bloqueado sem consentimento. | FL-01 |
+| RF-CON-04 | Registrar a solicitação no banco. | Alta | Contato aparece em Atendimentos como tipo geral. | FL-01 |
+| RF-CON-05 | Exibir confirmação após o envio. | Alta | Visitante recebe retorno visual de sucesso ou erro. | FL-01 |
+| RF-CON-06 | Permitir notificação da empresa por e-mail. | Média | Sistema registra resultado da tentativa de envio. | FL-01 |
 
 ## 4. Requisitos funcionais administrativos
 
@@ -387,7 +387,9 @@ A primeira versão deve contemplar:
 
 ## 7. Fluxos
 
-### FL-01 — Descoberta
+### FL-01 — Descoberta e contato geral
+
+#### Descoberta e navegação
 
 ```text
 Home
@@ -405,7 +407,7 @@ Home
 
 **Resultado esperado:** visitante encontra informação suficiente para decidir entre consultar mais conteúdo, iniciar contato geral ou enviar solicitação de Cabo Aéreo.
 
-### FL-02 — Contato geral
+#### Envio de contato geral
 
 ```text
 Consulta pública
@@ -428,7 +430,7 @@ Consulta pública
 - erro de gravação;
 - erro de notificação por e-mail.
 
-### FL-03 — Cabo Aéreo
+### FL-02 — Solicitação de Cabo Aéreo
 
 ```text
 Página Cabo Aéreo
@@ -460,7 +462,7 @@ Página Cabo Aéreo
 - erro na geração do PDF;
 - erro no envio por e-mail.
 
-### FL-04 — Comunicação
+### FL-03 — Publicação em Comunicação
 
 ```text
 Login
@@ -474,7 +476,9 @@ Login
 
 **Resultado esperado:** conteúdo controlado pode ser atualizado sem alteração manual no código.
 
-### FL-05 — Tratamento de atendimento
+### Fluxo de apoio — Tratamento de atendimentos
+
+Este fluxo complementa FL-01 e FL-02 no painel administrativo.
 
 ```text
 Login
