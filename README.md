@@ -30,13 +30,12 @@ A empresa não possui equipe dedicada ao site ou às redes sociais. Por isso, o 
 
 | Fase | Papel |
 |---|---|
-| **PAC VII** | Concepção aprovada: diagnóstico, benchmarking, escopo, requisitos, arquitetura inicial, decisões, wireframes lo-fi e entregáveis finais. |
-| **Linha de base entre PAC VII e PAC VIII** | Refinamento e consolidação de alinhamento, requisitos, arquitetura, inventário de telas, decisões visuais, protótipos e validações anteriores à execução. |
-| **PAC VIII** | Implementação, QA, revisão por pares, testes cruzados, validação funcional, evolução do MVP, release, aceite e Demo Day. |
+| **PAC VII** | Concepção e validação inicial da proposta: diagnóstico, benchmarking, escopo, requisitos, arquitetura inicial, decisões, wireframes lo-fi e entregáveis finais. |
+| **PAC VIII** | Planejamento e refinamento da solução, alinhamento com a Bamak, especificação, arquitetura, design, prototipação, implementação, testes, QA por pares, validação funcional, release, aceite e Demo Day. |
 
-O **PAC VII está concluído** e seus materiais permanecem preservados como histórico aprovado.
+O **PAC VII está concluído** e seus materiais permanecem preservados como histórico da concepção, sem reedições para representar decisões posteriores.
 
-A etapa atual é o **PAC VIII**, com desenvolvimento funcional, QA, validação por pares e validação com a Bamak.
+A fase atual é o **PAC VIII**. O planejamento e a especificação estão documentados; a base técnica está estabelecida e o desenvolvimento do produto, os testes, a validação por pares e o aceite da Bamak seguem o andamento registrado neste repositório. A reunião inicial com a empresa não equivale à validação da versão funcional final.
 
 ---
 
@@ -44,27 +43,26 @@ A etapa atual é o **PAC VIII**, com desenvolvimento funcional, QA, validação 
 
 | Frente | Situação |
 |---|---|
-| PAC VII | Concluído |
-| Linha de base para execução | Consolidada |
-| Reorganização do repositório | Concluída |
-| Direção visual | Definida |
-| Frontend | Base técnica configurada |
-| Backend | Base técnica configurada |
-| Banco de dados | PostgreSQL configurado |
-| ORM | Prisma configurado |
-| Integração Web → API → banco | Validada localmente |
-| Docker local | Configurado |
-| Healthcheck da API e banco | Funcionando |
-| CI básico | Configurado |
-| Desenvolvimento funcional | Em andamento |
-| Testes automatizados das funcionalidades | Não iniciados |
-| Autenticação | Não iniciada |
-| Análise estática e segurança | Não iniciada |
-| Observabilidade | Não iniciada |
-| Deploy público | Não iniciado |
-| Release | Não iniciada |
+| PAC VII | Concluído; documentação e entregáveis preservados |
+| Planejamento, alinhamento e especificação do PAC VIII | Documentados; revisão e consolidação em andamento |
+| Organização do repositório e do GitHub | Em andamento (Plano A) |
+| Design e prototipação | Estudos documentados; validação das referências visuais e protótipos ainda a confirmar |
+| Frontend e backend | Bases Next.js e NestJS configuradas |
+| Banco e ORM | PostgreSQL e Prisma configurados |
+| Integração Web → API → banco | Validada localmente na base técnica |
+| Docker local e Compose integrado | Arquivos configurados; integração local validada |
+| Healthcheck da API e conexão com o banco | Funcionando na base local |
+| CI básico | Workflow versionado com verificações de lint, build, Prisma e dependências |
+| Infraestrutura de produção | Dockerfiles, Compose e Caddy versionados; não implantados publicamente |
+| Automação de deploy (CD) | Workflow versionado, condicionado à habilitação de produção; não executado em ambiente público |
+| Funcionalidades de negócio | Não concluídas; desenvolvimento funcional pendente |
+| Testes de funcionalidades e metas de cobertura | Não implementados/atingidos |
+| Autenticação e painel administrativo funcional | Não implementados |
+| Análise estática e segurança dedicada | Pendente; lint e auditoria de dependências não a substituem |
+| Observabilidade | Pendente; healthcheck não a substitui |
+| HTTPS público, deploy e release | Não implantados ou validados |
 
-A base executável atual já contém frontend, backend e banco de dados integrados. As funcionalidades de negócio serão implementadas progressivamente durante o PAC VIII.
+Esta tabela distingue **especificado**, **configurado**, **validado localmente**, **implementado** e **publicado**. A presença de arquivos de infraestrutura ou de comandos de teste não demonstra, por si só, a conclusão das respectivas funcionalidades.
 
 ---
 
@@ -98,7 +96,7 @@ Estruturar e implementar um portal institucional-comercial que:
 1. Painel
 2. Atendimentos
 3. Comunicação
-4. Configurações, somente quando houver necessidade operacional concreta
+4. Configurações (usuários, permissões e ajustes operacionais essenciais)
 
 A área administrativa deve permanecer simples. Ela não substitui sistemas de gestão, CRM, ERP ou plataformas de automação comercial.
 
@@ -107,57 +105,49 @@ A área administrativa deve permanecer simples. Ela não substitui sistemas de g
 - **Administrador:** acesso às funções administrativas e configurações disponíveis.
 - **Operador:** acesso às funções operacionais necessárias ao acompanhamento dos atendimentos.
 
-A implementação de permissões deve permanecer proporcional ao escopo do portal, evitando complexidade sem necessidade real.
+O Administrador gerencia usuários e configurações; o Operador acompanha os atendimentos conforme permissões autorizadas. A matriz definitiva de permissões deve ser consolidada durante a implementação e validada com a Bamak, evitando funções sem necessidade operacional.
 
 ---
 
 ## Fluxos de negócio
 
-O Portal Bamak deverá contemplar pelo menos três fluxos de negócio completos.
+A primeira versão deve contemplar **três fluxos de negócio completos**, conforme a [RFC v2](docs/20-pac-viii/02-escopo/rfc-v2-pac-viii.md). O painel de Atendimentos apoia os dois fluxos de entrada e não substitui o fluxo de publicação em Comunicação.
 
 ### 1. Descoberta e contato geral
 
-Consulta pública → formulário de contato → consentimento → registro da solicitação → acompanhamento interno → continuidade por canal humano.
+Consulta pública → Contato → preenchimento → consentimento explícito → validação → registro no banco → confirmação ao visitante → visualização em Atendimentos → continuidade por WhatsApp, telefone ou e-mail.
 
 ### 2. Solicitação de Cabo Aéreo
 
-Página específica → formulário → informações da aplicação → localização ou referência do local quando aplicável → imagens → consentimento → registro do atendimento → Ficha de Aplicação interna → análise humana.
+Página específica → explicação → formulário contextualizado → localização textual (com mapa opcional) → imagens autorizadas → consentimento explícito → validação → registro → ficha interna → consulta no painel → geração do PDF → armazenamento junto ao atendimento → possibilidade de envio ao e-mail da empresa por usuário autorizado → continuidade do atendimento humano.
 
-Quando aplicável, a ficha poderá ser consolidada em PDF para uso interno da empresa. O documento não substitui a análise técnica e não é entregue automaticamente ao cliente.
+**Gerar, armazenar e permitir o envio do PDF interno são requisitos da primeira versão.** O envio é uma ação do usuário autorizado, com registro de data, responsável e resultado; não é um relatório automático entregue ao cliente.
 
-### 3. Administração de Atendimentos e Comunicação
+### 3. Publicação em Comunicação
 
-Login → acesso ao painel → acompanhamento de solicitações → atualização operacional → gestão limitada de conteúdos de Comunicação → publicação ou atualização pública quando aplicável.
+Autenticação → painel → Comunicação → criação ou edição → validação → rascunho ou publicação → exibição pública de conteúdo publicado → edição, ocultação ou encerramento.
 
-Os fluxos serão refinados durante a implementação e validados por testes, revisão por pares e demonstrações à Bamak.
+Os fluxos deverão ser demonstrados, testados e validados com a Bamak. Requisitos e critérios detalhados encontram-se na RFC e no documento de requisitos.
 
 ---
 
 ## Cabo Aéreo
 
-O Cabo Aéreo é a principal aplicação consultiva da primeira versão.
+O Cabo Aéreo possui um fluxo próprio de solicitação na primeira versão; sua análise técnica continua sob responsabilidade da Bamak.
 
-O visitante poderá informar:
+O visitante poderá fornecer:
 
-- dados de contato;
-- contexto da aplicação;
-- descrição do local;
-- localização ou referência geográfica quando aplicável;
-- imagens ou outras evidências previstas pelo formulário;
+- dados de contato e contexto da instalação;
+- descrição textual da localização, independentemente do uso do mapa;
+- localização opcional em mapa Leaflet/OpenStreetMap;
+- imagens JPG, PNG ou WebP, inicialmente até cinco arquivos de 10 MB cada;
 - consentimento explícito para tratamento dos dados.
 
-A solicitação será registrada como atendimento e organizada internamente em uma **Ficha de Aplicação**.
+A solicitação será registrada em Atendimentos e disponibilizada em uma **ficha interna estruturada**. A denominação definitiva da ficha e do PDF deve seguir a decisão atualizada do PAC VIII; a especificação não depende do uso de um nome ainda não confirmado.
 
-A equipe da Bamak continuará responsável pela análise da situação e pelo retorno ao cliente por canais humanos, como WhatsApp, telefone ou e-mail.
+O painel deverá permitir a geração do PDF a partir da ficha, seu armazenamento no atendimento e o envio ao e-mail da empresa por usuário autorizado, com rastreabilidade. Anexos e PDFs permanecem restritos a usuários autenticados e autorizados.
 
-O portal não realizará:
-
-- orçamento automático;
-- cálculo automático de rota;
-- cálculo de distância ou desnível;
-- determinação automática de viabilidade técnica;
-- diagnóstico técnico definitivo;
-- emissão automática de relatório privado para o cliente.
+O portal não realizará orçamento automático, cálculo de rota, distância, desnível ou viabilidade técnica, diagnóstico definitivo nem entrega automática de relatório privado ao visitante. O atendimento posterior continuará por WhatsApp, telefone ou e-mail.
 
 ---
 
@@ -185,7 +175,7 @@ O portal não realizará:
 
 ## Arquitetura técnica
 
-A aplicação segue arquitetura client-server com responsabilidades separadas.
+A solução adota arquitetura cliente-servidor em camadas. O esquema abaixo representa a **base técnica local**, não a implementação completa dos fluxos de negócio.
 
 ```text
 Usuário
@@ -208,7 +198,7 @@ PostgreSQL
 
 O frontend é responsável pela interface e interação com o usuário.
 
-A API concentra regras de negócio, validação, autenticação futura e acesso aos dados.
+A API concentra os serviços de integração e deverá concentrar validação, autenticação, autorização, persistência e regras de negócio à medida que os módulos forem implementados.
 
 O Prisma atua como camada de acesso ao PostgreSQL.
 
@@ -227,29 +217,26 @@ Windows
         └── PostgreSQL
 ```
 
-### Arquitetura prevista para produção
+### Arquitetura preparada para produção
 
 ```text
 Internet
    │
    ▼
-HTTPS / reverse proxy
+VPS Linux / Docker Compose
    │
-   ▼
-VPS Linux
-   │
-   └── Docker Compose
-       ├── web
-       │   └── Next.js
-       │
-       ├── api
-       │   └── NestJS + Prisma
-       │
-       └── db
-           └── PostgreSQL
+   ├── Caddy (reverse proxy e HTTPS)
+   ├── web (Next.js)
+   ├── api (NestJS + Prisma)
+   └── db (PostgreSQL, sem porta pública direta)
+
+API ──► storage compatível com S3 (a integrar)
+    └──► serviço de e-mail (a integrar)
 ```
 
-O deploy de versões da aplicação deverá ser automatizado por **CI/CD**. O processo normal de publicação não deverá depender de deploy manual via SSH ou FTP.
+O repositório já contém `apps/web/Dockerfile`, `apps/api/Dockerfile`, `compose.integrated.yaml`, `compose.production.yaml`, `infra/Caddyfile`, `infra/Caddyfile.prod` e um workflow de publicação. **A existência desses arquivos não significa que o ambiente de produção esteja ativo.**
+
+O deploy regular deverá ser automatizado por CI/CD. SSH pode ser utilizado na administração do servidor, mas não como procedimento manual de implantação de cada versão. O domínio, as credenciais, o HTTPS público e a execução real do deploy ainda requerem configuração e validação.
 
 ---
 
@@ -259,27 +246,14 @@ O deploy de versões da aplicação deverá ser automatizado por **CI/CD**. O pr
 bamak-portal/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml
-│
+│       ├── ci.yml
+│       └── deploy.yml
 ├── apps/
 │   ├── web/
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── package-lock.json
-│   │
 │   └── api/
-│       ├── prisma/
-│       ├── src/
-│       ├── test/
-│       ├── package.json
-│       └── package-lock.json
-│
 ├── assets/
 │   └── brand/
-│
 ├── docs/
-│   ├── 00-projeto/
-│   │
 │   ├── 10-pac-vii/
 │   │   ├── 00-visao-geral/
 │   │   ├── 01-diagnostico/
@@ -290,56 +264,61 @@ bamak-portal/
 │   │   ├── 06-decisoes/
 │   │   ├── 07-wireframes-lo-fi/
 │   │   └── 08-planejamento-continuidade/
-│   │
-│   ├── 20-pre-pac-viii/
-│   │   ├── 00-visao-geral/
-│   │   ├── 01-alinhamento/
-│   │   ├── 02-proposta/
-│   │   ├── 03-produto/
-│   │   ├── 04-arquitetura/
-│   │   ├── 05-design/
-│   │   ├── 06-prototipos/
-│   │   └── 07-validacao/
-│   │
-│   └── 30-pac-viii/
-│       ├── 01-planejamento/
-│       ├── 02-desenvolvimento/
-│       ├── 03-qa-validacao/
-│       ├── 04-evidencias/
-│       └── 05-entrega-final/
-│
+│   └── 20-pac-viii/
+│       ├── 00-planejamento/
+│       ├── 01-alinhamento/
+│       ├── 02-escopo/
+│       ├── 03-requisitos/
+│       ├── 04-arquitetura/
+│       └── 05-design/
 ├── entregaveis/
-│   ├── pac-vii/
-│   ├── pre-pac-viii/
-│   └── pac-viii/
-│
+│   └── pac-vii/
+├── infra/
+│   ├── Caddyfile
+│   ├── Caddyfile.prod
+│   └── production.env.template
 ├── .env.example
 ├── .gitignore
 ├── compose.yaml
+├── compose.integrated.yaml
+├── compose.production.yaml
 └── README.md
 ```
 
-Os diretórios históricos permanecem preservados para manter rastreabilidade das fases anteriores. O código executável do PAC VIII fica separado em `apps/`.
+O projeto está organizado em duas fases acadêmicas:
+
+- **PAC VII:** concepção concluída, com documentação e entregáveis históricos preservados.
+- **PAC VIII:** planejamento, especificação, design, desenvolvimento, testes, validação e entrega.
+
+O código executável está organizado em `apps/`, enquanto a infraestrutura compartilhada permanece em `infra/` e nos arquivos de configuração da raiz.
+
+O diretório `entregaveis/pac-viii/` será versionado quando receber seu primeiro entregável real. Diretórios futuros não são representados como existentes antes da criação de arquivos.
 
 ---
 
 ## Documentos centrais
 
+O `README.md` é o índice principal do repositório. A **RFC v2 do PAC VIII** consolida o escopo e as decisões atuais; o documento de **requisitos, histórias de usuário, fluxos e métricas** detalha critérios verificáveis; o README apresenta somente a visão geral e o estado da implementação. Alterações de escopo devem ser documentadas e validadas, sem modificar retroativamente os arquivos históricos do PAC VII.
+
 | Documento | Função |
 |---|---|
-| [Mapa global de artefatos](docs/00-projeto/mapa-artefatos.md) | Localizar os principais artefatos do projeto. |
-| [Histórico das fases](docs/00-projeto/historico-fases.md) | Entender a evolução entre PAC VII, linha de base e PAC VIII. |
-| [Registro de alinhamento](docs/20-pre-pac-viii/01-alinhamento/registro-bamak.md) | Consultar decisões registradas com a Bamak. |
-| [Baseline digital](docs/20-pre-pac-viii/01-alinhamento/baseline-presenca-digital-atendimento.md) | Consultar o ponto de partida da presença digital e do atendimento. |
-| [Mudanças em relação ao PAC VII](docs/20-pre-pac-viii/02-proposta/mudancas-pac-vii-para-pac-viii.md) | Consultar os refinamentos posteriores à concepção aprovada. |
-| [RFC v2](docs/20-pre-pac-viii/02-proposta/rfc-v2-adendo-pac-viii.md) | Consultar a linha de base formal do produto. |
-| [Requisitos, fluxos e métricas](docs/20-pre-pac-viii/03-produto/requisitos-user-stories-fluxos-metricas.md) | Consultar requisitos verificáveis, user stories, fluxos e métricas. |
-| [Arquitetura Web Apps](docs/20-pre-pac-viii/04-arquitetura/arquitetura-web-apps.md) | Consultar decisões arquiteturais anteriores à implementação. |
-| [Decisões da linha de base](docs/20-pre-pac-viii/04-arquitetura/decisoes-linha-base.md) | Consultar decisões de escopo, painel e operação. |
-| [Inventário de telas](docs/20-pre-pac-viii/04-arquitetura/inventario-telas.md) | Consultar telas, rotas e prioridades de interface. |
-| `docs/30-pac-viii/` | Registrar execução, QA, evidências, validações e entrega final do PAC VIII. |
+| [Mapa de artefatos do PAC VII](docs/10-pac-vii/00-visao-geral/mapa-artefatos.md) | Consultar o índice produzido durante o PAC VII; seus caminhos históricos não são um índice da estrutura atual. |
+| [Histórico e governança](docs/20-pac-viii/00-planejamento/historico-e-governanca.md) | Registrar a evolução do projeto e as regras de alteração documental. |
+| [Registro de alinhamento](docs/20-pac-viii/01-alinhamento/registro-bamak.md) | Consultar as decisões e os limites discutidos com a Bamak. |
+| [Levantamento de presença digital e atendimento](docs/20-pac-viii/01-alinhamento/levantamento-presenca-digital-atendimento.md) | Consultar o diagnóstico complementar da operação comercial e digital. |
+| [Mudanças do PAC VII para o PAC VIII](docs/20-pac-viii/02-escopo/mudancas-pac-vii-para-pac-viii.md) | Identificar alterações em relação à concepção inicial. |
+| [RFC v2 do PAC VIII](docs/20-pac-viii/02-escopo/rfc-v2-pac-viii.md) | Consultar as decisões e a especificação funcional vigente. |
+| [Requisitos, histórias de usuário, fluxos e métricas](docs/20-pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) | Consultar requisitos verificáveis e critérios de aceite. |
+| [Arquitetura Web Apps](docs/20-pac-viii/04-arquitetura/arquitetura-web-apps.md) | Consultar a arquitetura técnica da solução. |
+| [Decisões de produto](docs/20-pac-viii/04-arquitetura/decisoes-de-produto.md) | Consultar decisões de escopo, painel e operação. |
+| [Inventário de telas](docs/20-pac-viii/04-arquitetura/inventario-telas.md) | Consultar telas, rotas e prioridades de interface. |
+| [Direção visual das interfaces](docs/20-pac-viii/05-design/direcao-visual-interfaces.md) | Consultar as diretrizes de apresentação das interfaces. |
+| [Hierarquia, grid e cards](docs/20-pac-viii/05-design/hierarquia-grid-cards.md) | Consultar estudos de composição e organização visual. |
+| [Paleta operacional](docs/20-pac-viii/05-design/paleta-operacional.md) | Consultar as decisões e hipóteses de cores. |
+| [Premissas e limites da marca](docs/20-pac-viii/05-design/premissas-e-limites-da-marca.md) | Consultar os limites de utilização da identidade visual. |
+| [Tipografia operacional](docs/20-pac-viii/05-design/tipografia-operacional.md) | Consultar os estudos tipográficos. |
 
-Os documentos do PAC VII são históricos e não devem ser reescritos para incorporar decisões tomadas posteriormente.
+Os documentos de design ainda devem ser confrontados com a referência vigente no Figma. Sua presença no repositório não significa aprovação final de todas as decisões visuais.
 
 ---
 
@@ -348,65 +327,65 @@ Os documentos do PAC VII são históricos e não devem ser reescritos para incor
 | Caminho | Conteúdo |
 |---|---|
 | `apps/web/` | Frontend da aplicação. |
-| `apps/api/` | Backend e acesso ao banco. |
-| `assets/brand/` | Acervo visual autorizado da Bamak. |
-| `docs/00-projeto/` | Documentação global e rastreabilidade do projeto. |
-| `docs/10-pac-vii/` | Histórico aprovado do PAC VII. |
-| `docs/20-pre-pac-viii/` | Linha de base produzida antes da execução funcional. |
-| `docs/30-pac-viii/` | Documentação ativa da execução, QA e validação. |
-| `entregaveis/pac-vii/` | Artigo, relatório, pitch e fontes concluídos. |
-| `entregaveis/pre-pac-viii/` | Materiais consolidados da linha de base, quando aplicável. |
-| `entregaveis/pac-viii/` | Entregáveis finais do PAC VIII. |
+| `apps/api/` | Backend, API e acesso ao banco de dados. |
+| `assets/brand/` | Acervo visual da Bamak. |
+| `docs/10-pac-vii/` | Documentação histórica do PAC VII. |
+| `docs/20-pac-viii/` | Documentação atual do PAC VIII, incluindo planejamento, requisitos, design e decisões técnicas. |
+| `entregaveis/pac-vii/` | Artigo, relatório, pitch e arquivos-fonte do PAC VII. |
+| `entregaveis/pac-viii/` | Destino previsto para os entregáveis finais do PAC VIII, quando produzidos. |
+| `infra/` | Configurações de proxy e infraestrutura. |
+| `.github/workflows/` | Integração contínua e automação de publicação. |
 
 ---
 
 ## Stack técnica
 
-| Camada | Tecnologia | Situação |
+| Camada | Tecnologia | Estado verificável |
 |---|---|---|
-| Frontend | Next.js 16 + TypeScript | Configurado |
-| Interface | Tailwind CSS | Configurado |
-| Componentes | Componentes próprios / shadcn/ui quando necessário | Durante a implementação |
-| Backend | NestJS 12 + TypeScript | Configurado |
-| Banco de dados | PostgreSQL 17 | Configurado |
-| ORM | Prisma 7 | Configurado |
-| Autenticação | JWT | Planejada |
-| Ambiente | Docker / Docker Compose | Configurado localmente |
-| CI | GitHub Actions | Configurado |
-| CD | GitHub Actions → VPS | Planejado |
-| Deploy | VPS Linux conteinerizada | Planejado |
-| HTTPS | Reverse proxy + certificado | Planejado |
-| Análise estática e segurança | SonarCloud ou equivalente | Planejada |
-| Observabilidade | Ferramenta a definir | Planejada |
-| Mapa | Leaflet + OpenStreetMap, quando necessário | Planejado |
-| Arquivos | Storage compatível com S3, se exigido pelo fluxo final | Planejado |
-| Serviço de e-mail | Provedor a definir, se mantido no fluxo final | Planejado |
+| Frontend | Next.js 16 + TypeScript | Base configurada |
+| Interface | Tailwind CSS; componentes próprios e shadcn/ui conforme necessidade | Tailwind configurado; componentes de produto pendentes |
+| Backend | NestJS 12 + TypeScript | Base configurada |
+| Banco de dados | PostgreSQL 17 | Banco configurado e integrado localmente |
+| ORM | Prisma 7 | Configurado; modelo de domínio ainda pendente |
+| Autenticação/autorização | JWT e perfis administrativos | Especificados; ainda não implementados |
+| Ambiente local | Docker e Docker Compose | Configuração existente |
+| Infraestrutura de produção | Dockerfiles, Compose e Caddy | Arquivos versionados; ambiente não implantado |
+| CI | GitHub Actions (`ci.yml`) | Verificações iniciais configuradas |
+| CD | GitHub Actions (`deploy.yml`) | Workflow versionado e condicionado à habilitação |
+| HTTPS | Caddy com configuração de domínio/certificado | Previsto na configuração; não validado publicamente |
+| Análise estática e segurança | SonarCloud | Pendente de integração; lint não substitui a ferramenta |
+| Observabilidade | Logs estruturados, healthcheck e Sentry | Healthcheck existente; integração de observabilidade pendente |
+| Mapa | Leaflet + OpenStreetMap | Especificado, ainda não implementado |
+| Arquivos | Serviço compatível com S3 | Necessário para anexos e PDFs; integração pendente |
+| E-mail | Serviço a definir | Necessário ao envio do PDF interno; integração pendente |
 
-A stack poderá ser ajustada quando houver justificativa técnica, acadêmica ou operacional, sem alterar desnecessariamente a arquitetura já estabelecida.
+A escolha final de provedores e bibliotecas ainda pode exigir decisões documentadas. A implementação deve respeitar a RFC v2, os requisitos acadêmicos e a operação real da Bamak.
 
 ---
 
 ## Integração contínua
 
-O projeto utiliza GitHub Actions para iniciar o processo de integração contínua.
+O projeto possui dois workflows versionados em `.github/workflows/`:
 
-O workflow deve evoluir junto com o desenvolvimento e contemplar progressivamente:
+- **`ci.yml`:** executa, para frontend e backend, instalação por `npm ci`, auditoria das dependências de produção, lint e build; a API também valida a configuração Prisma. Roda nos eventos configurados de Pull Request e push. O gatilho legado para `feat/setup-web-api` ainda requer a limpeza prevista na organização do repositório.
+- **`deploy.yml`:** prepara um deploy automatizado para a VPS após uma execução bem-sucedida da CI em push na `main`. A execução também exige que `PRODUCTION_DEPLOY_ENABLED` seja `true` e que existam ambiente e credenciais adequados. **Workflow presente não significa deploy executado.**
 
 ```text
-Pull Request / push
-        │
-        ├── instalação reproduzível de dependências
-        ├── auditoria de dependências de produção
-        ├── validação do Prisma
-        ├── lint
-        ├── testes automatizados
-        ├── verificação de cobertura
-        ├── build
-        ├── análise estática e segurança
-        └── deploy automatizado nas branches definidas
+Pull Request para main / push nas branches configuradas
+   │
+   └── CI (API e Web)
+       ├── npm ci
+       ├── npm audit --omit=dev --audit-level=high
+       ├── Prisma validate (API)
+       ├── lint
+       └── build
+
+Push em main + CI concluída com sucesso + deploy habilitado
+   │
+   └── CD (deploy.yml) → VPS / Docker Compose
 ```
 
-A configuração atual cobre a validação técnica inicial de frontend e backend. Testes, cobertura, análise estática e CD serão adicionados conforme as respectivas etapas forem implementadas.
+**Ainda faltam no pipeline:** testes automatizados das funcionalidades, medição de cobertura (mínimo de 75% no backend e 25% no frontend) e ferramenta dedicada de análise estática/segurança. A adição ocorrerá em conjunto com o desenvolvimento real, com TDD quando aplicável. Os checks de CI existentes não comprovam essas entregas.
 
 ---
 
@@ -414,7 +393,7 @@ A configuração atual cobre a validação técnica inicial de frontend e backen
 
 A linha Web Apps exige que a versão final seja uma aplicação real e publicamente acessível.
 
-O Portal Bamak deverá chegar ao final do PAC VIII com:
+Para atender à linha Web Apps e às entregas do PAC VIII, o projeto deverá apresentar:
 
 - frontend e backend próprios;
 - interface funcional e navegável;
@@ -432,7 +411,7 @@ O Portal Bamak deverá chegar ao final do PAC VIII com:
 - pelo menos três fluxos de negócio completos;
 - ambiente público funcional.
 
-Os testes devem acompanhar a implementação das funcionalidades, evitando concentrar toda a atividade de QA no final do projeto.
+Os testes devem acompanhar cada funcionalidade implementada, com TDD quando aplicável. As metas de cobertura são **75% no backend** e **25% no frontend**; dependem de medição efetiva em relatórios, não apenas da existência de ferramentas de teste.
 
 O `lint` não substitui a ferramenta de análise estática e segurança exigida pela disciplina.
 
@@ -446,9 +425,9 @@ O PAC VIII exige validação técnica por pares e validação extensionista com 
 
 ### Revisão por pares
 
-O desenvolvimento utiliza branches e Pull Requests.
+O processo previsto utiliza branches de funcionalidade e Pull Requests para integração. A existência do procedimento não substitui evidências reais de revisão por colegas.
 
-As funcionalidades devem passar progressivamente por:
+As alterações funcionais deverão passar por:
 
 ```text
 branch
@@ -466,13 +445,13 @@ correções
 merge
 ```
 
-Bugs efetivamente encontrados durante testes cruzados devem ser registrados como Issues.
+Bugs efetivamente encontrados durante testes cruzados devem ser registrados como Issues. A revisão por pares deve conter comentários e verificações feitos por outros estudantes, conforme as orientações do PAC VIII.
 
 PRs, comentários de revisão e Issues funcionam também como evidências do processo de QA.
 
 ### Validação com a Bamak
 
-As versões funcionais serão demonstradas à empresa ao longo do PAC VIII.
+As versões funcionais deverão ser demonstradas à Bamak ao longo do PAC VIII, com registro de feedback, aprovação ou solicitações de ajuste. A aprovação verbal do alinhamento inicial não substitui o aceite do sistema implementado.
 
 O processo previsto é:
 
@@ -496,30 +475,28 @@ A entrega final deverá resultar em software funcional em versão de release e a
 
 ## Deploy
 
-O ambiente final deverá ser acessível publicamente.
-
-A estratégia prevista é utilizar uma VPS Linux com Docker Compose:
+O objetivo final é disponibilizar frontend, API e banco de dados próprios em ambiente público, utilizando VPS Linux e Docker Compose. A infraestrutura de referência está **versionada, mas ainda não foi implantada nem validada publicamente**.
 
 ```text
 GitHub
    │
-   │ CI/CD
-   ▼
-VPS Linux
+   ├── ci.yml: verificações técnicas
    │
-   ├── reverse proxy / HTTPS
-   │
-   └── Docker Compose
-       ├── web
-       ├── api
-       └── PostgreSQL
+   └── deploy.yml: somente após CI bem-sucedida e habilitação explícita
+       │
+       ▼
+VPS Linux / Docker Compose
+   ├── Caddy (HTTPS e proxy reverso)
+   ├── web (Next.js)
+   ├── api (NestJS)
+   └── PostgreSQL (sem exposição pública direta)
 ```
 
-A VPS permite manter domínio técnico sobre frontend, backend, banco, containers, configuração do servidor e processo de publicação.
+**Preparado no repositório:** Dockerfiles, `compose.production.yaml`, configuração de Caddy e workflow de publicação. O workflow depende de condições de segurança, ambiente `production` e segredos configurados, além da variável `PRODUCTION_DEPLOY_ENABLED=true`.
 
-O acesso SSH poderá ser utilizado para administração inicial e manutenção do servidor, mas o processo normal de deploy da aplicação deverá ser automatizado pelo pipeline.
+**Pendente fora do repositório:** disponibilização e configuração da VPS, domínio/DNS, credenciais, execução e verificação do HTTPS, migrações e validação de funcionamento após deploy. Não há URL de produção verificada para divulgar neste momento.
 
-O PostgreSQL de produção não deverá expor publicamente sua porta para acesso externo desnecessário.
+SSH poderá ser usado para administração inicial e manutenção. A publicação regular de versões será automatizada; o PostgreSQL de produção não deverá expor sua porta diretamente à internet.
 
 ---
 
@@ -530,12 +507,11 @@ O projeto utiliza GitHub Issues, Milestones, Projects, branches e Pull Requests 
 ### Milestones
 
 ```text
-P7-M1, P7-M2, ...       PAC VII
-PRE8-M1, PRE8-M2, ...   Linha de base histórica
-P8-M1, P8-M2, ...       PAC VIII
+P7-M1 a P7-M5    PAC VII — histórico
+P8-M1 a P8-M5    PAC VIII — planejamento, especificação, design e consolidação
 ```
 
-Os milestones anteriores permanecem como histórico. O trabalho funcional corrente deve ser associado ao PAC VIII.
+Os milestones `P7-M1` a `P7-M5` preservam o histórico do PAC VII. Os milestones `P8-M1` a `P8-M5` organizam as atividades de alinhamento, requisitos, arquitetura, design, prototipação e consolidação documental do PAC VIII. Seus identificadores foram regularizados durante a organização do GitHub (O06), preservando as Issues vinculadas. Os marcos posteriores de implementação, testes, validação e entrega serão definidos conforme o avanço do PAC VIII.
 
 ### Labels
 
@@ -551,7 +527,7 @@ tipo:documentacao
 tipo:prototipo
 tipo:evidencia
 etapa:pac-vii
-etapa:pre-pac-viii
+etapa:pac-viii
 ```
 
 Labels específicas do PAC VIII podem ser adicionadas apenas quando houver necessidade real de rastreamento.
@@ -579,7 +555,7 @@ Não devem ser versionados:
 
 Arquivos `.env` reais permanecem fora do controle de versão. Arquivos `.env.example` podem documentar apenas a estrutura necessária e valores adequados para desenvolvimento.
 
-Formulários que tratem dados pessoais devem apresentar consentimento explícito quando aplicável.
+Os formulários de contato geral e Cabo Aéreo devem apresentar consentimento explícito conforme a especificação, com texto de finalidade e acesso à política de privacidade. A implementação deve também observar necessidade, acesso restrito e definição de retenção dos dados.
 
 Protótipos, testes, documentação e exemplos devem utilizar dados fictícios, sintéticos ou anonimizados.
 
@@ -589,73 +565,72 @@ Dependências de produção devem ser acompanhadas durante o desenvolvimento. Co
 
 ## Status de implementação
 
-A base técnica do PAC VIII está em execução.
+As categorias abaixo descrevem **o que existe no código e na infraestrutura**, separando configurações versionadas das funcionalidades ainda ausentes.
 
-### Implementado até o momento
+### Base técnica existente
 
-- frontend Next.js com TypeScript;
-- Tailwind CSS;
+- frontend Next.js com TypeScript e Tailwind CSS;
 - backend NestJS com TypeScript;
-- PostgreSQL em Docker;
-- Prisma integrado ao PostgreSQL;
-- configuração de variáveis de ambiente;
-- CORS entre frontend e API;
-- prefixo `/api`;
-- endpoint de healthcheck;
-- verificação real da conexão com o banco no healthcheck;
-- integração local entre frontend, API e banco;
-- build reproduzível da API com geração prévia do Prisma Client;
-- lint de frontend e backend;
-- auditoria das dependências de produção;
-- workflow inicial de integração contínua.
+- PostgreSQL em Docker e Prisma integrado;
+- variáveis de ambiente exemplificadas sem segredos;
+- CORS e comunicação local entre frontend e API;
+- prefixo `/api` e endpoint `/api/health` com consulta real ao banco;
+- integração local Web → API → PostgreSQL validada;
+- build da API com geração prévia do Prisma Client;
+- lint de frontend/backend, auditoria de dependências e workflow básico de CI.
 
-### Ainda não implementado
+### Infraestrutura de produção preparada, mas não implantada
 
-- páginas públicas finais;
-- formulários funcionais de negócio;
-- modelo definitivo das entidades;
-- migrations das entidades reais;
-- fluxo de Atendimentos;
-- fluxo funcional de Cabo Aéreo;
-- Ficha de Aplicação;
-- autenticação;
-- painel administrativo funcional;
-- gerenciamento de Comunicação;
-- storage de arquivos;
-- serviço de e-mail;
-- testes unitários das funcionalidades;
-- metas de cobertura;
-- análise estática e segurança;
-- observabilidade;
-- Dockerfiles de produção;
-- reverse proxy;
-- HTTPS;
-- deploy público;
-- CD;
-- release final.
+- `apps/web/Dockerfile` e `apps/api/Dockerfile`;
+- `compose.integrated.yaml` para execução conteinerizada integrada;
+- `compose.production.yaml` com banco, API, frontend e proxy;
+- `infra/Caddyfile` e `infra/Caddyfile.prod` para proxy reverso (a configuração de produção prevê HTTPS);
+- `infra/production.env.template` com exemplos de variáveis, sem credenciais reais;
+- `.github/workflows/deploy.yml` para automação de publicação, desativada até a habilitação segura do ambiente de produção.
 
-Não serão criados modelos, funcionalidades ou artefatos artificiais apenas para demonstrar tecnologia. A implementação deve avançar a partir das entidades e fluxos reais do Portal Bamak.
+Esses arquivos não comprovam que HTTPS público, VPS ou CD tenham sido executados ou validados.
+
+### Funcionalidades e garantias ainda pendentes
+
+- páginas públicas finais e interações completas;
+- formulários reais de contato e Cabo Aéreo, seus registros e estados;
+- modelo de domínio e migrações das entidades de negócio;
+- ficha interna de Cabo Aéreo e consulta protegida de anexos;
+- geração, armazenamento e envio interno de PDF com rastreabilidade;
+- autenticação, autorização por perfis e painel administrativo funcional;
+- criação, publicação e manutenção administrativa de Comunicação;
+- armazenamento de arquivos e serviço de e-mail integrados;
+- testes unitários e testes de fluxos reais, evidências de TDD e metas de cobertura;
+- ferramenta dedicada de análise estática e segurança;
+- logs/monitoramento de produção e observabilidade adequada;
+- configuração e validação de HTTPS e publicação efetiva da aplicação;
+- validação de MVPs com a Bamak, correções de QA, release e aceite final.
+
+A implementação deve avançar a partir dos fluxos reais especificados, sem criar funcionalidades artificiais apenas para demonstrar tecnologia.
 
 ---
 
 ## Próximas etapas técnicas
 
-A sequência imediata de execução é:
+A prioridade imediata é **concluir o Plano A — Organização do repositório**, sem implementar funcionalidades novas dentro da branch de organização:
 
-1. concluir a configuração inicial de CI;
-2. validar o primeiro Pull Request;
-3. manter revisão por pares no fluxo de desenvolvimento;
-4. preparar a estrutura para deploy público;
-5. implementar as interfaces públicas;
-6. modelar as primeiras entidades reais;
-7. implementar contato e Cabo Aéreo;
-8. implementar autenticação e painel administrativo;
-9. introduzir testes em conjunto com as funcionalidades;
-10. evoluir o pipeline com cobertura, análise estática, segurança e CD;
-11. configurar observabilidade;
-12. validar os MVPs com a Bamak;
-13. corrigir os problemas encontrados em QA e validação;
-14. preparar a release final.
+1. finalizar a revisão de documentos, links e estados do README;
+2. organizar Issues, milestones, labels e Project do PAC VIII no GitHub (O06);
+3. configurar proteção da `main`, corrigir o gatilho legado da CI por PR e verificar branches integradas (O07);
+4. validar e integrar a organização, documentando as evidências e pendências (O08).
+
+Após a integração do Plano A, retomar o desenvolvimento funcional (**Plano B**), na branch apropriada e com Pull Requests:
+
+1. reconciliar interfaces e protótipos com os documentos vigentes e o Figma;
+2. preparar os primeiros testes junto às funcionalidades correspondentes, usando TDD quando aplicável;
+3. construir as páginas públicas e os componentes reutilizáveis, acompanhados dos respectivos testes;
+4. modelar o domínio e implementar Contato, Cabo Aéreo, ficha/PDF, Comunicação e painel com testes contínuos;
+5. implementar autenticação, autorização, uploads protegidos, storage e e-mail;
+6. ampliar CI com cobertura, análise estática e segurança; integrar observabilidade;
+7. disponibilizar e validar a infraestrutura pública e o deploy automatizado quando houver VPS e credenciais;
+8. realizar code reviews, testes cruzados e validações de MVPs com a Bamak, corrigir problemas registrados e preparar a release, aceite e Demo Day.
+
+A organização documental não depende da VPS nem da criação antecipada de testes, protótipos ou integrações inexistentes.
 
 ---
 
@@ -669,17 +644,13 @@ entregaveis/pac-vii/bamak-pac-vii-pitch.pdf
 entregaveis/pac-vii/bamak-pac-vii-relatorio.pdf
 ```
 
-### Linha de base entre PAC VII e PAC VIII
-
-```text
-entregaveis/pre-pac-viii/
-```
-
 ### PAC VIII
 
 ```text
 entregaveis/pac-viii/
 ```
+
+> O caminho `entregaveis/pac-viii/` é um **destino previsto**, não um diretório atualmente versionado. Será criado quando existir um entregável real.
 
 ---
 
