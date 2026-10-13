@@ -6,7 +6,7 @@
 | Fase | PAC VIII |
 | Escopo | Área pública e painel administrativo |
 | Status | Em definição |
-| Última atualização | 11/07/2026 |
+| Última atualização | 13/10/2026 |
 
 ## 1. Objetivo
 
@@ -439,7 +439,7 @@ Evitar:
 | Uso | Proporção |
 |---|---:|
 | Hero dividido | `4:3` |
-| Portfólio | `16:9` |
+| Aplicações | `16:9` |
 | Comunicação | `16:9` |
 | Produto | `4:3` |
 | Faixa panorâmica | `2:1` |
@@ -894,7 +894,7 @@ Incluir:
 3. fotografia real em `4:3`;
 4. seção institucional clara;
 5. seção inversa;
-6. card de Portfólio;
+6. card de aplicação;
 7. card de produto;
 8. card de Comunicação;
 9. formulário com painel de apoio;
@@ -928,7 +928,7 @@ Não é necessário desenhar páginas completas nesta etapa. O style tile deve t
 
 - [ ] Inventariar as fotografias reais disponíveis.
 - [ ] Confirmar autorização para imagens de pessoas, clientes e propriedades.
-- [ ] Selecionar imagens para Home, Institucional, Portfólio e Cabo Aéreo.
+- [ ] Selecionar imagens para Home, Institucional, Aplicações e Cabo Aéreo.
 - [ ] Testar os oito destinos no cabeçalho expandido.
 - [ ] Definir o ponto de troca para o menu compacto.
 - [ ] Validar a taxonomia de status dos Atendimentos.
