@@ -1,0 +1,68 @@
+name: Relatório de bug
+description: Registrar um problema real identificado durante o desenvolvimento ou os testes do Portal Bamak.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Registre apenas problemas efetivamente observados.
+        Não inclua senhas, tokens, dados pessoais reais, anexos privados ou informações confidenciais da Bamak.
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Problema observado
+      description: Descreva o comportamento incorreto identificado.
+      placeholder: Explique o que aconteceu.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Passos para reproduzir
+      description: Informe como reproduzir o problema.
+      placeholder: |
+        1. Acessar...
+        2. Executar...
+        3. Observar...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento esperado
+      description: Descreva o resultado esperado conforme o requisito ou fluxo aplicável.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - Área pública
+        - Painel administrativo
+        - API e banco de dados
+        - Infraestrutura e CI/CD
+        - Documentação
+        - Outra
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto do teste
+      description: Informe ambiente, navegador, dispositivo, versão ou outras condições relevantes.
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências e referências
+      description: Inclua logs sanitizados, capturas sem dados privados e links para requisitos, testes ou PRs pertinentes.
+    validations:
+      required: false
