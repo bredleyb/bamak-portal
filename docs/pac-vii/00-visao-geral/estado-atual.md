@@ -97,16 +97,16 @@ Ficam fora do estado atual:
 A leitura correta deve seguir esta ordem:
 
 1. `README.md` para visão geral.
-2. `entregaveis/bamak-pac-vii-artigo.pdf` para fundamentação acadêmica.
-3. `docs/00-visao-geral/estado-atual.md` para entender o estado do repositório.
-4. `docs/01-diagnostico/` para entender o problema.
-5. `docs/02-benchmarking/` para entender os critérios.
-6. `docs/03-escopo/` para entender limites e requisitos.
-7. `docs/04-arquitetura-informacao/` para entender a navegação.
-8. `docs/05-arquitetura-tecnica/` para entender a solução técnica proposta.
-9. `docs/06-decisoes/` para entender decisões de recorte.
-10. `docs/07-wireframes-lo-fi/` para ver a materialização inicial.
-11. `docs/08-planejamento-pac-8/` para ver a continuidade.
+2. `final/pac-vii/bamak-pac-vii-artigo.pdf` para fundamentação acadêmica.
+3. `docs/pac-vii/00-visao-geral/estado-atual.md` para entender o estado do repositório.
+4. `docs/pac-vii/01-diagnostico/` para entender o problema.
+5. `docs/pac-vii/02-benchmarking/` para entender os critérios.
+6. `docs/pac-vii/03-escopo/` para entender limites e requisitos.
+7. `docs/pac-vii/04-arquitetura-informacao/` para entender a navegação.
+8. `docs/pac-vii/05-arquitetura-tecnica/` para entender a solução técnica proposta.
+9. `docs/pac-vii/06-decisoes/` para entender decisões de recorte.
+10. `docs/pac-vii/07-wireframes-lo-fi/` para ver a materialização inicial.
+11. `docs/pac-vii/08-planejamento-continuidade/` para ver a continuidade.
 
 ## 8. Próximo estado esperado
 

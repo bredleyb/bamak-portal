@@ -326,19 +326,19 @@ A decisão estará cumprida se um administrador conseguir:
 
 ## Artefatos relacionados
 
-- `docs/03-escopo/escopo-pac-vii.md`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/03-escopo/inventario-telas.md`
-- `docs/04-arquitetura-informacao/sitemap-administrativo.png`
-- `docs/04-arquitetura-informacao/wireflow-administrativo.png`
-- `docs/05-arquitetura-tecnica/arquitetura-web-apps.md`
-- `docs/07-wireframes-lo-fi/wf-01-home.png`
-- `docs/07-wireframes-lo-fi/wf-02-a-bamak.png`
-- `docs/07-wireframes-lo-fi/wf-03-segmentos.png`
-- `docs/07-wireframes-lo-fi/wf-04-solucoes.png`
-- `docs/07-wireframes-lo-fi/wf-05-catalogo.png`
-- `docs/07-wireframes-lo-fi/wf-06-faq.png`
-- `docs/07-wireframes-lo-fi/wf-07-contato.png`
-- `docs/07-wireframes-lo-fi/wf-08-noticias.png`
-- `docs/07-wireframes-lo-fi/wf-09-agenda.png`
-- `docs/08-planejamento-pac-8/backlog-inicial.md`
+- `docs/pac-vii/03-escopo/escopo-pac-vii.md`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/03-escopo/inventario-telas.md`
+- `docs/pac-vii/04-arquitetura-informacao/sitemap-admin.png`
+- `docs/pac-vii/04-arquitetura-informacao/wireflow-admin.png`
+- `docs/pac-vii/05-arquitetura-tecnica/arquitetura-web-apps.md`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-01-home.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-02-a-bamak.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-03-segmentos.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-04-solucoes.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-05-catalogo.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-06-faq.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-07-contato.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-08-noticias.pdf`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-09-agenda.pdf`
+- `docs/pac-vii/08-planejamento-continuidade/backlog-inicial.md`

@@ -13,7 +13,7 @@ O PAC VII encerra com diagnóstico, escopo, arquitetura, decisões técnicas, wi
 - A área pública é prioridade antes do painel administrativo completo.
 - O catálogo continua consultivo, sem venda online.
 - O módulo administrativo mantém conteúdo; não vira CRM, ERP ou e-commerce.
-- Os wireframes atuais estão em PDF na pasta `docs/07-wireframes-lo-fi/`.
+- Os wireframes atuais estão em PDF na pasta `docs/pac-vii/07-wireframes-lo-fi/`.
 - Conteúdo real da Bamak precisa ser validado antes de virar tela final.
 
 ## Cronograma por período

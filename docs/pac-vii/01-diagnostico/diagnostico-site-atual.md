@@ -11,7 +11,7 @@ O diagnóstico considera o site atual da **Bamak Equipamentos LTDA** como ponto 
 As evidências visuais dessas páginas devem ficar em:
 
 ```txt
-docs/01-diagnostico/evidencias-site-atual/
+docs/pac-vii/01-diagnostico/evidencias-site-atual/
 ├── bamak-site-atual-pagina-inicial.pdf
 ├── bamak-site-atual-nossa-historia.pdf
 └── bamak-site-atual-contate-nos.pdf

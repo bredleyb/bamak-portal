@@ -121,12 +121,12 @@ wf-09-agenda.pdf
 
 ## Artefatos relacionados
 
-- `docs/03-escopo/inventario-telas.md`
-- `docs/04-arquitetura-informacao/fluxo-descoberta-contato.md`
-- `docs/04-arquitetura-informacao/sitemap-publico.png`
-- `docs/04-arquitetura-informacao/wireflow-publico.png`
-- `docs/05-arquitetura-tecnica/arquitetura-web-apps.md`
-- `docs/06-decisoes/0001-catalogo-consultivo.md`
-- `docs/06-decisoes/0002-modulo-administrativo-editorial.md`
-- `docs/06-decisoes/0004-recorte-sem-funcionalidades-transacionais.md`
-- `docs/08-planejamento-pac-8/backlog-inicial.md`
+- `docs/pac-vii/03-escopo/inventario-telas.md`
+- `docs/pac-vii/04-arquitetura-informacao/fluxo-descoberta-contato.md`
+- `docs/pac-vii/04-arquitetura-informacao/sitemap-publico.png`
+- `docs/pac-vii/04-arquitetura-informacao/wireflow-publico.png`
+- `docs/pac-vii/05-arquitetura-tecnica/arquitetura-web-apps.md`
+- `docs/pac-vii/06-decisoes/0001-catalogo-consultivo.md`
+- `docs/pac-vii/06-decisoes/0002-modulo-administrativo-editorial.md`
+- `docs/pac-vii/06-decisoes/0004-recorte-sem-funcionalidades-transacionais.md`
+- `docs/pac-vii/08-planejamento-continuidade/backlog-inicial.md`

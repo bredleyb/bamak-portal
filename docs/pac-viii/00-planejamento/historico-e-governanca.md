@@ -39,7 +39,7 @@ Foram produzidos diagnóstico, benchmarking, escopo, requisitos, arquitetura da 
 
 O PAC VII terminou com documentação e protótipos, sem aplicação funcional, banco implementado, autenticação, testes automatizados ou deploy.
 
-A documentação original encontra-se em `docs/10-pac-vii/` e os entregáveis em `entregaveis/pac-vii/`.
+A documentação original encontra-se em `docs/pac-vii/` e os entregáveis em `final/pac-vii/`.
 
 ## 3. PAC VIII — Refinamento e execução
 

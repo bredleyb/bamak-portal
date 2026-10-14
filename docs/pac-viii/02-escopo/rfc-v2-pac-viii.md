@@ -36,10 +36,10 @@ O planejamento acadêmico, as datas e os recortes avaliativos do PAC VIII devem 
 
 A RFC consolida decisões registradas nos seguintes artefatos:
 
-- `docs/10-pac-vii/`: histórico aprovado da concepção;
-- `docs/20-pac-viii/01-alinhamento/registro-bamak.md`;
-- `docs/20-pac-viii/01-alinhamento/levantamento-presenca-digital-atendimento.md`;
-- `docs/20-pac-viii/02-escopo/mudancas-pac-vii-para-pac-viii.md`;
+- `docs/pac-vii/`: histórico aprovado da concepção;
+- `docs/pac-viii/01-alinhamento/registro-bamak.md`;
+- `docs/pac-viii/01-alinhamento/levantamento-presenca-digital-atendimento.md`;
+- `docs/pac-viii/02-escopo/mudancas-pac-vii-para-pac-viii.md`;
 - projeto mestre atualizado;
 - diretrizes do PAC VII, PAC VIII e linha Web Apps.
 
