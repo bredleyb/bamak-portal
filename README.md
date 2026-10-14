@@ -6,7 +6,7 @@ A solução pretende organizar a apresentação da empresa, suas aplicações e 
 
 > **Situação do projeto (13/10/2026):** PAC VII concluído; PAC VIII em execução. A base técnica já foi validada localmente em uma etapa anterior; as funcionalidades de negócio, as metas de testes, a validação funcional com a empresa e a publicação pública permanecem pendentes. **Ainda não existe uma versão pública do novo portal para demonstração.**
 
-**Documentação principal:** [RFC v2](docs/20-pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/20-pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/20-pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
+**Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
 ## Contexto e objetivo
 
@@ -40,7 +40,7 @@ O painel prevê os perfis **Administrador** e **Operador**, com permissões adeq
 
 No Cabo Aéreo, a localização textual é suficiente; o mapa Leaflet/OpenStreetMap é opcional. A especificação inicial aceita até **cinco imagens JPG, PNG ou WebP, com até 10 MB por arquivo**. Anexos e PDFs deverão permanecer privados e acessíveis somente mediante autorização.
 
-**Fora do escopo da primeira versão:** e-commerce, checkout, pagamentos, orçamento ou viabilidade técnica automáticos, CRM, ERP, CMS estrutural completo, chatbot, área privada do cliente e automação comercial avançada. A lista e os critérios completos constam na [RFC v2](docs/20-pac-viii/02-escopo/rfc-v2-pac-viii.md).
+**Fora do escopo da primeira versão:** e-commerce, checkout, pagamentos, orçamento ou viabilidade técnica automáticos, CRM, ERP, CMS estrutural completo, chatbot, área privada do cliente e automação comercial avançada. A lista e os critérios completos constam na [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md).
 
 ## Estado da implementação
 
@@ -68,7 +68,7 @@ O trabalho de reorganização do repositório e do GitHub foi concluído e integ
 
 **Integração técnica existente:** aplicação Next.js → API NestJS → Prisma/PostgreSQL, utilizada no teste de saúde da base local. A arquitetura funcional prevê acesso de visitantes e usuários administrativos, autenticação por perfis, armazenamento privado compatível com S3 para imagens/PDFs e serviço de e-mail. Os módulos de negócio e as integrações externas ainda dependem de implementação.
 
-A [documentação de arquitetura](docs/20-pac-viii/04-arquitetura/arquitetura-web-apps.md) descreve módulos, responsabilidades, fluxos, entidades e requisitos de segurança. O [registro de decisões de produto](docs/20-pac-viii/04-arquitetura/decisoes-de-produto.md) delimita o painel e os recursos da primeira versão.
+A [documentação de arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) descreve módulos, responsabilidades, fluxos, entidades e requisitos de segurança. O [registro de decisões de produto](docs/pac-viii/04-arquitetura/decisoes-de-produto.md) delimita o painel e os recursos da primeira versão.
 
 ## Executar localmente
 
@@ -125,29 +125,29 @@ bamak-portal/
 ├── apps/api/                 # API NestJS e Prisma
 ├── apps/web/                 # Interface Next.js
 ├── assets/brand/             # Acervo da identidade visual
-├── docs/10-pac-vii/          # Histórico da concepção
-├── docs/20-pac-viii/         # Documentação vigente
-├── entregaveis/pac-vii/      # Entregáveis acadêmicos concluídos
+├── docs/pac-vii/               # Histórico da concepção
+├── docs/pac-viii/              # Documentação vigente
+├── final/pac-vii/              # Entregáveis acadêmicos concluídos
 ├── infra/                    # Configurações do proxy e produção
 ├── compose*.yaml             # Ambientes Docker
 └── README.md
 ```
 
-O diretório `entregaveis/pac-viii/` será criado quando houver arquivos reais para versionar. As atividades de implementação, testes, validação e entrega serão documentadas no PAC VIII à medida que forem realizadas.
+O diretório `final/pac-viii/` será criado quando houver arquivos reais para versionar. As atividades de implementação, testes, validação e entrega serão documentadas no PAC VIII à medida que forem realizadas.
 
 ### Documentos de referência
 
 | Documento | Finalidade |
 |---|---|
-| [RFC v2 — PAC VIII](docs/20-pac-viii/02-escopo/rfc-v2-pac-viii.md) | Escopo funcional e decisões vigentes. |
-| [Requisitos, histórias de usuário, fluxos e métricas](docs/20-pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) | Comportamentos, evidências e critérios de aceite. |
-| [Arquitetura Web Apps](docs/20-pac-viii/04-arquitetura/arquitetura-web-apps.md) | Estrutura técnica, módulos e fluxos. |
-| [Decisões de produto](docs/20-pac-viii/04-arquitetura/decisoes-de-produto.md) | Limites operacionais e funcionais. |
-| [Histórico e governança](docs/20-pac-viii/00-planejamento/historico-e-governanca.md) | Evolução das duas fases e rastreabilidade das mudanças. |
-| [Alinhamento com a Bamak](docs/20-pac-viii/01-alinhamento/registro-bamak.md) | Contexto e decisões registradas com a empresa. |
-| [Direção visual](docs/20-pac-viii/05-design/direcao-visual-interfaces.md) | Estudos e orientações de interface sujeitos a validação. |
+| [RFC v2 — PAC VIII](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) | Escopo funcional e decisões vigentes. |
+| [Requisitos, histórias de usuário, fluxos e métricas](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) | Comportamentos, evidências e critérios de aceite. |
+| [Arquitetura Web Apps](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) | Estrutura técnica, módulos e fluxos. |
+| [Decisões de produto](docs/pac-viii/04-arquitetura/decisoes-de-produto.md) | Limites operacionais e funcionais. |
+| [Histórico e governança](docs/pac-viii/00-planejamento/historico-e-governanca.md) | Evolução das duas fases e rastreabilidade das mudanças. |
+| [Alinhamento com a Bamak](docs/pac-viii/01-alinhamento/registro-bamak.md) | Contexto e decisões registradas com a empresa. |
+| [Direção visual](docs/pac-viii/05-design/direcao-visual-interfaces.md) | Estudos e orientações de interface sujeitos a validação. |
 | [Acervo da marca](assets/brand/README.md) | Variantes do logotipo, organização dos arquivos e orientações de uso. |
-| [Mapa de artefatos do PAC VII](docs/10-pac-vii/00-visao-geral/mapa-artefatos.md) | Índice histórico da fase de concepção. |
+| [Mapa de artefatos do PAC VII](docs/pac-vii/00-visao-geral/mapa-artefatos.md) | Índice histórico da fase de concepção. |
 
 Os documentos do PAC VII são preservados como registros daquela fase. Alterações posteriores de escopo e tecnologia devem permanecer rastreáveis na documentação do PAC VIII, nas Issues e nos Pull Requests.
 

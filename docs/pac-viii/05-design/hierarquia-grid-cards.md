@@ -6,7 +6,7 @@
 | Fase | PAC VIII |
 | Escopo | Portal público e painel administrativo |
 | Status | Em definição |
-| Última atualização | 11/07/2026 |
+| Última atualização | 13/10/2026 |
 
 ## 1. Objetivo
 
@@ -35,7 +35,7 @@ A arquitetura pública atual é:
 ```text
 Home
 Institucional
-Portfólio
+Aplicações
 Catálogo
 Cabo Aéreo
 FAQ
@@ -175,7 +175,7 @@ A assimetria será concentrada em:
 
 - hero da Home;
 - introdução institucional;
-- destaques de Portfólio;
+- destaques de Aplicações;
 - apresentação do Cabo Aéreo.
 
 Listagens, formulários e conteúdos extensos permanecerão mais regulares.
@@ -406,7 +406,7 @@ Compacto: 1 ou 2
 - vertical no compacto;
 - cada evento será um item da timeline, não um card isolado.
 
-### 8.3 Portfólio
+### 8.3 Aplicações
 
 ```text
 Expandido: 3 colunas
@@ -414,7 +414,7 @@ Médio: 2 colunas
 Compacto: 1 coluna
 ```
 
-Um projeto em destaque pode ocupar seis ou oito colunas.
+Uma aplicação em destaque pode ocupar seis ou oito colunas.
 
 ### 8.4 Catálogo
 
@@ -663,14 +663,14 @@ Somente para cards realmente selecionáveis.
 
 ## 11. Variantes do projeto
 
-### 11.1 Card de Portfólio
+### 11.1 Card de aplicação
 
 ```text
 imagem 16:9
-segmento ou tipo
+tipo de aplicação
 título
-contexto ou resultado curto
-link para o projeto
+resumo do contexto de uso
+link para o detalhe da aplicação, quando houver
 ```
 
 Grid:
@@ -880,7 +880,7 @@ spacing/96
 ### 14.4 Componentes iniciais
 
 ```text
-Card/Portfolio
+Card/Application
 Card/Product
 Card/Communication
 Card/Contact
@@ -907,7 +907,7 @@ Testar:
 2. introdução interna;
 3. seção pública neutra;
 4. seção inversa;
-5. card de Portfólio;
+5. card de aplicação;
 6. card de produto;
 7. card de Comunicação;
 8. canal de contato;

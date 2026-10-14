@@ -342,10 +342,10 @@ A decisão estará cumprida se a implementação inicial demonstrar:
 
 ## Artefatos relacionados
 
-- `docs/05-arquitetura-tecnica/arquitetura-web-apps.md`
-- `docs/05-arquitetura-tecnica/stack-tecnologica.md`
-- `docs/05-arquitetura-tecnica/c1-contexto.png`
-- `docs/05-arquitetura-tecnica/c2-containers.png`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/07-wireframes-lo-fi/README.md`
-- `docs/08-planejamento-pac-8/backlog-inicial.md`
+- `docs/pac-vii/05-arquitetura-tecnica/arquitetura-web-apps.md`
+- `docs/pac-vii/05-arquitetura-tecnica/stack-tecnologica.md`
+- `docs/pac-vii/05-arquitetura-tecnica/c1-contexto.png`
+- `docs/pac-vii/05-arquitetura-tecnica/c2-containers.png`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/07-wireframes-lo-fi/README.md`
+- `docs/pac-vii/08-planejamento-continuidade/backlog-inicial.md`

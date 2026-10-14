@@ -423,12 +423,12 @@ A stack estará bem aplicada se a implementação demonstrar:
 
 ## Artefatos relacionados
 
-- `docs/05-arquitetura-tecnica/arquitetura-web-apps.md`
-- `docs/05-arquitetura-tecnica/c1-contexto.png`
-- `docs/05-arquitetura-tecnica/c2-containers.png`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/03-escopo/inventario-telas.md`
-- `docs/04-arquitetura-informacao/fluxo-descoberta-contato.md`
-- `docs/06-decisoes/0003-stack-web-apps.md`
-- `docs/07-wireframes-lo-fi/README.md`
-- `docs/08-planejamento-pac-8/backlog-inicial.md`
+- `docs/pac-vii/05-arquitetura-tecnica/arquitetura-web-apps.md`
+- `docs/pac-vii/05-arquitetura-tecnica/c1-contexto.png`
+- `docs/pac-vii/05-arquitetura-tecnica/c2-containers.png`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/03-escopo/inventario-telas.md`
+- `docs/pac-vii/04-arquitetura-informacao/fluxo-descoberta-contato.md`
+- `docs/pac-vii/06-decisoes/0003-stack-web-apps.md`
+- `docs/pac-vii/07-wireframes-lo-fi/README.md`
+- `docs/pac-vii/08-planejamento-continuidade/backlog-inicial.md`

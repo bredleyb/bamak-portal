@@ -437,18 +437,18 @@ A arquitetura estará cumprida se a implementação inicial demonstrar:
 
 ## Artefatos relacionados
 
-- `docs/03-escopo/escopo-pac-vii.md`
-- `docs/03-escopo/fora-escopo.md`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/03-escopo/inventario-telas.md`
-- `docs/04-arquitetura-informacao/fluxo-descoberta-contato.md`
-- `docs/04-arquitetura-informacao/sitemap-publico.png`
-- `docs/04-arquitetura-informacao/sitemap-administrativo.png`
-- `docs/04-arquitetura-informacao/wireflow-publico.png`
-- `docs/04-arquitetura-informacao/wireflow-administrativo.png`
-- `docs/05-arquitetura-tecnica/stack-tecnologica.md`
-- `docs/05-arquitetura-tecnica/c1-contexto.png`
-- `docs/05-arquitetura-tecnica/c2-containers.png`
-- `docs/06-decisoes/0001-catalogo-consultivo.md`
-- `docs/06-decisoes/0002-modulo-administrativo-editorial.md`
-- `docs/06-decisoes/0004-recorte-sem-funcionalidades-transacionais.md`
+- `docs/pac-vii/03-escopo/escopo-pac-vii.md`
+- `docs/pac-vii/03-escopo/fora-escopo.md`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/03-escopo/inventario-telas.md`
+- `docs/pac-vii/04-arquitetura-informacao/fluxo-descoberta-contato.md`
+- `docs/pac-vii/04-arquitetura-informacao/sitemap-publico.png`
+- `docs/pac-vii/04-arquitetura-informacao/sitemap-admin.png`
+- `docs/pac-vii/04-arquitetura-informacao/wireflow-publico.png`
+- `docs/pac-vii/04-arquitetura-informacao/wireflow-admin.png`
+- `docs/pac-vii/05-arquitetura-tecnica/stack-tecnologica.md`
+- `docs/pac-vii/05-arquitetura-tecnica/c1-contexto.png`
+- `docs/pac-vii/05-arquitetura-tecnica/c2-containers.png`
+- `docs/pac-vii/06-decisoes/0001-catalogo-consultivo.md`
+- `docs/pac-vii/06-decisoes/0002-modulo-administrativo-editorial.md`
+- `docs/pac-vii/06-decisoes/0004-recorte-sem-funcionalidades-transacionais.md`

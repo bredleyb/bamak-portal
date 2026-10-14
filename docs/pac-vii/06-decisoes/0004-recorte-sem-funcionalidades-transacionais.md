@@ -227,10 +227,10 @@ A decisão estará cumprida se o portal implementado:
 
 ## Artefatos relacionados
 
-- `docs/03-escopo/fora-escopo.md`
-- `docs/03-escopo/escopo-pac-vii.md`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/04-arquitetura-informacao/fluxo-descoberta-contato.md`
-- `docs/05-arquitetura-tecnica/arquitetura-web-apps.md`
-- `docs/06-decisoes/0001-catalogo-consultivo.md`
-- `docs/06-decisoes/0002-modulo-administrativo-editorial.md`
+- `docs/pac-vii/03-escopo/fora-escopo.md`
+- `docs/pac-vii/03-escopo/escopo-pac-vii.md`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/04-arquitetura-informacao/fluxo-descoberta-contato.md`
+- `docs/pac-vii/05-arquitetura-tecnica/arquitetura-web-apps.md`
+- `docs/pac-vii/06-decisoes/0001-catalogo-consultivo.md`
+- `docs/pac-vii/06-decisoes/0002-modulo-administrativo-editorial.md`

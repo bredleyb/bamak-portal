@@ -246,9 +246,9 @@ A decisão estará cumprida se o catálogo permitir que um visitante:
 
 ## Artefatos relacionados
 
-- `docs/03-escopo/escopo-pac-vii.md`
-- `docs/03-escopo/fora-escopo.md`
-- `docs/03-escopo/requisitos-consolidados.md`
-- `docs/03-escopo/inventario-telas.md`
-- `docs/04-arquitetura-informacao/fluxo-descoberta-contato.md`
-- `docs/07-wireframes-lo-fi/wf-05-catalogo.png`
+- `docs/pac-vii/03-escopo/escopo-pac-vii.md`
+- `docs/pac-vii/03-escopo/fora-escopo.md`
+- `docs/pac-vii/03-escopo/requisitos-consolidados.md`
+- `docs/pac-vii/03-escopo/inventario-telas.md`
+- `docs/pac-vii/04-arquitetura-informacao/fluxo-descoberta-contato.md`
+- `docs/pac-vii/07-wireframes-lo-fi/wf-05-catalogo.pdf`
