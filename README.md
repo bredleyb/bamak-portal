@@ -146,6 +146,7 @@ O diretório `final/pac-viii/` será criado quando houver arquivos reais para ve
 | [Histórico e governança](docs/pac-viii/00-planejamento/historico-e-governanca.md) | Evolução das duas fases e rastreabilidade das mudanças. |
 | [Alinhamento com a Bamak](docs/pac-viii/01-alinhamento/registro-bamak.md) | Contexto e decisões registradas com a empresa. |
 | [Direção visual](docs/pac-viii/05-design/direcao-visual-interfaces.md) | Estudos e orientações de interface sujeitos a validação. |
+| [Style tile v3 — Consolidação e handoff](docs/pac-viii/05-design/style-tile-v3-consolidacao.md) | Tokens canônicos, componentes mestres, estudos responsivos e critérios de validação; aprovação da empresa pendente. |
 | [Acervo da marca](assets/brand/README.md) | Variantes do logotipo, organização dos arquivos e orientações de uso. |
 | [Mapa de artefatos do PAC VII](docs/pac-vii/00-visao-geral/mapa-artefatos.md) | Índice histórico da fase de concepção. |
 
