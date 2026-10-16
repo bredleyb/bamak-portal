@@ -58,6 +58,23 @@ Legenda de prototipação:
 | ADM-11 | Configurações | `/admin/configuracoes` | Administrador | Acessar usuários e integrações essenciais. | Painel ou menu. | Usuários e parâmetros. | RF-CFG-01 a 04 | Lo-fi + Mid-fi admin | Média |
 | ADM-12 | Usuários e acessos | `/admin/configuracoes/usuarios` | Administrador | Criar, alterar perfil, ativar e desativar usuários. | ADM-11. | Configurações. | RF-CFG-01 a 03 | Mid-fi admin | Média |
 
+### 4.1 Cobertura responsiva administrativa
+
+As rotas ADM-01 a ADM-12 devem permanecer utilizáveis em telas estreitas, conforme RNF-20 e RNF-21. A prioridade funcional do inventário continua a mesma; a adaptação responsiva envolve apresentação e interação, sem alterar as permissões dos perfis.
+
+| Conjunto | Comportamento no compacto |
+|---|---|
+| ADM-01 — Login | Formulário em coluna única, foco e erros por campo, retorno ao site. |
+| ADM-02 — Painel | Indicadores em coluna, entradas recentes em lista estruturada, pendências com indicação textual e navegação por drawer. |
+| ADM-03 e ADM-04 — Atendimentos e contato geral | Busca e filtros acessíveis em painel recolhível; detalhe com identificação, mensagem, status e ações em ordem de leitura. |
+| ADM-05 a ADM-07 — Cabo Aéreo, ficha e PDF | Seções sequenciais para solicitante, localização, anexos e documentos; mapa e visualizador PDF com região bidimensional própria; comandos de gerar, consultar ou enviar PDF conforme a permissão. |
+| ADM-08 a ADM-10 — Comunicação | Lista compacta com tipo, situação e data; criação e edição em formulário vertical, mantendo as ações de rascunho, publicação e ocultação autorizadas. |
+| ADM-11 e ADM-12 — Configurações e usuários | Parâmetros agrupados verticalmente; usuários com perfil, situação e ações acessíveis. |
+
+Nos protótipos, usar 1440, 1024, 768 e 390 px para os fluxos principais; estados alternativos podem ser representados no viewport em que a mudança de comportamento seja relevante. A implementação deve ser testada também em 320 CSS px, no zoom e nas larguras intermediárias. Tabelas, mapas e documentos podem exigir rolagem bidimensional restrita ao próprio componente.
+
+O atendimento em smartphone, inclusive em visitas ou deslocamentos, deverá ser validado com a Bamak para orientar a prioridade de testes e os ajustes operacionais. O uso mobile não altera as verificações de autorização e proteção de dados.
+
 ## 5. Estados administrativos de suporte
 
 | ID | Estado | Aplicação | Comportamento esperado | Protótipo |
