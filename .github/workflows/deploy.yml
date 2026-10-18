@@ -43,4 +43,4 @@ jobs:
           DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=yes "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "set -eu; cd /opt/bamak-portal; git fetch origin main; git checkout --force --detach '${DEPLOY_SHA}'; docker compose --env-file .env.production -f compose.production.yaml up -d --build"
+            "deploy ${DEPLOY_SHA}"
