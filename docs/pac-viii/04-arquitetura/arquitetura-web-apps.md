@@ -132,7 +132,7 @@ Rotas previstas:
 /admin/configuracoes/usuarios
 ```
 
-Todas as rotas administrativas exigem autenticação. As ações disponíveis dependem do perfil.
+A rota `/admin/login` é a entrada de autenticação para usuários ainda não autenticados. **As demais rotas administrativas e as operações sensíveis exigem autenticação e autorização no backend**, conforme o perfil. As URLs desta seção são previstas para implementação; vistas e estados internos, como a ficha e a visualização do PDF, não exigem necessariamente uma rota própria.
 
 ## 6. Módulos da API
 
