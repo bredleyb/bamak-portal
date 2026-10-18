@@ -79,3 +79,24 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  deploy_scripts:
+    name: Scripts de deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Validar scripts e testar deploy
+        run: |
+          docker run --rm --network none \
+            --mount "type=bind,source=$PWD,target=/work,readonly" \
+            --workdir /work alpine:3.21 sh -eu -c '
+              sh -n infra/deploy/ssh-gate.sh
+              sh -n infra/deploy/bamak-deploy.sh
+              sh -n infra/deploy/test-ssh-gate.sh
+              sh -n infra/deploy/test-bamak-deploy.sh
+              sh infra/deploy/test-ssh-gate.sh
+              sh infra/deploy/test-bamak-deploy.sh
+            '
