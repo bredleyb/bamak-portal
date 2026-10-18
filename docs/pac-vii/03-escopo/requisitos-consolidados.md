@@ -9,7 +9,7 @@ Os requisitos servem como rastreabilidade entre diagnóstico, escopo, telas, arq
 | Status | Significado |
 |---|---|
 | Definido | Decisão consolidada no PAC VII. |
-| Lo-fi | Representado nos wireframes de baixa fidelidade. |
+| lo-fi | Representado nos wireframes de baixa fidelidade. |
 | PAC 8 | Previsto para detalhamento ou implementação no semestre seguinte. |
 | Excluído | Fora do escopo atual. |
 
@@ -17,16 +17,16 @@ Os requisitos servem como rastreabilidade entre diagnóstico, escopo, telas, arq
 
 | ID | Requisito | Decisão específica | Status |
 |---|---|---|---|
-| RF-PUB-01 | Exibir Home com visão geral da Bamak e atalhos principais. | A Home deve funcionar como entrada para A Bamak, Segmentos, Soluções, Catálogo, FAQ e Contato. | Lo-fi |
-| RF-PUB-02 | Exibir página institucional da Bamak. | A apresentação da empresa deve ficar separada do catálogo e do contato. | Lo-fi |
-| RF-PUB-03 | Exibir segmentos atendidos. | Segmentos ajudam o visitante a reconhecer se a Bamak atua no seu contexto. | Lo-fi |
-| RF-PUB-04 | Exibir soluções. | Soluções organizam frentes de atuação e evitam que a oferta vire apenas lista de produtos. | Lo-fi |
-| RF-PUB-05 | Exibir catálogo de produtos. | O catálogo deve apoiar consulta antes do contato, sem comportamento de loja. | Lo-fi |
-| RF-PUB-06 | Permitir organização visual do catálogo por filtros ou categorias. | A consulta precisa reduzir esforço para localizar produtos. | Lo-fi |
-| RF-PUB-07 | Exibir FAQ antes do contato. | A FAQ deve responder dúvidas sobre pedidos, orçamento e canais comerciais. | Lo-fi |
-| RF-PUB-08 | Exibir página de contato. | Deve centralizar formulário e canais comerciais da Bamak. | Lo-fi |
-| RF-PUB-09 | Exibir notícias. | Notícias funcionam como atualização institucional pública. | Lo-fi |
-| RF-PUB-10 | Exibir agenda. | Agenda registra eventos, feiras e acontecimentos relevantes. | Lo-fi |
+| RF-PUB-01 | Exibir Home com visão geral da Bamak e atalhos principais. | A Home deve funcionar como entrada para A Bamak, Segmentos, Soluções, Catálogo, FAQ e Contato. | lo-fi |
+| RF-PUB-02 | Exibir página institucional da Bamak. | A apresentação da empresa deve ficar separada do catálogo e do contato. | lo-fi |
+| RF-PUB-03 | Exibir segmentos atendidos. | Segmentos ajudam o visitante a reconhecer se a Bamak atua no seu contexto. | lo-fi |
+| RF-PUB-04 | Exibir soluções. | Soluções organizam frentes de atuação e evitam que a oferta vire apenas lista de produtos. | lo-fi |
+| RF-PUB-05 | Exibir catálogo de produtos. | O catálogo deve apoiar consulta antes do contato, sem comportamento de loja. | lo-fi |
+| RF-PUB-06 | Permitir organização visual do catálogo por filtros ou categorias. | A consulta precisa reduzir esforço para localizar produtos. | lo-fi |
+| RF-PUB-07 | Exibir FAQ antes do contato. | A FAQ deve responder dúvidas sobre pedidos, orçamento e canais comerciais. | lo-fi |
+| RF-PUB-08 | Exibir página de contato. | Deve centralizar formulário e canais comerciais da Bamak. | lo-fi |
+| RF-PUB-09 | Exibir notícias. | Notícias funcionam como atualização institucional pública. | lo-fi |
+| RF-PUB-10 | Exibir agenda. | Agenda registra eventos, feiras e acontecimentos relevantes. | lo-fi |
 | RF-PUB-11 | Prever detalhe de segmento. | Deve explicar um segmento e relacioná-lo com soluções/produtos. | PAC 8 |
 | RF-PUB-12 | Prever detalhe de solução. | Deve apresentar contexto, aplicação e relação com oferta. | PAC 8 |
 | RF-PUB-13 | Prever detalhe de produto. | Deve exibir descrição, categoria, aplicação e chamada para contato. | PAC 8 |

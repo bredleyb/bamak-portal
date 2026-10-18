@@ -8,7 +8,7 @@ O inventário registra o estado do PAC VII e separa o que já foi materializado 
 
 | Status | Significado |
 |---|---|
-| Lo-fi | Tela representada em baixa fidelidade no PAC VII. |
+| lo-fi | Tela representada em baixa fidelidade no PAC VII. |
 | Definida | Tela incluída no escopo, sem wireframe final nesta etapa. |
 | PAC 8 | Tela prevista para detalhamento, refinamento ou implementação. |
 | Suporte | Estado auxiliar necessário para funcionamento posterior. |
@@ -17,15 +17,15 @@ O inventário registra o estado do PAC VII e separa o que já foi materializado 
 
 | ID | Tela | Função | Entrada provável | Saída esperada | Status |
 |---|---|---|---|---|---|
-| PUB-01 | Home | Sintetizar a Bamak e direcionar para áreas centrais. | Acesso direto ao site. | A Bamak, Segmentos, Soluções, Catálogo, FAQ ou Contato. | Lo-fi |
-| PUB-02 | A Bamak | Explicar empresa, atuação e contexto institucional. | Home ou menu. | Segmentos, Soluções ou Contato. | Lo-fi |
-| PUB-03 | Segmentos | Mostrar contextos atendidos pela empresa. | Home, menu ou A Bamak. | Detalhe de segmento ou Soluções. | Lo-fi |
-| PUB-04 | Soluções | Organizar frentes de solução. | Home, Segmentos ou menu. | Detalhe de solução ou Catálogo. | Lo-fi |
-| PUB-05 | Catálogo | Permitir consulta de produtos. | Home, Soluções, menu ou busca interna futura. | Detalhe de produto, FAQ ou Contato. | Lo-fi |
-| PUB-06 | FAQ | Responder dúvidas antes do orçamento. | Home, Catálogo, Contato ou menu. | Contato. | Lo-fi |
-| PUB-07 | Contato | Centralizar formulário e canais comerciais. | Qualquer página pública. | Envio de mensagem ou contato direto. | Lo-fi |
-| PUB-08 | Notícias | Listar publicações institucionais. | Home ou menu. | Detalhe de notícia. | Lo-fi |
-| PUB-09 | Agenda | Listar eventos e feiras. | Home ou menu. | Detalhe de evento. | Lo-fi |
+| PUB-01 | Home | Sintetizar a Bamak e direcionar para áreas centrais. | Acesso direto ao site. | A Bamak, Segmentos, Soluções, Catálogo, FAQ ou Contato. | lo-fi |
+| PUB-02 | A Bamak | Explicar empresa, atuação e contexto institucional. | Home ou menu. | Segmentos, Soluções ou Contato. | lo-fi |
+| PUB-03 | Segmentos | Mostrar contextos atendidos pela empresa. | Home, menu ou A Bamak. | Detalhe de segmento ou Soluções. | lo-fi |
+| PUB-04 | Soluções | Organizar frentes de solução. | Home, Segmentos ou menu. | Detalhe de solução ou Catálogo. | lo-fi |
+| PUB-05 | Catálogo | Permitir consulta de produtos. | Home, Soluções, menu ou busca interna futura. | Detalhe de produto, FAQ ou Contato. | lo-fi |
+| PUB-06 | FAQ | Responder dúvidas antes do orçamento. | Home, Catálogo, Contato ou menu. | Contato. | lo-fi |
+| PUB-07 | Contato | Centralizar formulário e canais comerciais. | Qualquer página pública. | Envio de mensagem ou contato direto. | lo-fi |
+| PUB-08 | Notícias | Listar publicações institucionais. | Home ou menu. | Detalhe de notícia. | lo-fi |
+| PUB-09 | Agenda | Listar eventos e feiras. | Home ou menu. | Detalhe de evento. | lo-fi |
 
 ## 3. Telas públicas de detalhe
 
