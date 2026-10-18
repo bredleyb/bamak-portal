@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Projeto | Portal Bamak — PAC VIII |
-| Status | Design e protótipos documentados; implementação, testes funcionais e validação da Bamak pendentes |
+| Status | Interfaces e protótipos de alta fidelidade visual (hi-fi) concluídos; implementação, testes funcionais e validação da Bamak pendentes |
 | Data da revisão | 17/10/2026 |
 | Escopo | Fundamentos, componentes, áreas pública e administrativa, fluxos e especificações de implementação |
 | Fonte de design | [Figma — Bamak](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/Bamak-%7C-Arquitetura-da-Informa%C3%A7%C3%A3o-e-Prot%C3%B3tipos) |
@@ -21,7 +21,7 @@
 | 05 — Protótipos navegáveis | Três fluxos FL, cenários de revisão e apresentação mobile. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-61) |
 | 06 — Especificações e handoff | Critérios por tela, rastreabilidade, dependências e decisões. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-62) |
 
-A estrutura reúne **14 áreas públicas e 12 administrativas**, representadas em **157 telas e estados-base** (74 públicos e 83 administrativos). O trabalho inclui **35 cenários de revisão**, **36 apresentações mobile** e **10 telas exploratórias** da proposta progressiva de Cabo Aéreo. Essas categorias têm finalidades diferentes.
+A estrutura reúne **14 áreas públicas e 12 administrativas**, representadas em **157 telas e estados-base de alta fidelidade visual (hi-fi)** (74 públicos e 83 administrativos). O trabalho inclui **35 cenários de revisão**, **36 apresentações mobile** e **10 telas exploratórias** da proposta progressiva de Cabo Aéreo. Essas categorias têm finalidades diferentes.
 
 Os antigos endereços das páginas 07 e 99 e de nós removidos representam uma organização superada. Os wireframes do PAC VII continuam preservados como referência histórica daquela fase. A finalização do desenho **não representa aprovação da Bamak**. Nomes, imagens e dados de demonstração precisam de validação institucional ou substituição antes da publicação.
 
