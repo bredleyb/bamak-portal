@@ -60,7 +60,7 @@ Legenda de prototipação:
 
 ### 4.1 Cobertura responsiva administrativa
 
-As rotas ADM-01 a ADM-12 devem permanecer utilizáveis em telas estreitas, conforme RNF-20 e RNF-21. A prioridade funcional do inventário continua a mesma; a adaptação responsiva envolve apresentação e interação, sem alterar as permissões dos perfis.
+As **telas e os estados ADM-01 a ADM-12** devem permanecer utilizáveis em telas estreitas, conforme `RNF-20` (responsividade) e `RNF-21` (acessibilidade) do cadastro detalhado de requisitos. Os IDs identificam interfaces; ADM-04/05 compartilham uma rota dinâmica prevista, e ADM-06/07 são vistas internas. As rotas de ADM-08 a ADM-12 permanecem propostas até a implementação do roteador. A prioridade funcional do inventário permanece inalterada, assim como as permissões dos perfis.
 
 | Conjunto | Comportamento no compacto |
 |---|---|
@@ -71,7 +71,7 @@ As rotas ADM-01 a ADM-12 devem permanecer utilizáveis em telas estreitas, confo
 | ADM-08 a ADM-10 — Comunicação | Lista compacta com tipo, situação e data; criação e edição em formulário vertical, mantendo as ações de rascunho, publicação e ocultação autorizadas. |
 | ADM-11 e ADM-12 — Configurações e usuários | Parâmetros agrupados verticalmente; usuários com perfil, situação e ações acessíveis. |
 
-Nos protótipos, usar 1440, 1024, 768 e 390 px para os fluxos principais; estados alternativos podem ser representados no viewport em que a mudança de comportamento seja relevante. A implementação deve ser testada também em 320 CSS px, no zoom e nas larguras intermediárias. Tabelas, mapas e documentos podem exigir rolagem bidimensional restrita ao próprio componente.
+O Figma documenta as doze áreas administrativas em 1440, 1024, 768 e 390 px, com estados alternativos nos viewports pertinentes. A implementação deverá ser testada em 320 CSS px, larguras intermediárias, zoom, ampliação de texto e navegação por teclado. Drawers e diálogos precisam gerenciar foco, fechamento e retorno ao acionador; listas compactas devem conservar rótulos e ações. Tabelas, mapas e PDFs podem exigir rolagem bidimensional restrita ao próprio componente, com alternativa acessível quando aplicável.
 
 O atendimento em smartphone, inclusive em visitas ou deslocamentos, deverá ser validado com a Bamak para orientar a prioridade de testes e os ajustes operacionais. O uso mobile não altera as verificações de autorização e proteção de dados.
 
