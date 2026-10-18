@@ -4,6 +4,8 @@
 
 Este documento detalha os requisitos e a especificação de produto do Portal Bamak no âmbito do PAC VIII, orientando prototipação, implementação, testes e validação.
 
+**Convenção de rastreabilidade:** os identificadores `RF-*` e `RNF-*` definidos nas tabelas deste documento são as referências canônicas para telas, protótipos, Issues, código e testes. A [RFC v2](../02-escopo/rfc-v2-pac-viii.md) permanece como especificação de escopo e decisões de produto. Regras complementares nela registradas devem ser observadas em conjunto com os critérios detalhados, sem reinterpretar um ID conforme o arquivo consultado.
+
 A RFC v2 permanece como fonte de escopo e decisão. Este artefato concentra elementos rastreáveis e verificáveis:
 
 - requisitos funcionais;
@@ -208,6 +210,10 @@ A primeira versão deve contemplar:
 | RNF-23 | Desempenho | Imagens otimizadas e listagens paginadas ou controladas. | Lighthouse e teste funcional |
 | RNF-24 | Deploy automático | Entrega por pipeline. | Histórico do GitHub Actions |
 | RNF-25 | Disponibilidade pública | Sistema acessível para avaliação e Demo Day. | URL publicada |
+| RNF-26 | Verificação de dependências | Dependências verificadas no pipeline de CI, com falhas relevantes registradas e tratadas. | Resultado da verificação no GitHub Actions |
+| RNF-27 | Alternativa textual ao mapa | O formulário de Cabo Aéreo permanece utilizável com descrição textual da localização, independentemente do mapa. | Teste do formulário sem mapa |
+| RNF-28 | Publicação automatizada | A entrega da versão pública utiliza pipeline; FTP e SSH manuais não são adotados como mecanismo de publicação. | Configuração e histórico de deploy |
+| RNF-29 | Separação das camadas próprias | Frontend Next.js e backend NestJS permanecem identificáveis na arquitetura e na entrega. | Arquitetura e repositório |
 
 ## 6. User stories
 
