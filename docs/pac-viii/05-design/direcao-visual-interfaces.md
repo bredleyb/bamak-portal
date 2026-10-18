@@ -1,6 +1,6 @@
 # Direção visual das interfaces
 
-> **Atualização de design — 15/10/2026:** a consolidação operacional do style tile v3 está registrada em [style-tile-v3-consolidacao.md](style-tile-v3-consolidacao.md), com tokens reais do Figma, biblioteca de componentes, exemplos mobile e critérios de validação. Este documento permanece como fundamentação e histórico de decisões. Listas de tarefas e seções com "pendente" abaixo refletem etapas do planejamento original e não devem ser interpretadas como status atual sem confrontar a especificação v3. A aprovação da Bamak e os testes funcionais continuam pendentes.
+> **Consolidação visual — 17/10/2026:** o [handoff visual do Portal Bamak](style-tile-v3-consolidacao.md) registra a organização vigente das sete páginas do Figma (00–06), a biblioteca de 64 componentes, os protótipos e os critérios de implementação. Este arquivo preserva a fundamentação e o histórico das decisões, inclusive trechos com planejamento e pendências anteriores à conclusão do desenho. Para desenvolver as interfaces, consultar o handoff vigente e os requisitos detalhados. Validação da Bamak, implementação e testes funcionais continuam pendentes.
 
 | Campo | Valor |
 |---|---|
@@ -8,7 +8,7 @@
 | Fase | PAC VIII |
 | Escopo | Área pública e painel administrativo |
 | Status | Fundamentos documentados; especificação v3 vigente |
-| Última atualização | 15/10/2026 |
+| Última atualização | 17/10/2026 |
 
 ## 1. Objetivo
 
