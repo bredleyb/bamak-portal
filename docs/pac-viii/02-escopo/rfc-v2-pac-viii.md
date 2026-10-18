@@ -720,7 +720,7 @@ As atividades de especificação, prototipação, desenvolvimento, QA e validaç
 ### 23.1 Planejamento, especificação e prototipação
 
 - revisão interna da RFC;
-- protótipos low e mid fidelity;
+- protótipos de alta fidelidade visual (hi-fi), consolidados no PAC VIII a partir da concepção e dos wireframes históricos do PAC VII;
 - validação da navegação;
 - validação do Cabo Aéreo;
 - validação do painel;
