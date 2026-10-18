@@ -8,7 +8,7 @@ Cada item deste inventário corresponde a uma tela, rota ou estado que precisa s
 
 Classificação de prototipação vigente:
 
-- **Lo-fi (PAC VII):** wireframes históricos de baixa fidelidade, preservados em `docs/pac-vii/07-wireframes-lo-fi/`.
+- **lo-fi (PAC VII):** wireframes históricos de baixa fidelidade, preservados em `docs/pac-vii/07-wireframes-lo-fi/`.
 - **hi-fi público (PAC VIII):** interfaces e protótipos de alta fidelidade visual da [página 02 do Figma](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-58).
 - **hi-fi admin (PAC VIII):** interfaces e estados de alta fidelidade visual da [página 04 do Figma](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-60).
 - **Estado integrado:** comportamento representado na tela principal ou em uma variante, sem necessariamente criar rota exclusiva.
