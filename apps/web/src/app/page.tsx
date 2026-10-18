@@ -19,7 +19,7 @@ export default function Home() {
         );
 
         if (!response.ok) {
-          throw new Error();
+          throw new Error(`Falha ao verificar a API (HTTP ${response.status}).`);
         }
 
         const data: HealthResponse = await response.json();
