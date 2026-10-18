@@ -1,12 +1,14 @@
 # Direção visual das interfaces
 
+> **Consolidação visual — 17/10/2026:** o [handoff visual do Portal Bamak](style-tile-v3-consolidacao.md) registra a organização vigente das sete páginas do Figma (00–06), a biblioteca de 64 componentes, os protótipos e os critérios de implementação. Este arquivo preserva a fundamentação e o histórico das decisões, inclusive trechos com planejamento e pendências anteriores à conclusão do desenho. Para desenvolver as interfaces, consultar o handoff vigente e os requisitos detalhados. Validação da Bamak, implementação e testes funcionais continuam pendentes.
+
 | Campo | Valor |
 |---|---|
 | Projeto | Portal Bamak |
 | Fase | PAC VIII |
 | Escopo | Área pública e painel administrativo |
-| Status | Em definição |
-| Última atualização | 13/10/2026 |
+| Status | Fundamentos documentados; especificação v3 vigente |
+| Última atualização | 17/10/2026 |
 
 ## 1. Objetivo
 

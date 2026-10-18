@@ -4,7 +4,7 @@ Este repositório reúne o **Portal Bamak**, projeto de **Trabalho de Conclusão
 
 A solução pretende organizar a apresentação da empresa, suas aplicações e produtos, os conteúdos de Comunicação e a entrada de solicitações comerciais. O atendimento técnico e comercial permanece sob responsabilidade da equipe da Bamak.
 
-> **Situação do projeto (13/10/2026):** PAC VII concluído; PAC VIII em execução. A base técnica já foi validada localmente em uma etapa anterior; as funcionalidades de negócio, as metas de testes, a validação funcional com a empresa e a publicação pública permanecem pendentes. **Ainda não existe uma versão pública do novo portal para demonstração.**
+> **Situação do projeto (17/10/2026):** PAC VII concluído; PAC VIII em execução. O desenho e os protótipos de referência foram concluídos no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica já havia sido validada localmente; as funcionalidades de negócio, os testes, a validação institucional da Bamak e a publicação pública permanecem pendentes. **Ainda não existe versão pública funcional do novo portal para demonstração.**
 
 **Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
@@ -55,7 +55,7 @@ No Cabo Aéreo, a localização textual é suficiente; o mapa Leaflet/OpenStreet
 | Qualidade e segurança | Testes e cobertura curricular, análise estática dedicada e observabilidade ainda pendentes. |
 | Deploy, validação e aceite | Workflow de publicação preparado e desabilitado; MVPs, release e aceite final pendentes. |
 
-O trabalho de reorganização do repositório e do GitHub foi concluído e integrado à `main` pelo [PR #79](https://github.com/bredleyb/bamak-portal/pull/79). Os protótipos e estudos visuais continuam sujeitos a revisão e validação; sua existência documental não representa interface final aprovada.
+O trabalho de reorganização do repositório e do GitHub foi concluído e integrado à `main` pelo [PR #79](https://github.com/bredleyb/bamak-portal/pull/79). A conclusão visual de 17/10/2026 documenta o design de referência para implementação, enquanto conteúdos, fotografias, fluxos e aprovação institucional da Bamak continuam sujeitos à validação. Protótipos não comprovam funcionamento do software.
 
 ## Tecnologias e arquitetura
 
@@ -146,6 +146,7 @@ O diretório `final/pac-viii/` será criado quando houver arquivos reais para ve
 | [Histórico e governança](docs/pac-viii/00-planejamento/historico-e-governanca.md) | Evolução das duas fases e rastreabilidade das mudanças. |
 | [Alinhamento com a Bamak](docs/pac-viii/01-alinhamento/registro-bamak.md) | Contexto e decisões registradas com a empresa. |
 | [Direção visual](docs/pac-viii/05-design/direcao-visual-interfaces.md) | Estudos e orientações de interface sujeitos a validação. |
+| [Handoff visual — Figma definitivo](docs/pac-viii/05-design/style-tile-v3-consolidacao.md) | Sete páginas, Design System, 14 áreas públicas, 12 administrativas, fluxos, responsividade e decisões de implementação; aprovação da Bamak pendente. |
 | [Acervo da marca](assets/brand/README.md) | Variantes do logotipo, organização dos arquivos e orientações de uso. |
 | [Mapa de artefatos do PAC VII](docs/pac-vii/00-visao-geral/mapa-artefatos.md) | Índice histórico da fase de concepção. |
 
@@ -153,7 +154,7 @@ Os documentos do PAC VII são preservados como registros daquela fase. Alteraç�
 
 ## Próximas entregas
 
-- Revisar e validar direção visual e protótipos, considerando as referências atuais do Figma e o alinhamento com a Bamak.
+- Submeter conteúdo, fotografias, decisões de interface e protótipos de referência à validação da Bamak, registrando eventuais ajustes aprovados.
 - Implementar incrementalmente a área pública, autenticação, painel e os fluxos **FL-01, FL-02 e FL-03**, com persistência, testes e controle de acesso.
 - Integrar armazenamento privado, geração e envio controlado de PDF, serviços de e-mail, análise estática e observabilidade.
 - Realizar revisões por colegas, testes cruzados, validações de MVPs, correções e registro das evidências acadêmicas.
