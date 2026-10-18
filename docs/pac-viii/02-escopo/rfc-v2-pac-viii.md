@@ -11,7 +11,7 @@
 | Fase anterior | PAC VII concluído |
 | Fase atual | PAC VIII — planejamento, desenvolvimento e validação |
 | Status deste documento | Especificação vigente, sujeita a revisão e validação |
-| Revisão editorial | 13/10/2026 — organização documental em duas fases, sem alteração dos requisitos funcionais |
+| Revisão editorial | 17/10/2026 — harmonização de referências RF/RNF com o cadastro de requisitos, preservando o escopo definido |
 | Repositório | `bredleyb/bamak-portal` |
 
 ## 1. Finalidade
@@ -43,7 +43,7 @@ A RFC consolida decisões registradas nos seguintes artefatos:
 - projeto mestre atualizado;
 - diretrizes do PAC VII, PAC VIII e linha Web Apps.
 
-Em caso de divergência entre propostas anteriores e esta RFC, prevalece a especificação aqui registrada até que uma alteração seja formalmente documentada e validada. O histórico do PAC VII continua válido para representar o que foi aprovado naquela fase.
+Em caso de divergência entre propostas anteriores e esta RFC, prevalece a especificação de escopo aqui registrada até que uma alteração seja formalmente documentada e validada. **Os identificadores RF/RNF canônicos e seus critérios de aceite constam de [Requisitos, user stories, fluxos e métricas](../03-requisitos/requisitos-user-stories-fluxos-metricas.md).** Os quadros de escopo desta RFC referenciam esse cadastro, que deve ser consultado ao identificar telas, Issues, implementação e testes. O histórico do PAC VII continua válido para representar o que foi aprovado naquela fase.
 
 ## 3. Contexto
 
@@ -345,66 +345,68 @@ A estrutura das páginas institucionais, Aplicações, Catálogo, FAQ e Cabo Aé
 
 ## 14. Requisitos funcionais
 
+As responsabilidades funcionais abaixo preservam o escopo do produto e apontam para os IDs do cadastro de requisitos detalhados. Algumas responsabilidades abrangem diversos requisitos ou regras de negócio; a correspondência é indicada por área e comportamento.
+
 ### 14.1 Área pública
 
-| ID | Requisito |
-|---|---|
-| RF-PUB-01 | Exibir Home com apresentação sintética e CTAs para as áreas principais. |
-| RF-PUB-02 | Exibir página Institucional com trajetória, atuação e credibilidade da Bamak. |
-| RF-PUB-03 | Listar Aplicações e permitir acesso aos respectivos detalhes. |
-| RF-PUB-04 | Listar produtos no Catálogo com busca e filtros. |
-| RF-PUB-05 | Exibir detalhe de produto com descrição, aplicação e CTA para contato. |
-| RF-PUB-06 | Exibir FAQ organizada para consulta rápida. |
-| RF-PUB-07 | Exibir conteúdos publicados em Comunicação. |
-| RF-PUB-08 | Exibir página de detalhe dos conteúdos de Comunicação. |
-| RF-PUB-09 | Exibir canais de e-mail, WhatsApp, Facebook e Instagram. |
-| RF-PUB-10 | Adaptar navegação e conteúdo para desktop e dispositivos móveis. |
+| Área | Responsabilidade de escopo | Referência canônica |
+|---|---|---|
+| Home | Exibir Home com apresentação sintética e CTAs para as áreas principais. | RF-PUB-01, RF-PUB-02 e RF-PUB-03 |
+| Institucional | Exibir página Institucional com trajetória, atuação e credibilidade da Bamak. | RF-INS-01 a RF-INS-03 |
+| Aplicações | Listar Aplicações e permitir acesso aos respectivos detalhes. | RF-APL-01 a RF-APL-03 |
+| Catálogo — listagem | Listar produtos no Catálogo com busca e filtros. | RF-CAT-01 a RF-CAT-03 |
+| Catálogo — detalhe | Exibir detalhe de produto com descrição, aplicação e CTA para contato. | RF-CAT-04 e RF-CAT-05 |
+| FAQ | Exibir FAQ organizada para consulta rápida. | RF-FAQ-01 a RF-FAQ-03 |
+| Comunicação — listagem | Exibir conteúdos publicados em Comunicação. | RF-COM-01, RF-COM-02 e RF-COM-04 |
+| Comunicação — detalhe | Exibir página de detalhe dos conteúdos de Comunicação. | RF-COM-03 |
+| Contato — canais | Exibir canais de e-mail, WhatsApp, Facebook e Instagram. | RF-CON-01 |
+| Responsividade | Adaptar navegação e conteúdo para desktop e dispositivos móveis. | RNF-20 e RNF-21 |
 
 ### 14.2 Contato geral
 
-| ID | Requisito |
-|---|---|
-| RF-CON-01 | Receber nome, contato, assunto e mensagem. |
-| RF-CON-02 | Exigir consentimento explícito antes do envio. |
-| RF-CON-03 | Validar os campos no frontend e no backend. |
-| RF-CON-04 | Registrar a solicitação no banco. |
-| RF-CON-05 | Exibir confirmação após o envio. |
-| RF-CON-06 | Disponibilizar a solicitação na área de Atendimentos. |
-| RF-CON-07 | Permitir notificação da empresa por e-mail. |
+| Área | Responsabilidade de escopo | Referência canônica |
+|---|---|---|
+| Dados do contato | Receber nome, contato, assunto e mensagem. | RF-CON-02 |
+| Consentimento | Exigir consentimento explícito antes do envio. | RF-CON-03 |
+| Validação | Validar os campos no frontend e no backend. | RNF-15 e RNF-21 |
+| Registro | Registrar a solicitação no banco. | RF-CON-04 |
+| Confirmação | Exibir confirmação após o envio. | RF-CON-05 |
+| Acompanhamento interno | Disponibilizar a solicitação na área de Atendimentos. | RF-ATE-01 e RF-ATE-03 |
+| Notificação institucional | Permitir notificação da empresa por e-mail. | RF-CON-06 |
 
 ### 14.3 Cabo Aéreo
 
-| ID | Requisito |
-|---|---|
-| RF-CAB-01 | Exibir conteúdo explicativo antes do formulário. |
-| RF-CAB-02 | Receber dados de contato e contexto da instalação. |
-| RF-CAB-03 | Permitir descrição textual da localização. |
-| RF-CAB-04 | Permitir marcação opcional em mapa Leaflet com OpenStreetMap. |
-| RF-CAB-05 | Receber imagens JPG, PNG e WebP. |
-| RF-CAB-06 | Limitar a cinco anexos de até 10 MB cada. |
-| RF-CAB-07 | Exigir consentimento explícito. |
-| RF-CAB-08 | Registrar a solicitação e seus anexos. |
-| RF-CAB-09 | Exibir ficha interna estruturada no painel. |
-| RF-CAB-10 | Permitir geração de PDF a partir da ficha. |
-| RF-CAB-11 | Armazenar o PDF junto ao atendimento. |
-| RF-CAB-12 | Permitir envio do PDF ao e-mail da empresa. |
-| RF-CAB-13 | Registrar resultado, data e responsável pelo envio do PDF. |
-| RF-CAB-14 | Manter o cliente fora de qualquer área privada ou relatório interno. |
+| Área | Responsabilidade de escopo | Referência canônica |
+|---|---|---|
+| Apresentação | Exibir conteúdo explicativo antes do formulário. | RF-CAB-01 |
+| Solicitação | Receber dados de contato e contexto da instalação. | RF-CAB-02 |
+| Localização textual | Permitir descrição textual da localização. | RF-CAB-03 e RNF-27 |
+| Mapa opcional | Permitir marcação opcional em mapa Leaflet com OpenStreetMap. | RF-CAB-04 |
+| Imagens | Receber imagens JPG, PNG e WebP. | RF-CAB-05 |
+| Limites de anexo | Limitar a cinco anexos de até 10 MB cada. | RF-CAB-05 e RF-CAB-06 |
+| Consentimento | Exigir consentimento explícito. | RF-CAB-07 |
+| Registro | Registrar a solicitação e seus anexos. | RF-CAB-08 |
+| Ficha interna | Exibir ficha interna estruturada no painel. | RF-ATE-06 |
+| Gerar PDF | Permitir geração de PDF a partir da ficha. | RF-ATE-07 |
+| Armazenar PDF | Armazenar o PDF junto ao atendimento. | RF-ATE-08 |
+| Enviar PDF | Permitir envio do PDF ao e-mail da empresa. | RF-ATE-09 |
+| Auditoria de envio | Registrar resultado, data e responsável pelo envio do PDF. | RF-ATE-09 |
+| Restrição ao visitante | Manter o cliente fora de qualquer área privada ou relatório interno. | RN-05 e RN-07 |
 
 ### 14.4 Administração
 
-| ID | Requisito |
-|---|---|
-| RF-ADM-01 | Autenticar usuários administrativos. |
-| RF-ADM-02 | Autorizar recursos conforme perfil Administrador ou Operador. |
-| RF-ADM-03 | Exibir resumo operacional no Painel. |
-| RF-ADM-04 | Listar atendimentos gerais e de Cabo Aéreo. |
-| RF-ADM-05 | Filtrar atendimentos por tipo, estado e período. |
-| RF-ADM-06 | Exibir dados, anexos e documentos associados ao atendimento. |
-| RF-ADM-07 | Permitir atualização de estados básicos. |
-| RF-ADM-08 | Permitir ao Administrador gerenciar conteúdos de Comunicação. |
-| RF-ADM-09 | Permitir ao Administrador gerenciar usuários e acessos. |
-| RF-ADM-10 | Registrar datas de criação e alteração das entidades principais. |
+| Área | Responsabilidade de escopo | Referência canônica |
+|---|---|---|
+| Autenticação | Autenticar usuários administrativos. | RF-ADM-01 |
+| Autorização | Autorizar recursos conforme perfil Administrador ou Operador. | RF-ADM-03 |
+| Painel | Exibir resumo operacional no Painel. | RF-PAI-01 a RF-PAI-03 |
+| Listagem | Listar atendimentos gerais e de Cabo Aéreo. | RF-ATE-01 |
+| Filtros | Filtrar atendimentos por tipo, estado e período. | RF-ATE-02 |
+| Detalhe e documentos | Exibir dados, anexos e documentos associados ao atendimento. | RF-ATE-03, RF-ATE-05, RF-ATE-06 e RF-ATE-08 |
+| Estados de atendimento | Permitir atualização de estados básicos. | RF-ATE-04 |
+| Comunicação administrativa | Permitir ao Administrador gerenciar conteúdos de Comunicação. | RF-CMA-01 a RF-CMA-05 |
+| Usuários e perfis | Permitir ao Administrador gerenciar usuários e acessos. | RF-CFG-01 a RF-CFG-03 |
+| Datas e responsáveis | Registrar datas de criação e alteração das entidades principais. | RF-ATE-04 e RF-ATE-09; registros do domínio |
 
 ## 15. User stories principais
 
@@ -556,71 +558,73 @@ O modelo detalhado será definido na arquitetura e no schema Prisma durante o PA
 
 ## 19. Requisitos não funcionais
 
+As diretrizes desta seção mantêm as obrigações técnicas e acadêmicas da solução. **Os códigos RNF indicados na terceira coluna são os identificadores canônicos** do documento de requisitos detalhados, cuja redação inclui critérios e evidências de aceite.
+
 ### 19.1 Qualidade e manutenção
 
-| ID | Requisito |
-|---|---|
-| RNF-01 | Frontend e backend devem usar TypeScript com verificação estrita. |
-| RNF-02 | Código deve ser modular e separar responsabilidades. |
-| RNF-03 | Componentes de interface devem ser reutilizáveis. |
-| RNF-04 | API deve organizar módulos por domínio. |
-| RNF-05 | Migrações do banco devem ser versionadas. |
-| RNF-06 | Ambiente local e de entrega deve ser padronizado com Docker. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Manutenção — critério 01 | Frontend e backend devem usar TypeScript com verificação estrita. | RNF-01 |
+| Manutenção — critério 02 | Código deve ser modular e separar responsabilidades. | RNF-02 |
+| Manutenção — critério 03 | Componentes de interface devem ser reutilizáveis. | RNF-02 |
+| Manutenção — critério 04 | API deve organizar módulos por domínio. | RNF-02 |
+| Manutenção — critério 05 | Migrações do banco devem ser versionadas. | RNF-03 |
+| Manutenção — critério 06 | Ambiente local e de entrega deve ser padronizado com Docker. | RNF-04 |
 
 ### 19.2 Testes
 
-| ID | Requisito |
-|---|---|
-| RNF-07 | Backend deve alcançar pelo menos 75% de cobertura unitária. |
-| RNF-08 | Frontend deve alcançar pelo menos 25% de cobertura unitária. |
-| RNF-09 | Regras centrais devem ser desenvolvidas com prática de TDD quando aplicável. |
-| RNF-10 | Fluxos críticos devem possuir testes de integração ou ponta a ponta. |
-| RNF-11 | Pull requests devem executar testes automaticamente. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Testes — critério 07 | Backend deve alcançar pelo menos 75% de cobertura unitária. | RNF-05 |
+| Testes — critério 08 | Frontend deve alcançar pelo menos 25% de cobertura unitária. | RNF-06 |
+| Testes — critério 09 | Regras centrais devem ser desenvolvidas com prática de TDD quando aplicável. | RNF-07 |
+| Testes — critério 10 | Fluxos críticos devem possuir testes de integração ou ponta a ponta. | RNF-08 |
+| Testes — critério 11 | Pull requests devem executar testes automaticamente. | RNF-09 |
 
 ### 19.3 Segurança
 
-| ID | Requisito |
-|---|---|
-| RNF-12 | Ambiente público deve usar HTTPS. |
-| RNF-13 | Senhas devem ser armazenadas com hash seguro. |
-| RNF-14 | Rotas administrativas devem exigir autenticação e autorização. |
-| RNF-15 | Entradas devem ser validadas no frontend e backend. |
-| RNF-16 | Uploads devem validar formato, tamanho e quantidade. |
-| RNF-17 | Arquivos privados não devem possuir URL pública permanente. |
-| RNF-18 | API deve aplicar rate limiting nos formulários públicos. |
-| RNF-19 | Segredos devem ser mantidos fora do repositório. |
-| RNF-20 | Dependências devem ser verificadas no pipeline. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Segurança — critério 12 | Ambiente público deve usar HTTPS. | RNF-12 |
+| Segurança — critério 13 | Senhas devem ser armazenadas com hash seguro. | RNF-13 |
+| Segurança — critério 14 | Rotas administrativas devem exigir autenticação e autorização. | RNF-14 |
+| Segurança — critério 15 | Entradas devem ser validadas no frontend e backend. | RNF-15 |
+| Segurança — critério 16 | Uploads devem validar formato, tamanho e quantidade. | RNF-16 |
+| Segurança — critério 17 | Arquivos privados não devem possuir URL pública permanente. | RNF-17 |
+| Segurança — critério 18 | API deve aplicar rate limiting nos formulários públicos. | RNF-18 |
+| Segurança — critério 19 | Segredos devem ser mantidos fora do repositório. | RNF-19 |
+| Segurança — critério 20 | Dependências devem ser verificadas no pipeline. | RNF-26 |
 
 ### 19.4 Usabilidade e acessibilidade
 
-| ID | Requisito |
-|---|---|
-| RNF-21 | Interface deve ser responsiva. |
-| RNF-22 | Formulários devem indicar campos obrigatórios e erros específicos. |
-| RNF-23 | Ações devem exibir estados de carregamento, sucesso e falha. |
-| RNF-24 | Navegação deve funcionar por teclado nas interações principais. |
-| RNF-25 | Contraste, foco visível e textos alternativos devem ser tratados no guia visual. |
-| RNF-26 | Mapa deve possuir alternativa textual equivalente. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Usabilidade — critério 21 | Interface deve ser responsiva. | RNF-20 |
+| Usabilidade — critério 22 | Formulários devem indicar campos obrigatórios e erros específicos. | RNF-21 |
+| Usabilidade — critério 23 | Ações devem exibir estados de carregamento, sucesso e falha. | RNF-22 |
+| Usabilidade — critério 24 | Navegação deve funcionar por teclado nas interações principais. | RNF-21 |
+| Usabilidade — critério 25 | Contraste, foco visível e textos alternativos devem ser tratados no guia visual. | RNF-21 |
+| Usabilidade — critério 26 | Mapa deve possuir alternativa textual equivalente. | RNF-27 |
 
 ### 19.5 Desempenho e disponibilidade
 
-| ID | Requisito |
-|---|---|
-| RNF-27 | Páginas públicas devem priorizar carregamento eficiente de imagens e conteúdo. |
-| RNF-28 | Listagens devem usar paginação ou carregamento controlado. |
-| RNF-29 | API deve expor endpoint de healthcheck. |
-| RNF-30 | Falhas relevantes devem ser registradas em logs e enviadas ao Sentry. |
-| RNF-31 | Aplicação deve estar acessível publicamente para avaliação e Demo Day. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Operação — critério 27 | Páginas públicas devem priorizar carregamento eficiente de imagens e conteúdo. | RNF-23 |
+| Operação — critério 28 | Listagens devem usar paginação ou carregamento controlado. | RNF-23 |
+| Operação — critério 29 | API deve expor endpoint de healthcheck. | RNF-11 |
+| Operação — critério 30 | Falhas relevantes devem ser registradas em logs e enviadas ao Sentry. | RNF-11 |
+| Operação — critério 31 | Aplicação deve estar acessível publicamente para avaliação e Demo Day. | RNF-25 |
 
 ### 19.6 Entrega e análise
 
-| ID | Requisito |
-|---|---|
-| RNF-32 | GitHub Actions deve executar lint, testes e build. |
-| RNF-33 | SonarCloud deve analisar qualidade e segurança do código. |
-| RNF-34 | Deploy deve ocorrer por pipeline automatizado. |
-| RNF-35 | Deploy manual por FTP ou SSH não será usado como processo de entrega. |
-| RNF-36 | Frontend e backend próprios devem permanecer identificáveis na arquitetura. |
+| Critério | Diretriz da RFC | Referência canônica |
+|---|---|---|
+| Entrega — critério 32 | GitHub Actions deve executar lint, testes e build. | RNF-09 |
+| Entrega — critério 33 | SonarCloud deve analisar qualidade e segurança do código. | RNF-10 |
+| Entrega — critério 34 | Deploy deve ocorrer por pipeline automatizado. | RNF-24 |
+| Entrega — critério 35 | Deploy manual por FTP ou SSH não será usado como processo de entrega. | RNF-28 |
+| Entrega — critério 36 | Frontend e backend próprios devem permanecer identificáveis na arquitetura. | RNF-29 |
 
 ## 20. Privacidade e LGPD
 
