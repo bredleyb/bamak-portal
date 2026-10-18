@@ -123,7 +123,7 @@ As especificações vigentes encontram-se em:
 
 ### 3.7 Consolidação dos protótipos e especificações visuais
 
-Em 17/10/2026, o design do Portal Bamak foi consolidado no Figma em sete páginas definitivas, com fundamentos, biblioteca de componentes, áreas pública e administrativa, experiência guiada, protótipos navegáveis e handoff de implementação. A documentação vigente encontra-se em [Handoff visual](../05-design/style-tile-v3-consolidacao.md).
+Em 17/10/2026, o design do Portal Bamak foi consolidado no Figma em sete páginas definitivas, com fundamentos, biblioteca de componentes, áreas pública e administrativa, experiência guiada, **protótipos de alta fidelidade visual (hi-fi)** navegáveis e handoff de implementação. A documentação vigente encontra-se em [Handoff visual](../05-design/style-tile-v3-consolidacao.md).
 
 Essa conclusão representa o estado do desenho e da especificação visual. Conteúdos institucionais, fotografias, decisões de uso e validação final pela Bamak permanecem sujeitos à aprovação; a implementação funcional, seus testes e a publicação pública seguem as evidências correspondentes.
 

@@ -181,6 +181,8 @@ Os próximos artefatos devem transformar as decisões acima em:
 - RFC v2 ou adendo;
 - requisitos, user stories, fluxos e métricas;
 - arquitetura atualizada;
-- protótipos low fidelity e mid fidelity;
+- protótipos low fidelity e mid fidelity, conforme a previsão inicial daquela reunião;
 - guia visual;
 - validação posterior das especificações e dos protótipos com a Bamak.
+
+**Situação posterior — 17/10/2026:** a prototipação do PAC VIII evoluiu até interfaces e protótipos de **alta fidelidade visual (hi-fi)**, consolidados no [Figma definitivo](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-61). A listagem acima preserva o encaminhamento registrado na reunião; a classificação atual está definida no [inventário de telas](../04-arquitetura/inventario-telas.md). A implementação funcional permanece separada desse resultado visual.
