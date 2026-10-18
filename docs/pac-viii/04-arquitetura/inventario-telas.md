@@ -4,6 +4,8 @@
 
 Cada item deste inventário corresponde a uma tela, rota ou estado que precisa ser considerado em arquitetura, prototipação ou implementação.
 
+**Rastreabilidade:** os códigos RF/RNF indicados neste inventário utilizam os identificadores do [cadastro detalhado de requisitos](../03-requisitos/requisitos-user-stories-fluxos-metricas.md), em consonância com a [RFC v2](../02-escopo/rfc-v2-pac-viii.md). A identificação `PUB`/`ADM` classifica telas e estados; nem todo item corresponde a uma rota exclusiva.
+
 Legenda de prototipação:
 
 - **Lo-fi:** estrutura e fluxo;
@@ -85,9 +87,9 @@ Legenda de prototipação:
 | Modal de envio do PDF | Detalhe de Cabo Aéreo. |
 | Alertas operacionais | Painel e detalhe de atendimento. |
 
-## 7. Dependências para prototipação
+## 7. Dependências de implementação e validação
 
-Antes dos protótipos mid fidelity, precisam estar definidos:
+Os protótipos de referência estão organizados no Figma. Os itens abaixo permanecem sujeitos a confirmação de conteúdo, de regras operacionais ou de uso de dados reais antes da implementação e da validação:
 
 - campos finais do Cabo Aéreo;
 - conteúdo institucional aprovado para uso;
