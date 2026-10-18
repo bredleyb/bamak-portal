@@ -383,6 +383,16 @@ Estrutura:
 
 O agrupamento ocorrerá por seções e divisores, não por um card para cada campo.
 
+### 4.6 Adaptação para smartphones
+
+A área administrativa compartilha os fundamentos visuais do portal público e mantém densidade operacional própria. As doze interfaces ADM possuem referências em 1440, 1024, 768 e 390 px no Figma. A navegação segue o padrão expandido de 256 px, rail de 72 px em larguras intermediárias e drawer no compacto; menu, perfil e encerramento de sessão permanecem acessíveis conforme a autorização.
+
+No Painel (ADM-02), a prioridade de leitura é: contexto, total por tipo e estado, registros recentes e pendências operacionais. No compacto, indicadores são empilhados, a listagem se torna uma sequência de registros e os alertas mantêm a informação necessária para agir. Valores não carregados, zero, ausência de registros e erro precisam de estados distintos. Os totais vêm do sistema; o protótipo não pressupõe quantidade de atendimentos.
+
+As telas de Atendimentos, Cabo Aéreo, Comunicação e Configurações devem preservar a mesma tarefa em dispositivos estreitos, com adaptação de filtros, tabelas, formulários, mapa, anexos e documentos. Operações reservadas ao Administrador não aparecem como disponíveis para o Operador, além de permanecerem protegidas na implementação.
+
+Conferir reflow em 320 CSS px, larguras intermediárias, ampliação de texto, zoom, navegação por teclado, ordem e visibilidade do foco, anúncios de estado, rótulos programáticos e acionamento por toque. Drawer e diálogos devem permitir fechamento e retorno do foco ao controle de origem. Componentes bidimensionais podem utilizar rolagem própria, mantendo o restante da página legível e os comandos disponíveis. Essas verificações exigem implementação no navegador.
+
 ## 5. Fotografia e mídia
 
 ### 5.1 Prioridade de fontes

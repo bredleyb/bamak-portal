@@ -60,6 +60,23 @@ Legenda de prototipação:
 | ADM-11 | Configurações | `/admin/configuracoes` | Administrador | Acessar usuários e integrações essenciais. | Painel ou menu. | Usuários e parâmetros. | RF-CFG-01 a 04 | Lo-fi + Mid-fi admin | Média |
 | ADM-12 | Usuários e acessos | `/admin/configuracoes/usuarios` | Administrador | Criar, alterar perfil, ativar e desativar usuários. | ADM-11. | Configurações. | RF-CFG-01 a 03 | Mid-fi admin | Média |
 
+### 4.1 Cobertura responsiva administrativa
+
+As **telas e os estados ADM-01 a ADM-12** devem permanecer utilizáveis em telas estreitas, conforme `RNF-20` (responsividade) e `RNF-21` (acessibilidade) do cadastro detalhado de requisitos. Os IDs identificam interfaces; ADM-04/05 compartilham uma rota dinâmica prevista, e ADM-06/07 são vistas internas. As rotas de ADM-08 a ADM-12 permanecem propostas até a implementação do roteador. A prioridade funcional do inventário permanece inalterada, assim como as permissões dos perfis.
+
+| Conjunto | Comportamento no compacto |
+|---|---|
+| ADM-01 — Login | Formulário em coluna única, foco e erros por campo, retorno ao site. |
+| ADM-02 — Painel | Indicadores em coluna, entradas recentes em lista estruturada, pendências com indicação textual e navegação por drawer. |
+| ADM-03 e ADM-04 — Atendimentos e contato geral | Busca e filtros acessíveis em painel recolhível; detalhe com identificação, mensagem, status e ações em ordem de leitura. |
+| ADM-05 a ADM-07 — Cabo Aéreo, ficha e PDF | Seções sequenciais para solicitante, localização, anexos e documentos; mapa e visualizador PDF com região bidimensional própria; comandos de gerar, consultar ou enviar PDF conforme a permissão. |
+| ADM-08 a ADM-10 — Comunicação | Lista compacta com tipo, situação e data; criação e edição em formulário vertical, mantendo as ações de rascunho, publicação e ocultação autorizadas. |
+| ADM-11 e ADM-12 — Configurações e usuários | Parâmetros agrupados verticalmente; usuários com perfil, situação e ações acessíveis. |
+
+O Figma documenta as doze áreas administrativas em 1440, 1024, 768 e 390 px, com estados alternativos nos viewports pertinentes. A implementação deverá ser testada em 320 CSS px, larguras intermediárias, zoom, ampliação de texto e navegação por teclado. Drawers e diálogos precisam gerenciar foco, fechamento e retorno ao acionador; listas compactas devem conservar rótulos e ações. Tabelas, mapas e PDFs podem exigir rolagem bidimensional restrita ao próprio componente, com alternativa acessível quando aplicável.
+
+O atendimento em smartphone, inclusive em visitas ou deslocamentos, deverá ser validado com a Bamak para orientar a prioridade de testes e os ajustes operacionais. O uso mobile não altera as verificações de autorização e proteção de dados.
+
 ## 5. Estados administrativos de suporte
 
 | ID | Estado | Aplicação | Comportamento esperado | Protótipo |
