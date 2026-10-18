@@ -181,7 +181,7 @@ Os próximos artefatos devem transformar as decisões acima em:
 - RFC v2 ou adendo;
 - requisitos, user stories, fluxos e métricas;
 - arquitetura atualizada;
-- protótipos low fidelity e mid fidelity, conforme a previsão inicial daquela reunião;
+- protótipos lo-fi e mid-fi, conforme a previsão inicial daquela reunião;
 - guia visual;
 - validação posterior das especificações e dos protótipos com a Bamak.
 
