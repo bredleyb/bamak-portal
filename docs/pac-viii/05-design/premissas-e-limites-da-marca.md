@@ -5,8 +5,8 @@
 | Projeto | Portal Bamak |
 | Fase | PAC VIII |
 | Escopo | Área pública, painel administrativo, protótipos e entregáveis do projeto |
-| Status | Em definição |
-| Última atualização | 11/07/2026 |
+| Status | Premissas operacionais documentadas para o portal; validação institucional pendente |
+| Última atualização | 17/10/2026 |
 
 ## 1. Finalidade
 
@@ -211,10 +211,10 @@ Nenhuma decisão anterior deve ser removida sem registro da mudança.
 | `tipografia-operacional.md` | tipografia do produto |
 | `hierarquia-grid-cards.md` | layout, espaçamento e componentes estruturais |
 | `direcao-visual-interfaces.md` | aplicação conjunta na área pública e no painel |
-| `style-tile.md` | síntese visual dos fundamentos |
-| `guia-visual-interface.md` | padrões consolidados após validação |
+| `style-tile-v3-consolidacao.md` | especificação vigente do Figma e handoff de implementação |
+| [Figma — especificações e handoff](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-62) | contratos de interface, critérios de desenho e pendências de validação |
 
-O style tile e o futuro guia visual devem apontar para este documento em vez de repetir todos os limites.
+O handoff visual do Portal Bamak deve apontar para este documento ao tratar das limitações e permissões de uso da marca. A estrutura de design foi consolidada em 17/10/2026; a aprovação institucional continua pendente.
 
 ## 12. Pendências
 
