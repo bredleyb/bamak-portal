@@ -564,67 +564,67 @@ As diretrizes desta seção mantêm as obrigações técnicas e acadêmicas da s
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Manutenção — critério 01 | Frontend e backend devem usar TypeScript com verificação estrita. | RNF-01 |
-| Manutenção — critério 02 | Código deve ser modular e separar responsabilidades. | RNF-02 |
-| Manutenção — critério 03 | Componentes de interface devem ser reutilizáveis. | RNF-02 |
-| Manutenção — critério 04 | API deve organizar módulos por domínio. | RNF-02 |
-| Manutenção — critério 05 | Migrações do banco devem ser versionadas. | RNF-03 |
-| Manutenção — critério 06 | Ambiente local e de entrega deve ser padronizado com Docker. | RNF-04 |
+| Tipagem estrita | Frontend e backend devem usar TypeScript com verificação estrita. | RNF-01 |
+| Modularidade | Código deve ser modular e separar responsabilidades. | RNF-02 |
+| Reutilização de componentes | Componentes de interface devem ser reutilizáveis. | RNF-02 |
+| Módulos da API | API deve organizar módulos por domínio. | RNF-02 |
+| Migrações versionadas | Migrações do banco devem ser versionadas. | RNF-03 |
+| Ambiente Docker | Ambiente local e de entrega deve ser padronizado com Docker. | RNF-04 |
 
 ### 19.2 Testes
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Testes — critério 07 | Backend deve alcançar pelo menos 75% de cobertura unitária. | RNF-05 |
-| Testes — critério 08 | Frontend deve alcançar pelo menos 25% de cobertura unitária. | RNF-06 |
-| Testes — critério 09 | Regras centrais devem ser desenvolvidas com prática de TDD quando aplicável. | RNF-07 |
-| Testes — critério 10 | Fluxos críticos devem possuir testes de integração ou ponta a ponta. | RNF-08 |
-| Testes — critério 11 | Pull requests devem executar testes automaticamente. | RNF-09 |
+| Cobertura unitária do backend | Backend deve alcançar pelo menos 75% de cobertura unitária. | RNF-05 |
+| Cobertura unitária do frontend | Frontend deve alcançar pelo menos 25% de cobertura unitária. | RNF-06 |
+| Desenvolvimento orientado a testes | Regras centrais devem ser desenvolvidas com prática de TDD quando aplicável. | RNF-07 |
+| Integração e ponta a ponta | Fluxos críticos devem possuir testes de integração ou ponta a ponta. | RNF-08 |
+| Testes automatizados nos PRs | Pull requests devem executar testes automaticamente. | RNF-09 |
 
 ### 19.3 Segurança
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Segurança — critério 12 | Ambiente público deve usar HTTPS. | RNF-12 |
-| Segurança — critério 13 | Senhas devem ser armazenadas com hash seguro. | RNF-13 |
-| Segurança — critério 14 | Rotas administrativas devem exigir autenticação e autorização. | RNF-14 |
-| Segurança — critério 15 | Entradas devem ser validadas no frontend e backend. | RNF-15 |
-| Segurança — critério 16 | Uploads devem validar formato, tamanho e quantidade. | RNF-16 |
-| Segurança — critério 17 | Arquivos privados não devem possuir URL pública permanente. | RNF-17 |
-| Segurança — critério 18 | API deve aplicar rate limiting nos formulários públicos. | RNF-18 |
-| Segurança — critério 19 | Segredos devem ser mantidos fora do repositório. | RNF-19 |
-| Segurança — critério 20 | Dependências devem ser verificadas no pipeline. | RNF-26 |
+| HTTPS em produção | Ambiente público deve usar HTTPS. | RNF-12 |
+| Proteção de senhas | Senhas devem ser armazenadas com hash seguro. | RNF-13 |
+| Autorização administrativa | Rotas administrativas devem exigir autenticação e autorização. | RNF-14 |
+| Validação das entradas | Entradas devem ser validadas no frontend e backend. | RNF-15 |
+| Validação de anexos | Uploads devem validar formato, tamanho e quantidade. | RNF-16 |
+| Acesso privado a arquivos | Arquivos privados não devem possuir URL pública permanente. | RNF-17 |
+| Limitação de requisições | API deve aplicar rate limiting nos formulários públicos. | RNF-18 |
+| Proteção de segredos | Segredos devem ser mantidos fora do repositório. | RNF-19 |
+| Verificação de dependências | Dependências devem ser verificadas no pipeline. | RNF-26 |
 
 ### 19.4 Usabilidade e acessibilidade
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Usabilidade — critério 21 | Interface deve ser responsiva. | RNF-20 |
-| Usabilidade — critério 22 | Formulários devem indicar campos obrigatórios e erros específicos. | RNF-21 |
-| Usabilidade — critério 23 | Ações devem exibir estados de carregamento, sucesso e falha. | RNF-22 |
-| Usabilidade — critério 24 | Navegação deve funcionar por teclado nas interações principais. | RNF-21 |
-| Usabilidade — critério 25 | Contraste, foco visível e textos alternativos devem ser tratados no guia visual. | RNF-21 |
-| Usabilidade — critério 26 | Mapa deve possuir alternativa textual equivalente. | RNF-27 |
+| Responsividade | Interface deve ser responsiva. | RNF-20 |
+| Erros de formulário | Formulários devem indicar campos obrigatórios e erros específicos. | RNF-21 |
+| Estados de operação | Ações devem exibir estados de carregamento, sucesso e falha. | RNF-22 |
+| Navegação por teclado | Navegação deve funcionar por teclado nas interações principais. | RNF-21 |
+| Contraste e foco | Contraste, foco visível e textos alternativos devem ser tratados no guia visual. | RNF-21 |
+| Mapa acessível por texto | Mapa deve possuir alternativa textual equivalente. | RNF-27 |
 
 ### 19.5 Desempenho e disponibilidade
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Operação — critério 27 | Páginas públicas devem priorizar carregamento eficiente de imagens e conteúdo. | RNF-23 |
-| Operação — critério 28 | Listagens devem usar paginação ou carregamento controlado. | RNF-23 |
-| Operação — critério 29 | API deve expor endpoint de healthcheck. | RNF-11 |
-| Operação — critério 30 | Falhas relevantes devem ser registradas em logs e enviadas ao Sentry. | RNF-11 |
-| Operação — critério 31 | Aplicação deve estar acessível publicamente para avaliação e Demo Day. | RNF-25 |
+| Carregamento eficiente | Páginas públicas devem priorizar carregamento eficiente de imagens e conteúdo. | RNF-23 |
+| Paginação e listagens | Listagens devem usar paginação ou carregamento controlado. | RNF-23 |
+| Healthcheck da API | API deve expor endpoint de healthcheck. | RNF-11 |
+| Logs e monitoramento | Falhas relevantes devem ser registradas em logs e enviadas ao Sentry. | RNF-11 |
+| Disponibilidade pública | Aplicação deve estar acessível publicamente para avaliação e Demo Day. | RNF-25 |
 
 ### 19.6 Entrega e análise
 
 | Critério | Diretriz da RFC | Referência canônica |
 |---|---|---|
-| Entrega — critério 32 | GitHub Actions deve executar lint, testes e build. | RNF-09 |
-| Entrega — critério 33 | SonarCloud deve analisar qualidade e segurança do código. | RNF-10 |
-| Entrega — critério 34 | Deploy deve ocorrer por pipeline automatizado. | RNF-24 |
-| Entrega — critério 35 | Deploy manual por FTP ou SSH não será usado como processo de entrega. | RNF-28 |
-| Entrega — critério 36 | Frontend e backend próprios devem permanecer identificáveis na arquitetura. | RNF-29 |
+| Pipeline de integração | GitHub Actions deve executar lint, testes e build. | RNF-09 |
+| Análise estática e segurança | SonarCloud deve analisar qualidade e segurança do código. | RNF-10 |
+| Deploy por pipeline | Deploy deve ocorrer por pipeline automatizado. | RNF-24 |
+| Restrições ao deploy manual | Deploy manual por FTP ou SSH não será usado como processo de entrega. | RNF-28 |
+| Camadas próprias da solução | Frontend e backend próprios devem permanecer identificáveis na arquitetura. | RNF-29 |
 
 ## 20. Privacidade e LGPD
 
