@@ -329,3 +329,13 @@ O tratamento administrativo do atendimento é fluxo de apoio e será testado jun
 - provedor de storage;
 - serviço de e-mail;
 - biblioteca de PDF.
+
+## 16. Referência vigente de interface para Cabo Aéreo
+
+**Decisão de design registrada em 17/10/2026**
+
+O conjunto **PUB-07 — Cabo Aéreo**, na página 02 do Figma, permanece a referência vigente para implementar a solicitação pública. A **experiência progressiva** em dez telas da página 03 constitui alternativa exploratória, ainda em avaliação; a adoção depende de aprovação expressa da Bamak e de atualização rastreável das interfaces, requisitos e testes correspondentes.
+
+A confirmação **PUB-08** decorre do registro válido da solicitação. Localização textual, mapa opcional, anexos, consentimento e proteção da ficha e do PDF internos preservam as regras da RFC v2. O encerramento do desenho não indica aceite institucional do fluxo nem prova funcionamento da aplicação.
+
+Referências: [PUB-07 e alternativas no Figma](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-58) · [Decisão e condições de adoção](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=948-3).
