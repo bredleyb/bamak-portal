@@ -4,7 +4,7 @@ Este repositório reúne o **Portal Bamak**, projeto de **Trabalho de Conclusão
 
 A solução pretende organizar a apresentação da empresa, suas aplicações e produtos, os conteúdos de Comunicação e a entrada de solicitações comerciais. O atendimento técnico e comercial permanece sob responsabilidade da equipe da Bamak.
 
-> **Situação do projeto (17/10/2026):** PAC VII concluído; PAC VIII em execução. O desenho e os protótipos de referência foram concluídos no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica já havia sido validada localmente; as funcionalidades de negócio, os testes, a validação institucional da Bamak e a publicação pública permanecem pendentes. **Ainda não existe versão pública funcional do novo portal para demonstração.**
+> **Situação do projeto (17/10/2026):** PAC VII concluído; PAC VIII em execução. O desenho e os protótipos de **alta fidelidade visual (hi-fi)** foram concluídos no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica já havia sido validada localmente; as funcionalidades de negócio, os testes, a validação institucional da Bamak e a publicação pública permanecem pendentes. **Ainda não existe versão pública funcional do novo portal para demonstração.**
 
 **Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
