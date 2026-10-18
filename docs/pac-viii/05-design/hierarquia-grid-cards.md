@@ -560,7 +560,7 @@ Cards apenas para:
 
 ### 9.6 Reorganização no compacto
 
-Nos 320–767 px, a navegação administrativa usa drawer. O título e as ações principais permanecem identificáveis no conteúdo; indicadores, mensagens e formulários seguem a ordem de leitura e foco.
+Nos 320–767 CSS px, a navegação administrativa usa drawer. O título e as ações principais permanecem identificáveis no conteúdo; indicadores, mensagens e formulários seguem a ordem de leitura e de foco. No Figma, a referência compacta é 390 px; a largura de 320 CSS px exige validação no navegador.
 
 | Conteúdo administrativo | Tratamento no compacto |
 |---|---|
@@ -574,7 +574,7 @@ Nos 320–767 px, a navegação administrativa usa drawer. O título e as açõe
 
 Em largura intermediária, rail de 72 px; na expansão, sidebar de 256 px. O ponto de troca deve respeitar o conteúdo e a densidade da tela. Manter rótulos persistentes para campos, alvo de interação confortável (referência operacional de 44 px), contraste e foco visível. Testar reflow no equivalente a 320 CSS px, com exceções justificadas para componentes genuinamente bidimensionais.
 
-A representação em Figma utiliza as larguras de referência do projeto. Critérios funcionais de RNF-20 e RNF-21 exigem verificação na interface implementada.
+A representação em Figma utiliza 1440, 1024, 768 e 390 px nas doze áreas administrativas, com estados complementares nos viewports pertinentes. A implementação deverá atender `RNF-20` (responsividade) e `RNF-21` (acessibilidade), conforme o cadastro detalhado de requisitos. Os testes devem incluir foco e retorno nos drawers, acesso a PDF protegido, operação de filtros, ações por perfil e ampliação de conteúdo.
 
 ## 10. Estilo dos cards
 
