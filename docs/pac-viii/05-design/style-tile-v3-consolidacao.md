@@ -1,25 +1,29 @@
-# Style tile v3 — Consolidação técnica e handoff
+# Handoff visual — Portal Bamak (consolidação do Figma)
 
 | Campo | Valor |
 |---|---|
 | Projeto | Portal Bamak — PAC VIII |
-| Status | Referência visual v3 preparada para prototipação e implementação; validação institucional pendente |
-| Data da revisão | 15/10/2026 |
-| Escopo | Área pública, painel administrativo, fundamentos, componentes e estudos responsivos |
+| Status | Design e protótipos documentados; implementação, testes funcionais e validação da Bamak pendentes |
+| Data da revisão | 17/10/2026 |
+| Escopo | Fundamentos, componentes, áreas pública e administrativa, fluxos e especificações de implementação |
 | Fonte de design | [Figma — Bamak](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/Bamak-%7C-Arquitetura-da-Informa%C3%A7%C3%A3o-e-Prot%C3%B3tipos) |
-| Origem | Revisão técnica da v2, preservada no arquivo Figma como página 99 |
+| Origem | Evolução do style tile v3, consolidada em sete páginas definitivas no Figma |
 
-## 1. Organização no Figma
+## 1. Organização definitiva no Figma
 
-- **05 — Style tile:** fundamentos, collage público, collage administrativo, estados e Setup.
-- **06 — Componentes | v3:** mestres, conjuntos de variantes e galeria de exemplos instanciados.
-- **07 — Responsividade | v3:** composição pública de 390 px, lista administrativa mobile de 390 px, detalhe de Cabo Aéreo de 390 px e menu compacto.
-- **99 — Arquivo | Style tile v2:** cópia de referência anterior às alterações estruturais.
-- **Lo-fi Público:** wireframes históricos preservados, não equivalentes à RFC v2.
+| Página | Conteúdo atual | Referência |
+|---|---|---|
+| 00 — Fundamentos de design | Marca, cor, tipografia, grids, imagem e iconografia. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=120-2) |
+| 01 — Biblioteca de componentes | Variantes, componentes independentes e exemplos instanciados. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=299-225) |
+| 02 — Portal público | PUB-01 a PUB-14 e estados pertinentes em quatro larguras. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-58) |
+| 03 — Experiência guiada | Mapa de Cabo Aéreo e alternativa progressiva em avaliação. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-59) |
+| 04 — Painel administrativo | ADM-01 a ADM-12, acessos e estados operacionais. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-60) |
+| 05 — Protótipos navegáveis | Três fluxos FL, cenários de revisão e apresentação mobile. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-61) |
+| 06 — Especificações e handoff | Critérios por tela, rastreabilidade, dependências e decisões. | [Abrir](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=324-62) |
 
-Página pública de referência: `node-id=120-2`; biblioteca: `node-id=299-225`; estudos responsivos: `node-id=303-58`.
+A estrutura reúne **14 áreas públicas e 12 administrativas**, representadas em **157 telas e estados-base** (74 públicos e 83 administrativos). O trabalho inclui **35 cenários de revisão**, **36 apresentações mobile** e **10 telas exploratórias** da proposta progressiva de Cabo Aéreo. Essas categorias têm finalidades diferentes.
 
-A versão 3 **não representa aprovação da Bamak**. Exemplos de atendimento, nomes de empresas, textos de interface e fotografias em cinza são demonstrativos; não descrevem fatos, clientes nem instalações reais.
+Os antigos endereços das páginas 07 e 99 e de nós removidos representam uma organização superada. Os wireframes do PAC VII continuam preservados como referência histórica daquela fase. A finalização do desenho **não representa aprovação da Bamak**. Nomes, imagens e dados de demonstração precisam de validação institucional ou substituição antes da publicação.
 
 ## 2. Direção visual mantida
 
@@ -78,31 +82,30 @@ As proporções são referências de cor, **não prova de conformidade integral*
 - Grids preservados: 1440/12 colunas/margem 80/gutter 24; 1024/8/32/24; 768/8/24/16; 390/4/16/16.
 - A aplicação precisa testar reflow a 320 CSS px, textos ampliados e espaçamento personalizado. As pranchas não substituem testes de navegador.
 
-## 5. Componentes reais da v3
+## 5. Biblioteca de componentes vigente
 
-A página 06 contém componentes locais Figma para:
+A página 01 contém nove conjuntos com **59 variantes**:
 
 | Conjunto | Variantes |
 |---|---:|
-| Button | 30 — Primary, Secondary, Ghost × Small/Medium × Default/Hover/Pressed/Focused/Disabled |
+| Button | 32 — Primary, Secondary e Ghost × Small/Medium × Default/Hover/Pressed/Focused/Disabled; dois Loading em Medium |
 | Field | 4 — Default, Focused, Error, ReadOnly |
 | Select | 3 — Default, Focused, Error |
-| Checkbox | 3 — Unchecked, Checked, Error |
+| Checkbox | 4 — Unchecked, Checked, Error, Focused |
 | Badge | 4 — Neutral, New, InReview, Done |
 | Notification | 4 — Info, Success, Warning, Danger |
 | NavItem | 2 — Default, Active |
 | TableRow | 3 — New, InReview, Done |
 | ContentCard | 3 — Application, Product, Publication |
+| **Total** | **59 variantes** |
 
-São **56 variantes** distribuídas em nove conjuntos, além dos componentes preexistentes da marca. Os grupos essenciais usam Auto Layout, estilos tipográficos e propriedades de texto, com instâncias demonstradas na galeria.
+Cinco componentes independentes completam os **64 componentes da biblioteca**: `Icon/CaboAereo`, `FlowStep`, `FlowBranch`, `ScenarioRail` e `PrototypeAction`. Os quatro componentes de fluxo destinam-se à representação e prototipação. Três mestres de marca pertencem à página 00 e são contabilizados separadamente.
 
-As cores de badges operacionais não devem se confundir com feedback: `Em análise` é um estado de processo neutro, não um aviso por padrão.
-
-Os componentes da página 06 são padrões **visuais**, não controles funcionais. O comportamento, semântica DOM, acessibilidade e estados reais serão implementados e testados no frontend.
+Variantes, instâncias, Auto Layout e tokens oferecem referências visuais; a implementação deve verificar semântica DOM, autorização, estados reais, responsividade e acessibilidade. Badges operacionais, como `Em análise`, expressam estados de processo sem implicar alerta automático.
 
 ### 5.1 Iconografia
 
-Padrão: **Lucide oficial**, SVG outline de 24 px, stroke 2 px, dimensões de 16/20/24/32 px conforme função. As amostras do Setup e a navegação administrativa usam SVGs oficiais provenientes de `lucide-icons/lucide`. Configurações usa `settings-2` (não engrenagem desenhada à mão). Ícones sem texto exigem nome acessível e alvo interativo adequado.
+Padrão: **Lucide oficial**, SVG outline de 24 px, stroke de 2 px e dimensões de 16/20/24/32 px conforme função. Configurações usa `settings-2`. `Icon/CaboAereo` é o pictograma específico do portal, utilizado por instância e sujeito à confirmação de fidelidade técnica com a Bamak. Ícones sem texto exigem nome acessível e alvo interativo adequado.
 
 ### 5.2 Princípios de utilização
 
@@ -113,17 +116,17 @@ Padrão: **Lucide oficial**, SVG outline de 24 px, stroke 2 px, dimensões de 16
 - Produto, Aplicação e Comunicação têm modelos distintos. Fotografias: Produto 4:3; Aplicações e Comunicação 16:9; hero 4:3.
 - Estados de carregamento são visuais na prancha, mas devem ter sinalização apropriada durante a execução.
 
-## 6. Estudos responsivos (página 07)
+## 6. Responsividade, fluxos e decisão de Cabo Aéreo
 
-Foram criadas referências em 390 px para:
-1. Interface pública: navegação compacta, hero empilhado, CTAs, cards reais instanciados e chamada institucional.
-2. Administração: busca com rótulo persistente, filtros compactos e itens de atendimento com badges.
-3. Detalhe de Cabo Aéreo: solicitante, contexto, localização, anexos e ação de gerar ficha PDF.
-4. Menu público compacto com oito destinos e rótulos legíveis.
+Cada área PUB-01 a PUB-14 e ADM-01 a ADM-12 tem referência principal nos viewports **1440, 1024, 768 e 390 px**. Os estados alternativos podem ser apresentados na largura em que a diferença de comportamento é relevante. A aplicação deve ser validada em **320 CSS px**, zoom, textos ampliados, teclado e tecnologias assistivas.
 
-Separar listagem administrativa de detalhe evita apresentar operações de um registro arbitrário dentro de uma tabela sem seleção. Essa distinção deve ser preservada nos protótipos finais.
+Na página 05, os três fluxos navegáveis cobrem **FL-01 (contato geral), FL-02 (Cabo Aéreo, do visitante ao atendimento interno) e FL-03 (Comunicação)**. Os cenários e apresentações mobile exemplificam recuperação de erros e continuidade. As transições do Figma são simulações e não realizam autenticação, persistência, upload, geração de PDF ou envio de e-mail.
 
-Não foram prototipadas ainda todas as telas da RFC v2. Estes são **estudos de sistema** para orientar sua produção.
+Na página 03 existe uma **alternativa progressiva de solicitação de Cabo Aéreo**, com dez telas exploratórias em 390 × 844 px. Segundo o [registro de decisão](https://www.figma.com/design/v8isMyxA5VJCqYOimNlGjd/?node-id=948-3), **PUB-07 permanece como referência vigente para implementação**. A substituição depende de decisão explícita e aprovação da Bamak. A confirmação pública PUB-08 ocorre após persistência; ficha, imagens e PDF interno continuam protegidos.
+
+No painel, a listagem de atendimentos permanece distinta dos detalhes de registro. ADM-04/ADM-05 compartilham uma rota dinâmica proposta e ADM-06/ADM-07 são vistas ou estados internos. A adaptação mobile conserva as mesmas regras de acesso.
+
+Para rastreabilidade, consultar a [RFC v2](../02-escopo/rfc-v2-pac-viii.md), o [cadastro detalhado de requisitos](../03-requisitos/requisitos-user-stories-fluxos-metricas.md) e o [inventário de telas](../04-arquitetura/inventario-telas.md).
 
 ## 7. Pendências e critérios de validação
 
@@ -155,8 +158,8 @@ Não foram prototipadas ainda todas as telas da RFC v2. Estes são **estudos de 
 - [IBM Carbon — Notificações](https://carbondesignsystem.com/components/notification/usage/)
 - [GOV.UK Design System — Error summary](https://design-system.service.gov.uk/components/error-summary/)
 
-## 9. Histórico e handoff
+## 9. Histórico e autoridade de implementação
 
-A v2 foi copiada para a página 99 dentro do Figma. Essa cópia **não é backup independente**. A página 05 permanece como style tile de apresentação; a biblioteca de componentes fica na 06; os estudos responsivos ficam na 07.
+O style tile v3 deu origem às diretrizes visuais; em 17/10/2026 o conteúdo passou a integrar as sete páginas definitivas do Figma. A estrutura antiga permanece como contexto histórico da evolução do arquivo.
 
-As demais notas em `docs/pac-viii/05-design/` são referências históricas e justificativas de decisão; onde houver conflito técnico, esta especificação v3 apresenta o estado mais recente do Figma, sujeito à validação funcional e aprovação futura.
+A página 06 do Figma reúne contratos de tela, critérios e rastreabilidade para implementação. Esta especificação descreve fundamentos visuais; a RFC v2 e os requisitos detalhados definem escopo, regras e critérios funcionais. A conclusão do desenho permanece separada da aprovação institucional, da implementação e dos testes reais da solução.
