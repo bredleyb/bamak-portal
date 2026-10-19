@@ -49,6 +49,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Testes e cobertura
+        run: npm run test:cov -- --runInBand --ci
+
+      - name: Publicar cobertura da API
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-api
+          path: apps/api/coverage/lcov.info
+          if-no-files-found: ignore
+
   web:
     name: Web
     runs-on: ubuntu-latest
@@ -80,6 +91,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Testes e cobertura
+        run: npm run test:cov
+
+      - name: Publicar cobertura da Web
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-web
+          path: apps/web/coverage/lcov.info
+          if-no-files-found: ignore
+
   deploy_scripts:
     name: Scripts de deploy
     runs-on: ubuntu-latest
@@ -109,6 +131,7 @@ jobs:
         run: sudo sh infra/backup/test-backup-postgres-integration.sh
 
   sonar_api:
+    needs: [api]
     name: SonarQube API
     runs-on: ubuntu-latest
     steps:
@@ -125,6 +148,12 @@ jobs:
       - name: Instalar dependencias
         working-directory: apps/api
         run: npm ci
+      - name: Recuperar cobertura da API
+        uses: actions/download-artifact@v4
+        with:
+          name: cobertura-api
+          path: apps/api/coverage
+
       - name: Analisar API
         uses: SonarSource/sonarqube-scan-action@v8.3.0
         with:
@@ -132,6 +161,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   sonar_web:
+    needs: [web]
     name: SonarQube Web
     runs-on: ubuntu-latest
     steps:
@@ -148,6 +178,12 @@ jobs:
       - name: Instalar dependencias
         working-directory: apps/web
         run: npm ci
+      - name: Recuperar cobertura da Web
+        uses: actions/download-artifact@v4
+        with:
+          name: cobertura-web
+          path: apps/web/coverage
+
       - name: Analisar Web
         uses: SonarSource/sonarqube-scan-action@v8.3.0
         with:
