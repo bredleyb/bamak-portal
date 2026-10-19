@@ -101,6 +101,7 @@ jobs:
               sh infra/deploy/test-bamak-deploy.sh
               sh -n infra/backup/backup-postgres.sh
               sh -n infra/backup/test-backup-postgres.sh
+              sh -n infra/backup/install-backup.sh
               sh infra/backup/test-backup-postgres.sh
             '
 

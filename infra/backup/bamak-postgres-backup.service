@@ -1,0 +1,13 @@
+[Unit]
+Description=Portal Bamak - backup PostgreSQL
+Requires=docker.service
+After=docker.service
+AssertPathExists=/usr/local/sbin/bamak-backup-postgres
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/local/sbin/bamak-backup-postgres
+TimeoutStartSec=30min
