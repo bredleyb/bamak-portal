@@ -78,7 +78,21 @@ Até 19/10/2026, foram comprovados:
 
 A primeira execução automática agendada ainda precisa de confirmação.
 
-A restauração integrada foi realizada no ambiente descartável de CI. Não foi executado teste de recuperação integral da VPS.
+A restauração integrada de dois registros fictícios foi realizada anteriormente na CI.
+
+Em 19/10/2026, o dump `postgres-20261019T020806Z-71936.dump`, gerado na VPS, foi submetido a uma verificação adicional:
+
+- integridade SHA-256 confirmada;
+- estrutura reconhecida pelo `pg_restore --list`;
+- origem PostgreSQL 17.11;
+- restauração concluída sem erros em PostgreSQL 17 descartável;
+- contêiner sem rede e sem acesso ao volume de produção;
+- consulta final retornando zero tabelas públicas, conforme o conteúdo original;
+- rotina de remoção automática do contêiner prevista no script de teste.
+
+A evidência confirma a recuperação do dump efetivamente produzido na VPS. Como o banco ainda não possui tabelas de negócio, a recuperação de registros permanece demonstrada separadamente pelo teste integrado da CI.
+
+A recuperação integral da VPS ainda não foi testada.
 
 ## 5. Procedimento de recuperação
 
@@ -117,7 +131,7 @@ O teste:
 
 Esse teste integra a CI do GitHub Actions.
 
-Sua aprovação demonstra o funcionamento do procedimento sobre dados fictícios. A restauração de um dump efetivamente gerado na VPS ainda deve ser validada separadamente, em ambiente isolado.
+Sua aprovação demonstra o funcionamento do procedimento sobre dados fictícios. A restauração de um dump gerado na VPS foi validada em 19/10/2026, utilizando PostgreSQL 17 descartável, sem acesso à rede ou ao volume de produção.
 
 ### 5.3. Recuperação integral da VPS
 
@@ -174,7 +188,7 @@ A documentação deverá permitir que a empresa compreenda as limitações da so
 - Verificar a disponibilidade efetiva do backup semanal Hostinger.
 - Completar o inventário dos componentes sujeitos a backup.
 - Consolidar o procedimento reproduzível de recuperação.
-- Registrar as evidências e limitações da recuperação operacional.
+- Confirmar a remoção do contêiner temporário e complementar as evidências após a implementação de dados de domínio.
 - Reavaliar a proteção de anexos e PDFs nas Issues #99 e #100.
 
 Referências: Issue #88 e PR #113.
