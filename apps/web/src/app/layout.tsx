@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Source_Sans_3 } from "next/font/google";
+import { SiteHeader } from "../components/layout/site-header";
+import { SiteFooter } from "../components/layout/site-footer";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -26,7 +28,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${archivo.variable} ${sourceSans3.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SiteHeader />
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
