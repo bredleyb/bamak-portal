@@ -76,7 +76,18 @@ Até 19/10/2026, foram comprovados:
 - comparação dos registros originais com os restaurados;
 - aprovação das verificações de CI no PR #113.
 
-A primeira execução automática agendada ainda precisa de confirmação.
+A primeira execução automática foi confirmada em 19/10/2026, às 06:05:28 UTC (03:05:28, horário de Brasília). O `systemd` registrou `status=0/SUCCESS` e a criação de `postgres-20261019T060528Z-209148.dump`.
+
+As verificações posteriores comprovaram:
+
+- geração do dump e do arquivo `.sha256`, ambos com permissões restritas;
+- integridade SHA-256 aprovada (`OK`);
+- reconhecimento do arquivo pelo `pg_restore --list`;
+- origem PostgreSQL 17.11, formato customizado e compressão gzip;
+- quatro entradas internas no índice, sem objetos de domínio, conforme o banco atual;
+- próxima execução agendada para 20/10/2026, às 06:09:52 UTC.
+
+A verificação comprova a execução automática e a integridade do arquivo, mas não constitui um novo teste de restauração. A restauração isolada foi demonstrada anteriormente com o dump manual.
 
 A restauração integrada de dois registros fictícios foi realizada anteriormente na CI.
 
@@ -184,7 +195,7 @@ A documentação deverá permitir que a empresa compreenda as limitações da so
 
 ## 8. Pendências de validação
 
-- Confirmar a primeira execução automática do timer PostgreSQL.
+- Acompanhar as execuções automáticas posteriores e eventuais falhas do timer PostgreSQL.
 - Verificar a disponibilidade efetiva do backup semanal Hostinger.
 - Completar o inventário dos componentes sujeitos a backup.
 - Consolidar o procedimento reproduzível de recuperação.
