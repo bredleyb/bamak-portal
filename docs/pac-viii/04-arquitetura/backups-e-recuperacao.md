@@ -88,7 +88,7 @@ Em 19/10/2026, o dump `postgres-20261019T020806Z-71936.dump`, gerado na VPS, foi
 - restauração concluída sem erros em PostgreSQL 17 descartável;
 - contêiner sem rede e sem acesso ao volume de produção;
 - consulta final retornando zero tabelas públicas, conforme o conteúdo original;
-- rotina de remoção automática do contêiner prevista no script de teste.
+- remoção do contêiner temporário confirmada por inspeção com `docker ps -a --filter name=bamak-restauracao`, sem contêineres encontrados.
 
 A evidência confirma a recuperação do dump efetivamente produzido na VPS. Como o banco ainda não possui tabelas de negócio, a recuperação de registros permanece demonstrada separadamente pelo teste integrado da CI.
 
@@ -188,7 +188,7 @@ A documentação deverá permitir que a empresa compreenda as limitações da so
 - Verificar a disponibilidade efetiva do backup semanal Hostinger.
 - Completar o inventário dos componentes sujeitos a backup.
 - Consolidar o procedimento reproduzível de recuperação.
-- Confirmar a remoção do contêiner temporário e complementar as evidências após a implementação de dados de domínio.
+- Reavaliar a recuperação e complementar os testes após a implementação de dados de domínio.
 - Reavaliar a proteção de anexos e PDFs nas Issues #99 e #100.
 
 Referências: Issue #88 e PR #113.
