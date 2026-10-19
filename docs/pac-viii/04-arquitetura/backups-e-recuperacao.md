@@ -42,19 +42,25 @@ A existência de um agendamento habilitado não comprova a disponibilidade de um
 
 A primeira cópia automática disponível deverá ser verificada posteriormente.
 
-### 3.3. Abrangência
+### 3.3. Inventário de componentes e abrangência
 
-A rotina própria protege o conteúdo lógico do PostgreSQL.
+O inventário foi conferido com o `compose.production.yaml` e a implementação atual de backup.
 
-Ela não contempla atualmente:
+| Componente | Persistência ou origem | Proteção atual |
+| --- | --- | --- |
+| PostgreSQL | Volume `bamak-production_postgres_data` | Dump lógico diário, retenção local de aproximadamente 14 dias |
+| Caddy — dados | Volume `bamak-production_caddy_data` | Fora do dump; recuperação depende de reconstrução ou backup da VPS |
+| Caddy — configuração | Volume `bamak-production_caddy_config` | Fora do dump; recuperação depende de reconstrução ou backup da VPS |
+| Aplicação e Caddyfile | Código versionado no GitHub | Reconstrução por deploy automatizado |
+| Configuração de produção | `.env.production` e configurações do host | Proteção local; recuperação independente ainda não demonstrada |
+| Credenciais e chaves | Gerenciamento restrito fora do repositório | Requer procedimento seguro de recuperação ou substituição |
+| Anexos e PDFs privados | Armazenamento previsto para as Issues #99 e #100 | Ainda não implementado |
 
-- volumes persistentes do Caddy;
-- configurações completas do sistema operacional;
-- segredos e credenciais necessários à reconstrução do ambiente;
-- futuros anexos privados e PDFs armazenados fora do banco;
-- recuperação integral de uma VPS perdida.
+O backup lógico do PostgreSQL não equivale a uma cópia completa da infraestrutura.
 
-A cobertura deverá ser reavaliada quando forem implementados os componentes de persistência de domínio e armazenamento privado.
+O agendamento semanal da Hostinger constitui uma proteção complementar prevista, ainda sem cópia recuperável confirmada.
+
+A estratégia de recuperação deverá ser reavaliada quando o sistema passar a armazenar dados pessoais reais e arquivos privados.
 
 ## 4. Verificações realizadas
 
@@ -76,20 +82,71 @@ A restauração integrada foi realizada no ambiente descartável de CI. Não foi
 
 ## 5. Procedimento de recuperação
 
-A recuperação deve preservar os dados existentes e evitar operações destrutivas sem autorização.
+### 5.1. Recuperação lógica do PostgreSQL
 
-Antes de executar uma restauração:
+A recuperação de dados deve ocorrer inicialmente em um banco isolado, preservando a instância de produção.
 
-1. Identificar a falha e sua abrangência.
-2. Identificar a última cópia disponível.
-3. Conferir a integridade do arquivo de backup.
-4. Preparar um ambiente PostgreSQL isolado e compatível.
-5. Restaurar os dados nesse ambiente.
-6. Verificar a consistência dos registros.
-7. Documentar os resultados e eventuais limitações.
-8. Autorizar separadamente qualquer substituição de dados no ambiente principal.
+Procedimento previsto:
 
-O procedimento técnico detalhado será consolidado após as validações operacionais restantes da Issue #88.
+1. Identificar o backup mais recente anterior à falha.
+2. Localizar o arquivo `.dump` e seu correspondente `.sha256`.
+3. Conferir a integridade utilizando `sha256sum -c`.
+4. Verificar a estrutura do dump utilizando `pg_restore --list`.
+5. Preparar uma instância PostgreSQL 17 isolada, sem exposição pública e sem compartilhamento do volume de produção.
+6. Criar um banco de destino vazio.
+7. Restaurar o dump utilizando `pg_restore` com `--no-owner`, `--no-acl` e `--exit-on-error`.
+8. Conferir tabelas, registros e relacionamentos aplicáveis.
+9. Registrar resultado, duração, inconsistências e limitações observadas.
+10. Autorizar separadamente qualquer intervenção nos dados de produção.
+
+Não executar restaurações destrutivas, exclusão de volumes ou substituição do banco principal sem autorização e procedimento específico.
+
+### 5.2. Verificação automatizada existente
+
+O arquivo `infra/backup/test-backup-postgres-integration.sh` executa um teste reproduzível em ambiente Linux descartável.
+
+O teste:
+
+- inicia PostgreSQL 17 isolado;
+- insere dois registros fictícios;
+- executa o script de backup;
+- verifica o checksum SHA-256;
+- restaura o dump em outro banco;
+- compara os registros originais e restaurados;
+- remove os recursos temporários ao terminar.
+
+Esse teste integra a CI do GitHub Actions.
+
+Sua aprovação demonstra o funcionamento do procedimento sobre dados fictícios. A restauração de um dump efetivamente gerado na VPS ainda deve ser validada separadamente, em ambiente isolado.
+
+### 5.3. Recuperação integral da VPS
+
+A recuperação integral depende dos mecanismos disponibilizados pela Hostinger.
+
+Antes de utilizar uma cópia integral:
+
+1. Confirmar a existência e a data do backup disponível.
+2. Identificar os serviços e dados potencialmente afetados.
+3. Avaliar o impacto da substituição do estado atual da VPS.
+4. Planejar uma janela de manutenção apropriada.
+5. Obter autorização específica para a restauração.
+6. Executar o procedimento documentado pelo provedor.
+7. Verificar Docker, PostgreSQL, API, aplicação web, Caddy e HTTPS.
+8. Registrar o resultado e as limitações.
+
+Até a conclusão das verificações da Issue #88, não há evidência de restauração integral da VPS.
+
+### 5.4. Limites de recuperação
+
+A periodicidade diária dos dumps define o intervalo pretendido entre pontos de recuperação do PostgreSQL, sujeito ao sucesso das execuções.
+
+Não há RPO ou RTO formalmente validado.
+
+A retenção local aproximada de 14 dias limita a disponibilidade histórica dos dumps.
+
+A recuperação integral permanece dependente dos backups da Hostinger, cuja primeira cópia ainda precisa ser confirmada.
+
+A implementação de novos volumes, anexos privados e documentos PDF exigirá revisão deste procedimento.
 
 ## 6. Riscos residuais aceitos na fase acadêmica
 
