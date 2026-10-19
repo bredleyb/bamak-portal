@@ -6,11 +6,11 @@ export type BadgeStatus =
   | "in-review"
   | "done";
 
-export type BadgeProps = {
+export type BadgeProps = Readonly<{
   label: string;
   status?: BadgeStatus;
   className?: string;
-};
+}>;
 
 export function Badge({
   label,

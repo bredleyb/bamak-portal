@@ -13,7 +13,7 @@ export type ContentCardImage = {
   alt: string;
 };
 
-export type ContentCardProps = {
+export type ContentCardProps = Readonly<{
   type: ContentCardType;
   title: string;
   description: string;
@@ -21,7 +21,7 @@ export type ContentCardProps = {
   href: string;
   image?: ContentCardImage;
   className?: string;
-};
+}>;
 
 const placeholders = {
   application: {

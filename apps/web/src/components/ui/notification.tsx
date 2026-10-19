@@ -9,12 +9,12 @@ export type NotificationTone =
   | "warning"
   | "danger";
 
-export type NotificationProps = {
+export type NotificationProps = Readonly<{
   title: string;
   description: string;
   tone?: NotificationTone;
   className?: string;
-};
+}>;
 
 export function Notification({
   title,
