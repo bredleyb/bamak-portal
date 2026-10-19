@@ -1,0 +1,109 @@
+.bamak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.bamak-button--small {
+  font-size: 14px;
+}
+
+.bamak-button--medium {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+.bamak-button--primary {
+  background: var(--semantic-action-primary);
+  color: #ffffff;
+}
+
+.bamak-button--primary:hover:not(:disabled) {
+  background: var(--semantic-action-primary-background-hover);
+}
+
+.bamak-button--primary:active:not(:disabled) {
+  background: var(--semantic-action-primary-background-pressed);
+}
+
+.bamak-button--secondary {
+  background: var(--semantic-surface-default);
+  border-color: var(--semantic-action-primary);
+  color: var(--semantic-action-primary);
+}
+
+.bamak-button--secondary:hover:not(:disabled) {
+  background: var(--semantic-action-secondary-background-hover);
+}
+
+.bamak-button--secondary:active:not(:disabled) {
+  background: var(--semantic-action-secondary-background-pressed);
+}
+
+.bamak-button--ghost {
+  background: var(--semantic-surface-default);
+  color: var(--semantic-content-link);
+}
+
+.bamak-button--ghost:hover:not(:disabled) {
+  background: var(--semantic-surface-brand-subtle);
+}
+
+.bamak-button--ghost:active:not(:disabled) {
+  background: var(--semantic-action-secondary-background-pressed);
+}
+
+.bamak-button:disabled:not(.bamak-button--loading) {
+  background: var(--semantic-surface-disabled);
+  border-color: transparent;
+  color: var(--semantic-content-disabled);
+  cursor: not-allowed;
+}
+
+.bamak-button__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.bamak-button__spinner {
+  display: inline-block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: bamak-button-spin 800ms linear infinite;
+}
+
+@keyframes bamak-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bamak-button__spinner {
+    animation: none;
+  }
+
+  .bamak-button {
+    transition: none;
+  }
+}
