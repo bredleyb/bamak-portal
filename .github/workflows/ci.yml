@@ -104,6 +104,9 @@ jobs:
               sh infra/backup/test-backup-postgres.sh
             '
 
+      - name: Testar backup e restauracao PostgreSQL
+        run: sudo sh infra/backup/test-backup-postgres-integration.sh
+
   sonar_api:
     name: SonarQube API
     runs-on: ubuntu-latest
