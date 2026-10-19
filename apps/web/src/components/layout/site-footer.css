@@ -179,3 +179,13 @@
     gap: 9px;
   }
 }
+
+@media (max-width: 359px) {
+  .bamak-site-footer__columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bamak-site-footer__section:last-child {
+    grid-column: auto;
+  }
+}
