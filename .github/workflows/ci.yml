@@ -121,7 +121,14 @@ jobs:
               sh -n infra/deploy/test-bamak-deploy.sh
               sh infra/deploy/test-ssh-gate.sh
               sh infra/deploy/test-bamak-deploy.sh
+              sh -n infra/backup/backup-postgres.sh
+              sh -n infra/backup/test-backup-postgres.sh
+              sh -n infra/backup/install-backup.sh
+              sh infra/backup/test-backup-postgres.sh
             '
+
+      - name: Testar backup e restauracao PostgreSQL
+        run: sudo sh infra/backup/test-backup-postgres-integration.sh
 
   sonar_api:
     name: SonarQube API
