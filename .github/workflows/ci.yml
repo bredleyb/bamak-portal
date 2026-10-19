@@ -49,6 +49,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Testes e cobertura
+        run: npm run test:cov -- --runInBand --ci
+
+      - name: Publicar cobertura da API
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-api
+          path: apps/api/coverage/lcov.info
+          if-no-files-found: ignore
+
   web:
     name: Web
     runs-on: ubuntu-latest
@@ -79,6 +90,17 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Testes e cobertura
+        run: npm run test:cov
+
+      - name: Publicar cobertura da Web
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-web
+          path: apps/web/coverage/lcov.info
+          if-no-files-found: ignore
 
   deploy_scripts:
     name: Scripts de deploy
