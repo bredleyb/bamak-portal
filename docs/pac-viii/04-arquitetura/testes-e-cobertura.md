@@ -33,7 +33,57 @@ Essas medições são uma linha de base inicial, não evidência do cumprimento 
 
 Na API, arquivos gerados pelo Prisma são excluídos da cobertura. Arquivos próprios da aplicação ainda não testados permanecem na medição.
 
-Na Web, os próprios arquivos de teste são excluídos da cobertura. O layout ainda não possui testes específicos.
+Na Web, os próprios arquivos de teste são excluídos da cobertura. Nesta medição inicial, o layout ainda não possuía testes específicos.
+
+## Resultado incremental da Web — 19/10/2026
+
+A implementação da Issue #89, na branch `feat/fundamentos-visuais`, ampliou a suíte Web. A última validação local, executada após a integração do cabeçalho e do rodapé ao `RootLayout`, apresentou:
+
+| Indicador | Resultado local |
+| --- | --- |
+| Testes aprovados | 110 de 110 |
+| Suítes aprovadas | 11 de 11 |
+| Cobertura de instruções | 100% |
+| Cobertura de linhas | 100% |
+| Cobertura de funções | 100% |
+| Cobertura de ramificações | 98% |
+| ESLint | Aprovado |
+| TypeScript e build de produção | Aprovados |
+
+A distribuição dos testes é:
+
+| Área | Testes |
+| --- | ---: |
+| Button, Field, Select, Checkbox, Notification, Badge e ContentCard | 73 |
+| SiteHeader | 12 |
+| SiteFooter | 16 |
+| RootLayout | 5 |
+| Página inicial técnica | 4 |
+| **Total** | **110** |
+
+Os componentes visuais utilizam os tokens e ativos institucionais definidos para o Portal Bamak. O `SiteHeader` e o `SiteFooter` foram integrados ao layout global com testes para estrutura semântica, navegação compartilhada, preservação do conteúdo e metadados.
+
+A cobertura de 100% refere-se aos arquivos incluídos na medição local atual. Não comprova cobertura de CSS, fidelidade visual, acessibilidade integral ou funcionamento ponta a ponta dos fluxos de negócio.
+
+### Verificação visual exploratória
+
+Foram inspecionadas capturas da página inicial nas larguras de 320, 390, 768, 1024, 1199, 1200 e 1440 px, além de uma observação inicial em monitor ultrawide de 3440 px.
+
+A inspeção identificou quebra inadequada do e-mail institucional no rodapé em 320 px. O breakpoint adicional de até 359 px passou a organizar as seções em uma coluna. A correção foi verificada visualmente e registrada no commit `a29ba19`.
+
+A transição da navegação compacta para a horizontal entre 1199 e 1200 px não apresentou sobreposições evidentes nas capturas. Essas verificações são exploratórias, não testes automatizados de navegador.
+
+Um aviso de divergência de hidratação foi observado durante o desenvolvimento. Após a limpeza do diretório `.next` e a reinicialização do servidor, o problema deixou de ser reproduzido. Sua causa definitiva não foi estabelecida.
+
+### Limites da medição
+
+- A API não foi reavaliada nesta etapa; seus valores permanecem registrados na linha de base inicial.
+- A cobertura Web aqui documentada resulta da execução local da branch, não de uma nova análise confirmada no SonarCloud da `main`.
+- A página inicial ainda contém conteúdo técnico provisório e pode indicar indisponibilidade da API quando o backend não está acessível.
+- As páginas públicas de negócio, os fluxos FL-01, FL-02 e FL-03 e os testes E2E de navegador continuam pendentes.
+- Testes por pares, validação institucional da Bamak e aceite final ainda não foram realizados.
+
+Referências: Issues #89 e #90.
 
 ## Cenários implementados
 
