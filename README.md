@@ -4,7 +4,7 @@ Este repositório reúne o **Portal Bamak**, projeto de **Trabalho de Conclusão
 
 A solução pretende organizar a apresentação da empresa, suas aplicações e produtos, os conteúdos de Comunicação e a entrada de solicitações comerciais. O atendimento técnico e comercial permanece sob responsabilidade da equipe da Bamak.
 
-> **Situação do projeto (17/10/2026):** PAC VII concluído; PAC VIII em execução. O desenho e os protótipos de **alta fidelidade visual (hi-fi)** foram concluídos no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica já havia sido validada localmente; as funcionalidades de negócio, os testes, a validação institucional da Bamak e a publicação pública permanecem pendentes. **Ainda não existe versão pública funcional do novo portal para demonstração.**
+> **Situação do projeto (outubro de 2026):** PAC VII concluído; PAC VIII em execução. O design de referência foi concluído no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica Next.js, NestJS e PostgreSQL está publicada em ambiente técnico por GitHub Actions, com HTTPS e healthcheck validados. As funcionalidades de negócio, a cobertura de testes, os backups e a validação institucional da Bamak permanecem pendentes. **A publicação técnica não representa o lançamento do site oficial da empresa.**
 
 **Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
@@ -47,13 +47,13 @@ No Cabo Aéreo, a localização textual é suficiente; o mapa Leaflet/OpenStreet
 | Frente | Estado verificado |
 |---|---|
 | Frontend Next.js e backend NestJS | Bases configuradas; interface e módulos de negócio pendentes. |
-| PostgreSQL e Prisma | Integração local existente; entidades e migrações de domínio pendentes. |
-| Integração e healthcheck | Fluxo técnico Web → API → banco validado localmente em etapa anterior; endpoint `GET /api/health` consulta o banco. |
-| Docker e infraestrutura de produção | Ambientes locais e arquivos para VPS versionados; **sem implantação pública**. |
-| CI e proteção da `main` | Checks `API` e `Web` configurados para PRs e pushes em `main`; integração via PR exigida. |
+| PostgreSQL e Prisma | Integração técnica operacional na VPS, confirmada pelo healthcheck; entidades e migrações de domínio pendentes. |
+| Integração e healthcheck | Web acessível por HTTPS (HTTP 200); endpoint público `GET /api/health` confirma API e conexão com PostgreSQL operacionais. |
+| Docker e infraestrutura de produção | Docker Compose, Caddy e VPS operacionais; primeiro deploy automatizado concluído, com HTTPS e healthcheck públicos validados. |
+| CI e proteção da `main` | CI com cinco jobs, verificações de deploy e SonarQube Cloud para API e Web; integração por Pull Request e checks obrigatórios. |
 | Três fluxos de negócio e painel | Especificados; implementação funcional ainda pendente. |
-| Qualidade e segurança | Testes e cobertura curricular, análise estática dedicada e observabilidade ainda pendentes. |
-| Deploy, validação e aceite | Workflow de publicação preparado e desabilitado; MVPs, release e aceite final pendentes. |
+| Qualidade e segurança | Quality Gates da API e Web aprovados; zero problemas abertos no código analisado. Cobertura reportada de 0% e riscos de dependências em acompanhamento na Issue #109. Observabilidade e testes adicionais pendentes. |
+| Deploy, validação e aceite | Primeira publicação técnica automatizada e verificação pública concluídas; funcionalidades finais, backup/recuperação, testes de negócio e aceite institucional pendentes. |
 
 O trabalho de reorganização do repositório e do GitHub foi concluído e integrado à `main` pelo [PR #79](https://github.com/bredleyb/bamak-portal/pull/79). A conclusão visual de 17/10/2026 documenta o design de referência para implementação, enquanto conteúdos, fotografias, fluxos e aprovação institucional da Bamak continuam sujeitos à validação. Protótipos não comprovam funcionamento do software.
 
@@ -109,13 +109,13 @@ O arquivo `.env.example` contém **credenciais exclusivamente locais e ilustrati
 
 ## Qualidade, integração e publicação
 
-A CI em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) roda em Pull Requests destinados à `main` e em pushes para `main`. Os jobs `API` e `Web` executam `npm ci`, auditoria das dependências de produção, lint e build; a API também executa `prisma validate`.
+A CI em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executa cinco jobs em Pull Requests para a `main` e em pushes na `main`: `API`, `Web`, `Scripts de deploy`, `SonarQube API` e `SonarQube Web`. As verificações incluem instalação reproduzível de dependências, auditoria das dependências de produção, lint, build, validação Prisma, testes dos scripts de deploy e análise estática no SonarQube Cloud.
 
-A `main` exige PR, os checks `API` e `Web` e atualização da branch antes da integração. A exigência técnica de aprovação por pares ainda precisa ser configurada quando houver revisor real disponível. **Revisões reais por colegas e testes cruzados continuam sendo requisitos acadêmicos**, e falhas efetivamente identificadas devem ser registradas como Issues.
+A `main` exige Pull Request, atualização da branch e os checks obrigatórios de API, Web e Scripts de deploy. O desenvolvimento é individual; revisões reais por colegas e testes cruzados continuam sendo atividades acadêmicas pendentes, sem presumir aprovação por pares inexistente. Defeitos reproduzíveis devem ser registrados como Issues.
 
-A entrega da linha Web Apps exige **cobertura unitária mínima de 75% no backend e 25% no frontend**, com testes acompanhando o desenvolvimento e TDD quando aplicável, além de **análise estática de código e segurança** e **observabilidade**. `lint`, `npm audit` e o healthcheck existentes não comprovam essas exigências adicionais.
+A linha Web Apps exige cobertura unitária mínima de 75% no backend e 25% no frontend, testes acompanhando o desenvolvimento, análise estática/segurança e observabilidade. O SonarQube Cloud está integrado e apresentou Quality Gates aprovados para API e Web na `main`, mas a cobertura reportada permanece em 0% em ambos os projetos. A aprovação dos Quality Gates não comprova o atendimento das metas de cobertura nem elimina os riscos de dependências documentados na [Issue #109](https://github.com/bredleyb/bamak-portal/issues/109).
 
-O arquivo [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) prepara publicação automatizada em VPS Linux após CI bem-sucedida na `main`, condicionada à configuração do ambiente e à habilitação explícita de `PRODUCTION_DEPLOY_ENABLED=true`. **Esse deploy ainda não foi realizado.** A publicação final deverá incluir backend próprio, HTTPS funcional, proteção dos dados e verificação do sistema acessível ao público.
+O arquivo [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) executa a publicação automatizada na VPS após uma CI bem-sucedida associada a push na `main`, condicionada à variável `PRODUCTION_DEPLOY_ENABLED=true`. A primeira publicação foi concluída pelo [GitHub Actions — execução 39181397560](https://github.com/bredleyb/bamak-portal/actions/runs/39181397560), para o commit `2e3bf9a`. O ambiente técnico está acessível em [https://bamak.bbauer.systems](https://bamak.bbauer.systems), com HTTP 200 no frontend e resposta `{"status":"ok","database":"ok"}` no endpoint `/api/health`. O domínio é provisório e não representa o endereço institucional definitivo. O script de publicação prevê recuperação da última versão técnica confirmada, mas restauração de dados e rollback de migrações do banco não foram validados. A publicação oficial dependerá das funcionalidades completas, controles operacionais e validação da Bamak.
 
 ## Organização do repositório
 
@@ -156,9 +156,9 @@ Os documentos do PAC VII são preservados como registros daquela fase. Alteraç�
 
 - Submeter conteúdo, fotografias, decisões de interface e protótipos de referência à validação da Bamak, registrando eventuais ajustes aprovados.
 - Implementar incrementalmente a área pública, autenticação, painel e os fluxos **FL-01, FL-02 e FL-03**, com persistência, testes e controle de acesso.
-- Integrar armazenamento privado, geração e envio controlado de PDF, serviços de e-mail, análise estática e observabilidade.
+- Integrar armazenamento privado, geração e envio controlado de PDF, serviços de e-mail e observabilidade, preservando a análise estática já integrada à CI.
 - Realizar revisões por colegas, testes cruzados, validações de MVPs, correções e registro das evidências acadêmicas.
-- Preparar o ambiente público, executar o pipeline de publicação e obter validação e aceite da Bamak para a release final.
+- Evoluir a publicação técnica automatizada para uma release estável, com testes de negócio, backups e recuperação verificados, controles de segurança e aceite institucional antes do lançamento oficial.
 
 O acompanhamento das tarefas e prioridades ocorre nas [Issues do repositório](https://github.com/bredleyb/bamak-portal/issues) e no GitHub Project do PAC VIII.
 
