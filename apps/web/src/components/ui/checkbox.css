@@ -1,0 +1,113 @@
+.bamak-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  min-width: 0;
+}
+
+.bamak-checkbox__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+}
+
+.bamak-checkbox__control {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.bamak-checkbox__input {
+  grid-area: 1 / 1;
+  appearance: none;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--semantic-field-border);
+  border-radius: 4px;
+  background: var(--semantic-surface-default);
+  cursor: pointer;
+}
+
+.bamak-checkbox__input:checked {
+  border-color: var(--semantic-action-primary);
+  background: var(--semantic-action-primary);
+}
+
+.bamak-checkbox__input:focus {
+  border: 2px solid var(--semantic-field-border-focus);
+}
+
+.bamak-checkbox__input:focus-visible {
+  outline: 3px solid var(--semantic-focus-ring);
+  outline-offset: 2px;
+}
+
+.bamak-checkbox__input[aria-invalid="true"] {
+  border-color: var(--semantic-feedback-danger-content);
+}
+
+.bamak-checkbox__input:disabled {
+  border-color: var(--semantic-content-disabled);
+  background: var(--semantic-surface-disabled);
+  cursor: not-allowed;
+}
+
+.bamak-checkbox__input:checked:disabled {
+  background: var(--semantic-content-disabled);
+}
+
+.bamak-checkbox__check {
+  grid-area: 1 / 1;
+  display: none;
+  color: var(--semantic-surface-default);
+  pointer-events: none;
+}
+
+.bamak-checkbox__input:checked + .bamak-checkbox__check {
+  display: block;
+}
+
+.bamak-checkbox__label {
+  flex: 1;
+  min-width: 0;
+  color: var(--semantic-content-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.bamak-checkbox__row:has(.bamak-checkbox__input:disabled)
+  .bamak-checkbox__label {
+  color: var(--semantic-content-disabled);
+  cursor: not-allowed;
+}
+
+.bamak-checkbox__hint,
+.bamak-checkbox__error {
+  margin: 0;
+  padding-left: 30px;
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.bamak-checkbox__hint {
+  color: var(--semantic-content-secondary);
+}
+
+.bamak-checkbox__error {
+  color: var(--semantic-feedback-danger-content);
+}
