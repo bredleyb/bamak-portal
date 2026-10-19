@@ -1,0 +1,43 @@
+.bamak-badge {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: min(136px, 100%);
+  max-width: 100%;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--semantic-surface-muted);
+  color: var(--semantic-content-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.bamak-badge--neutral {
+  background: var(--semantic-surface-muted);
+  color: var(--semantic-content-primary);
+}
+
+.bamak-badge--new {
+  border-color: var(--semantic-border-subtle);
+  background: var(--semantic-surface-default);
+  color: var(--semantic-content-primary);
+}
+
+.bamak-badge--in-review {
+  background: var(--semantic-surface-muted);
+  color: var(--semantic-content-primary);
+}
+
+.bamak-badge--done {
+  background: var(--semantic-surface-subtle);
+  color: var(--semantic-feedback-success-content);
+}

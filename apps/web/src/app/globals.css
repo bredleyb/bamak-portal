@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Identidade e neutros documentados no handoff */
+  --primitive-brand: #00421f;
+  --primitive-neutral-900: #181c19;
+  --primitive-neutral-600: #575c58;
+  --primitive-neutral-50: #f8fbf9;
+
+  /* Papéis semânticos iniciais */
+  --semantic-surface-default: #ffffff;
+  --semantic-surface-subtle: var(--primitive-neutral-50);
+  --semantic-content-primary: var(--primitive-neutral-900);
+  --semantic-content-secondary: var(--primitive-neutral-600);
+  --semantic-action-primary: var(--primitive-brand);
+  --semantic-action-primary-background-hover: #003015;
+  --semantic-action-primary-background-pressed: #01220d;
+  --semantic-action-secondary-background-hover: #f0faf2;
+  --semantic-action-secondary-background-pressed: #dff0e3;
+  --semantic-surface-brand-subtle: #f0faf2;
+  --semantic-surface-disabled: #f1f4f2;
+  --semantic-surface-muted: #f1f4f2;
+  --semantic-content-disabled: #767c78;
+  --semantic-content-link: #145930;
+  --semantic-field-border: #767c78;
+  --semantic-border-subtle: #e5e9e6;
+  --semantic-field-border-focus: #2e7347;
+
+  /* Feedback */
+  --semantic-feedback-info-content: #35576a;
+  --semantic-feedback-success-content: #145930;
+  --semantic-feedback-warning-content: #865528;
+  --semantic-feedback-danger-content: #963c38;
+
+  /* Foco */
+  --semantic-focus-ring: #4d9163;
+  --semantic-focus-offset: #ffffff;
+  --semantic-focus-ring-inverse: #ffffff;
+  --semantic-focus-offset-inverse: var(--primitive-brand);
+
+  /* Escala de espaçamento */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--semantic-surface-default);
+  --color-foreground: var(--semantic-content-primary);
+  --color-brand: var(--semantic-action-primary);
+  --color-surface-subtle: var(--semantic-surface-subtle);
+  --color-content-secondary: var(--semantic-content-secondary);
+  --font-sans: var(--font-source-sans-3);
+  --font-display: var(--font-archivo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--semantic-surface-default);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--semantic-surface-default);
+  color: var(--semantic-content-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-archivo), Arial, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--semantic-focus-ring);
+  outline-offset: 2px;
 }

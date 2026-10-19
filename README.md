@@ -4,7 +4,7 @@ Este repositório reúne o **Portal Bamak**, projeto de **Trabalho de Conclusão
 
 A solução pretende organizar a apresentação da empresa, suas aplicações e produtos, os conteúdos de Comunicação e a entrada de solicitações comerciais. O atendimento técnico e comercial permanece sob responsabilidade da equipe da Bamak.
 
-> **Situação do projeto (outubro de 2026):** PAC VII concluído; PAC VIII em execução. O design de referência foi concluído no Figma, com sete páginas definitivas e 157 telas/estados-base. A base técnica Next.js, NestJS e PostgreSQL está publicada em ambiente técnico por GitHub Actions, com HTTPS e healthcheck validados. As funcionalidades de negócio, a cobertura de testes, os backups e a validação institucional da Bamak permanecem pendentes. **A publicação técnica não representa o lançamento do site oficial da empresa.**
+> **Situação do projeto (outubro de 2026):** PAC VII concluído; PAC VIII em execução. O design de referência está concluído no Figma, com sete páginas definitivas e 157 telas/estados-base. A base Next.js, NestJS e PostgreSQL possui publicação técnica automatizada, HTTPS e healthcheck previamente validados. Na branch `feat/fundamentos-visuais`, foram implementados componentes de interface, cabeçalho, rodapé e integração ao layout global, com 110 testes Web aprovados localmente. Páginas de negócio, fluxos funcionais, backups e validação institucional da Bamak permanecem pendentes. **A publicação técnica não representa o lançamento do site oficial da empresa.**
 
 **Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
@@ -46,16 +46,28 @@ No Cabo Aéreo, a localização textual é suficiente; o mapa Leaflet/OpenStreet
 
 | Frente | Estado verificado |
 |---|---|
-| Frontend Next.js e backend NestJS | Bases configuradas; interface e módulos de negócio pendentes. |
+| Frontend Next.js e backend NestJS | Bases configuradas. Na branch de fundamentos visuais, sete componentes de interface, cabeçalho, rodapé e layout compartilhado implementados; páginas e módulos de negócio ainda pendentes. |
 | PostgreSQL e Prisma | Integração técnica operacional na VPS, confirmada pelo healthcheck; entidades e migrações de domínio pendentes. |
 | Integração e healthcheck | Web acessível por HTTPS (HTTP 200); endpoint público `GET /api/health` confirma API e conexão com PostgreSQL operacionais. |
 | Docker e infraestrutura de produção | Docker Compose, Caddy e VPS operacionais; primeiro deploy automatizado concluído, com HTTPS e healthcheck públicos validados. |
 | CI e proteção da `main` | CI com cinco jobs, verificações de deploy e SonarQube Cloud para API e Web; integração por Pull Request e checks obrigatórios. |
 | Três fluxos de negócio e painel | Especificados; implementação funcional ainda pendente. |
-| Qualidade e segurança | Quality Gates da API e Web aprovados; zero problemas abertos no código analisado. Cobertura reportada de 0% e riscos de dependências em acompanhamento na Issue #109. Observabilidade e testes adicionais pendentes. |
+| Qualidade e segurança | SonarQube Cloud integrado à CI, com Quality Gates anteriormente aprovados. Na branch de fundamentos visuais, 110 testes Web aprovados localmente, com 100% de cobertura de linhas e 98% de ramificações na medição atual. Resultados publicados no SonarCloud ainda dependem de nova execução e verificação da CI. Riscos de dependências acompanhados na Issue #109. |
 | Deploy, validação e aceite | Primeira publicação técnica automatizada e verificação pública concluídas; funcionalidades finais, backup/recuperação, testes de negócio e aceite institucional pendentes. |
 
 O trabalho de reorganização do repositório e do GitHub foi concluído e integrado à `main` pelo [PR #79](https://github.com/bredleyb/bamak-portal/pull/79). A conclusão visual de 17/10/2026 documenta o design de referência para implementação, enquanto conteúdos, fotografias, fluxos e aprovação institucional da Bamak continuam sujeitos à validação. Protótipos não comprovam funcionamento do software.
+
+### Fundamentos visuais implementados
+
+A [Issue #89](https://github.com/bredleyb/bamak-portal/issues/89) acompanha a primeira etapa de implementação das interfaces do Figma na branch `feat/fundamentos-visuais`.
+
+Foram implementados os tokens visuais e a tipografia institucional (Archivo e Source Sans 3), além dos componentes Button, Field, Select, Checkbox, Notification, Badge e ContentCard. O SiteHeader e o SiteFooter utilizam ativos da identidade visual da Bamak e estão integrados ao RootLayout, com navegação compartilhada e estrutura responsiva.
+
+A última validação local registrou **110 testes aprovados em 11 suítes**, com **100% de cobertura de linhas e 98% de ramificações** no código Web incluído na medição. ESLint, verificação TypeScript e build de produção foram aprovados. Os resultados e critérios estão documentados em [Testes automatizados e cobertura](docs/pac-viii/04-arquitetura/testes-e-cobertura.md).
+
+A inspeção visual exploratória abrangeu larguras de 320, 390, 768, 1024, 1199, 1200 e 1440 px, além de uma observação inicial em 3440 px. Foi corrigida a quebra do contato institucional no rodapé em telas de até 359 px.
+
+**Limites:** os testes não substituem uma auditoria completa de acessibilidade nem testes E2E em navegador. A página inicial permanece técnica e provisória. As demais páginas públicas, os fluxos de negócio e o painel administrativo ainda precisam ser implementados. Revisão por pares e aceite institucional não foram realizados nesta etapa.
 
 ## Tecnologias e arquitetura
 
@@ -113,7 +125,7 @@ A CI em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executa cinco job
 
 A `main` exige Pull Request, atualização da branch e os checks obrigatórios de API, Web e Scripts de deploy. O desenvolvimento é individual; revisões reais por colegas e testes cruzados continuam sendo atividades acadêmicas pendentes, sem presumir aprovação por pares inexistente. Defeitos reproduzíveis devem ser registrados como Issues.
 
-A linha Web Apps exige cobertura unitária mínima de 75% no backend e 25% no frontend, testes acompanhando o desenvolvimento, análise estática/segurança e observabilidade. O SonarQube Cloud está integrado e apresentou Quality Gates aprovados para API e Web na `main`, mas a cobertura reportada permanece em 0% em ambos os projetos. A aprovação dos Quality Gates não comprova o atendimento das metas de cobertura nem elimina os riscos de dependências documentados na [Issue #109](https://github.com/bredleyb/bamak-portal/issues/109).
+A linha Web Apps exige cobertura unitária mínima de 75% no backend e 25% no frontend, testes acompanhando o desenvolvimento, análise estática/segurança e observabilidade. A última execução local da branch `feat/fundamentos-visuais` aprovou 110 testes Web, com 100% de cobertura de linhas e 98% de ramificações. Essa medição não equivale à cobertura publicada no SonarCloud, cujo resultado anterior registrava 0%, nem comprova testes E2E ou cumprimento da meta do backend. Os resultados precisam ser confirmados novamente na CI do Pull Request. Os riscos de dependências permanecem documentados na [Issue #109](https://github.com/bredleyb/bamak-portal/issues/109).
 
 O arquivo [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) executa a publicação automatizada na VPS após uma CI bem-sucedida associada a push na `main`, condicionada à variável `PRODUCTION_DEPLOY_ENABLED=true`. A primeira publicação foi concluída pelo [GitHub Actions — execução 39181397560](https://github.com/bredleyb/bamak-portal/actions/runs/39181397560), para o commit `2e3bf9a`. O ambiente técnico está acessível em [https://bamak.bbauer.systems](https://bamak.bbauer.systems), com HTTP 200 no frontend e resposta `{"status":"ok","database":"ok"}` no endpoint `/api/health`. O domínio é provisório e não representa o endereço institucional definitivo. O script de publicação prevê recuperação da última versão técnica confirmada, mas restauração de dados e rollback de migrações do banco não foram validados. A publicação oficial dependerá das funcionalidades completas, controles operacionais e validação da Bamak.
 

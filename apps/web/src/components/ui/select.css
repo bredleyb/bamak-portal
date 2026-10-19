@@ -1,0 +1,97 @@
+.bamak-select {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  min-width: 0;
+}
+
+.bamak-select__label {
+  color: var(--semantic-content-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.bamak-select__control {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.bamak-select__input {
+  display: block;
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0 44px 0 12px;
+  border: 1px solid var(--semantic-field-border);
+  border-radius: 8px;
+  background: var(--semantic-surface-default);
+  color: var(--semantic-content-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.bamak-select__input:has(option[value=""]:checked) {
+  color: var(--semantic-content-secondary);
+}
+
+.bamak-select__input:focus {
+  border: 2px solid var(--semantic-field-border-focus);
+}
+
+.bamak-select__input[aria-invalid="true"] {
+  border: 2px solid var(--semantic-feedback-danger-content);
+}
+
+.bamak-select__input:disabled {
+  background: var(--semantic-surface-disabled);
+  color: var(--semantic-content-disabled);
+  cursor: not-allowed;
+}
+
+.bamak-select__input option {
+  color: var(--semantic-content-primary);
+}
+
+.bamak-select__chevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--semantic-content-secondary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.bamak-select__hint,
+.bamak-select__error {
+  margin: 0;
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.bamak-select__hint {
+  color: var(--semantic-content-secondary);
+}
+
+.bamak-select__error {
+  color: var(--semantic-feedback-danger-content);
+}
