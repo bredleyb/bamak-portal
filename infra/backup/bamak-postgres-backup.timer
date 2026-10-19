@@ -1,0 +1,11 @@
+[Unit]
+Description=Portal Bamak - agendamento do backup PostgreSQL
+
+[Timer]
+OnCalendar=*-*-* 06:00:00 UTC
+Persistent=true
+RandomizedDelaySec=10min
+Unit=bamak-postgres-backup.service
+
+[Install]
+WantedBy=timers.target
