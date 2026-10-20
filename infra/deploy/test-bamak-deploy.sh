@@ -34,6 +34,11 @@ case "$operacao" in
       echo " M arquivo"
     fi
     ;;
+  diff)
+    if [ -f "$base/migrations" ]; then
+      echo "apps/api/prisma/migrations/migration.sql"
+    fi
+    ;;
   symbolic-ref)
     [ -f "$base/branch" ] || exit 1
     cat "$base/branch"
@@ -67,6 +72,15 @@ done
 case "$operacao" in
   config) exit 0 ;;
   up)
+    # Nao permitir que um perfil global acrescente o migrador
+    # a publicacao normal.
+    case " $* " in
+      *" db api web proxy "*) ;;
+      *)
+        echo "FALHA: publicacao sem lista explicita de servicos." >&2
+        exit 95
+        ;;
+    esac
     head=$(cat "$base/head")
     modo=$(cat "$base/mode")
     echo "up $head" >> "$base/trace"
@@ -81,12 +95,21 @@ case "$operacao" in
 esac
 MOCK
 
+mkdir -p "$repositorio/infra/deploy"
+
+cat > "$repositorio/infra/deploy/prepare-domain-migrations.sh" <<'MOCK'
+#!/bin/sh
+set -eu
+echo prepare >> /tmp/bamak-test/trace
+[ "$(cat /tmp/bamak-test/mode)" != "fail-prepare" ] || exit 56
+MOCK
+
 chmod 700 "$base/bin/git" "$base/bin/docker"
 printf '%s\n' "$alvo" > "$base/target"
 printf '%s\n' "$anterior" > "$base/previous"
 
 reiniciar() {
-  rm -f "$estado/last-successful" "$base/dirty" "$base/trace"
+  rm -f "$estado/last-successful" "$base/dirty" "$base/trace" "$base/migrations"
   printf '%s\n' "$alvo" > "$base/remote"
   printf '%s\n' "$anterior" > "$base/head"
   printf '%s\n' main > "$base/branch"
@@ -152,4 +175,52 @@ falha_esperada "recuperacao malsucedida" "Deploy e recuperacao falharam"
 [ "$(cat "$base/head")" = "$anterior" ]
 echo "OK 6/6: falha dupla identificada."
 
-echo "RESULTADO: 6 cenarios simulados aprovados."
+reiniciar
+touch "$base/migrations"
+
+sh "$base/script.sh" "$alvo" > "$base/saida" 2>&1 || {
+  cat "$base/saida" >&2
+  exit 1
+}
+
+[ "$(cat "$estado/last-successful")" = "$alvo" ]
+[ "$(grep -c '^prepare$' "$base/trace")" -eq 1 ]
+[ "$(grep -c '^up ' "$base/trace")" -eq 1 ]
+
+ordem=$(grep -E '^(prepare|up )' "$base/trace" | head -n 1)
+[ "$ordem" = prepare ] || {
+  echo "FALHA: publicacao antes das migracoes." >&2
+  exit 1
+}
+
+echo "OK 7/9: preparacao ocorre antes da publicacao."
+
+reiniciar
+touch "$base/migrations"
+echo fail-prepare > "$base/mode"
+
+falha_esperada \
+  "falha na preparacao" \
+  "Preparacao das migracoes falhou"
+
+[ "$(cat "$base/head")" = "$anterior" ]
+[ -z "$(grep '^up ' "$base/trace" || true)" ]
+[ ! -f "$estado/last-successful" ]
+
+echo "OK 8/9: falha de preparacao impede publicacao."
+
+reiniciar
+touch "$base/migrations"
+printf '%s\n' "$anterior" > "$estado/last-successful"
+echo fail-target > "$base/mode"
+
+falha_esperada \
+  "falha de publicacao apos migracoes" \
+  "rollback automatico bloqueado"
+
+[ "$(cat "$estado/last-successful")" = "$anterior" ]
+[ "$(grep -c '^prepare$' "$base/trace")" -eq 1 ]
+[ "$(grep -c '^up ' "$base/trace")" -eq 1 ]
+
+echo "OK 9/9: rollback automatico bloqueado apos migracoes."
+echo "RESULTADO: 9 cenarios simulados aprovados."

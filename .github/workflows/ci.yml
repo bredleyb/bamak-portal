@@ -23,6 +23,21 @@ jobs:
     env:
       DATABASE_URL: postgresql://bamak:bamak@localhost:5432/bamak?schema=public
 
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: bamak
+          POSTGRES_PASSWORD: bamak
+          POSTGRES_DB: bamak
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bamak -d bamak"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -43,6 +58,14 @@ jobs:
       - name: Validar Prisma
         run: npx prisma validate
 
+      - name: Aplicar migrações no PostgreSQL de CI
+        run: npx prisma migrate deploy
+
+      - name: Testar integridade do domínio e rollback
+        env:
+          PGPASSWORD: bamak
+        run: psql -h 127.0.0.1 -p 5432 -U bamak -d bamak -X -v ON_ERROR_STOP=1 -f test/integration/domain-integrity.sql
+
       - name: Lint
         run: npm run lint
 
@@ -50,6 +73,8 @@ jobs:
         run: npm run build
 
       - name: Testes e cobertura
+        env:
+          RUN_DB_INTEGRATION: "1"
         run: npm run test:cov -- --runInBand --ci
 
       - name: Publicar cobertura da API
@@ -121,6 +146,9 @@ jobs:
               sh -n infra/deploy/test-bamak-deploy.sh
               sh infra/deploy/test-ssh-gate.sh
               sh infra/deploy/test-bamak-deploy.sh
+              sh -n infra/deploy/prepare-domain-migrations.sh
+              sh -n infra/deploy/test-prepare-domain-migrations.sh
+              sh infra/deploy/test-prepare-domain-migrations.sh
               sh -n infra/backup/backup-postgres.sh
               sh -n infra/backup/test-backup-postgres.sh
               sh -n infra/backup/install-backup.sh

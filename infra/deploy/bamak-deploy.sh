@@ -36,7 +36,7 @@ git_projeto() {
 
 publicar() {
   docker compose --env-file "$ambiente" -f "$compose" config --quiet &&
-  docker compose --env-file "$ambiente" -f "$compose" up -d --build --wait --wait-timeout 180
+  docker compose --env-file "$ambiente" -f "$compose" up -d --build --wait --wait-timeout 180 db api web proxy
 }
 
 instalar_estado
@@ -63,8 +63,42 @@ if [ -f "$estado/last-successful" ]; then
     falhar "Registro de ultimo deploy incompleto."
 fi
 
+# Comparar com a ultima versao efetivamente publicada.
+# Isso evita ignorar migracoes apos uma tentativa malsucedida.
+base_migracoes=$anterior
+[ -z "$ultimo_sucesso" ] || base_migracoes=$ultimo_sucesso
+
+migracoes_alteradas=$(
+  git_projeto diff --name-only \
+    "$base_migracoes" "$sha" -- apps/api/prisma/migrations
+) || falhar "Nao foi possivel comparar as migracoes."
+
+migracoes=0
+[ -z "$migracoes_alteradas" ] || migracoes=1
+
 echo "Iniciando deploy do commit $sha"
 git_projeto checkout --detach "$sha"
+
+if [ "$migracoes" -eq 1 ]; then
+  preparacao="$repositorio/infra/deploy/prepare-domain-migrations.sh"
+
+  if [ ! -f "$preparacao" ] || [ -L "$preparacao" ]; then
+    git_projeto checkout --detach "$anterior" ||
+      falhar "Preparacao ausente e checkout anterior nao restaurado."
+    falhar "Preparacao de migracoes ausente ou insegura."
+  fi
+
+  echo "Migracoes alteradas; exigindo backup e migrador."
+
+  if ! sh "$preparacao"; then
+    echo "AVISO: a preparacao pode ter alterado o esquema do banco." >&2
+
+    git_projeto checkout --detach "$anterior" ||
+      falhar "Preparacao falhou e checkout anterior nao restaurado."
+
+    falhar "Preparacao das migracoes falhou; publicacao bloqueada."
+  fi
+fi
 
 if publicar; then
   temporario="$estado/last-successful.$$"
@@ -75,6 +109,10 @@ if publicar; then
 fi
 
 echo "ERRO: publicacao falhou." >&2
+
+if [ "$migracoes" -eq 1 ]; then
+  falhar "Publicacao falhou apos migracoes; rollback automatico bloqueado. Intervencao necessaria."
+fi
 
 if [ -n "$ultimo_sucesso" ] && [ "$ultimo_sucesso" != "$sha" ]; then
   echo "Tentando recuperar o commit $ultimo_sucesso" >&2

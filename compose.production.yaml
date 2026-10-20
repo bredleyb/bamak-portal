@@ -16,6 +16,22 @@ services:
       timeout: 5s
       retries: 5
 
+  # Executado explicitamente pelo deploy, apos backup validado.
+  # Nao participa da inicializacao padrao.
+  migrate:
+    profiles:
+      - migrations
+    image: bamak-api-migration:production
+    build:
+      context: ./apps/api
+      target: migration
+    restart: "no"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Defina DATABASE_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+
   api:
     image: bamak-api:production
     build:

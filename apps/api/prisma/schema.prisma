@@ -7,3 +7,270 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserRole {
+  ADMINISTRATOR
+  OPERATOR
+}
+
+model User {
+  generatedDocuments       GeneratedDocument[]
+  documentDeliveryAttempts DocumentDeliveryAttempt[]
+  id                       String                    @id @default(uuid()) @db.Uuid
+  name                     String                    @db.VarChar(160)
+  email                    String                    @unique @db.VarChar(320)
+  passwordHash             String                    @db.VarChar(255)
+  role                     UserRole                  @default(OPERATOR)
+  isActive                 Boolean                   @default(true)
+  createdAt                DateTime                  @default(now()) @db.Timestamptz(3)
+  updatedAt                DateTime                  @updatedAt @db.Timestamptz(3)
+
+  authoredPosts CommunicationPost[]
+  statusChanges AttendanceStatusChange[]
+
+  @@index([role, isActive])
+}
+
+model Application {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @db.VarChar(180)
+  slug        String    @unique @db.VarChar(200)
+  summary     String    @db.VarChar(400)
+  description String?   @db.Text
+  imageUrl    String?   @db.Text
+  isActive    Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
+
+  @@index([isActive])
+}
+
+model ProductCategory {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String    @db.VarChar(180)
+  slug      String    @unique @db.VarChar(200)
+  products  Product[]
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
+}
+
+model Product {
+  id           String          @id @default(uuid()) @db.Uuid
+  name         String          @db.VarChar(180)
+  slug         String          @unique @db.VarChar(200)
+  summary      String          @db.VarChar(400)
+  description  String          @db.Text
+  categoryId   String          @db.Uuid
+  category     ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  applications Application[]
+  images       ProductImage[]
+  isActive     Boolean         @default(true)
+  createdAt    DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime        @updatedAt @db.Timestamptz(3)
+
+  @@index([categoryId, isActive])
+}
+
+model ProductImage {
+  id        String  @id @default(uuid()) @db.Uuid
+  productId String  @db.Uuid
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String  @db.Text
+  altText   String  @db.VarChar(240)
+  sortOrder Int     @default(0)
+
+  @@index([productId, sortOrder])
+}
+
+model FaqItem {
+  id        String   @id @default(uuid()) @db.Uuid
+  question  String   @db.VarChar(500)
+  answer    String   @db.Text
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([isActive, sortOrder])
+}
+
+enum CommunicationType {
+  NEWS
+  AGENDA
+  EVENT
+  FAIR
+  ANNOUNCEMENT
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  HIDDEN
+}
+
+enum AttendanceType {
+  GENERAL_CONTACT
+  CABLEWAY_REQUEST
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model CommunicationPost {
+  id            String            @id @default(uuid()) @db.Uuid
+  type          CommunicationType
+  title         String            @db.VarChar(200)
+  slug          String            @unique @db.VarChar(220)
+  summary       String?           @db.VarChar(500)
+  content       String            @db.Text
+  status        PublicationStatus @default(DRAFT)
+  publishedAt   DateTime?         @db.Timestamptz(3)
+  eventStartsAt DateTime?         @db.Timestamptz(3)
+  eventEndsAt   DateTime?         @db.Timestamptz(3)
+  authorId      String            @db.Uuid
+  author        User              @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  createdAt     DateTime          @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime          @updatedAt @db.Timestamptz(3)
+
+  @@index([status, publishedAt])
+  @@index([type, status])
+}
+
+model AttendanceStatus {
+  id             String                   @id @default(uuid()) @db.Uuid
+  code           String                   @unique @db.VarChar(80)
+  name           String                   @db.VarChar(120)
+  sortOrder      Int                      @default(0)
+  isActive       Boolean                  @default(true)
+  attendances    Attendance[]
+  previousStates AttendanceStatusChange[] @relation("PreviousStatus")
+  nextStates     AttendanceStatusChange[] @relation("NextStatus")
+  createdAt      DateTime                 @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime                 @updatedAt @db.Timestamptz(3)
+
+  @@index([isActive, sortOrder])
+}
+
+model Attendance {
+  cablewayRequest CablewayRequest?
+  id              String                   @id @default(uuid()) @db.Uuid
+  type            AttendanceType
+  statusId        String                   @db.Uuid
+  status          AttendanceStatus         @relation(fields: [statusId], references: [id], onDelete: Restrict)
+  generalContact  GeneralContact?
+  statusHistory   AttendanceStatusChange[]
+  createdAt       DateTime                 @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime                 @updatedAt @db.Timestamptz(3)
+
+  @@index([type, statusId, createdAt])
+  @@index([createdAt])
+}
+
+model GeneralContact {
+  id                   String                       @id @default(uuid()) @db.Uuid
+  attendanceId         String                       @unique @db.Uuid
+  attendance           Attendance                   @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+  name                 String                       @db.VarChar(160)
+  contactInfo          String                       @db.VarChar(320)
+  subject              String                       @db.VarChar(200)
+  message              String                       @db.Text
+  consentRecordedAt    DateTime                     @db.Timestamptz(3)
+  consentTextVersion   String                       @db.VarChar(64)
+  notificationAttempts ContactNotificationAttempt[]
+  createdAt            DateTime                     @default(now()) @db.Timestamptz(3)
+}
+
+model AttendanceStatusChange {
+  id           String            @id @default(uuid()) @db.Uuid
+  attendanceId String            @db.Uuid
+  attendance   Attendance        @relation(fields: [attendanceId], references: [id], onDelete: Restrict)
+  fromStatusId String?           @db.Uuid
+  fromStatus   AttendanceStatus? @relation("PreviousStatus", fields: [fromStatusId], references: [id], onDelete: Restrict)
+  toStatusId   String            @db.Uuid
+  toStatus     AttendanceStatus  @relation("NextStatus", fields: [toStatusId], references: [id], onDelete: Restrict)
+  changedById  String            @db.Uuid
+  changedBy    User              @relation(fields: [changedById], references: [id], onDelete: Restrict)
+  changedAt    DateTime          @default(now()) @db.Timestamptz(3)
+
+  @@index([attendanceId, changedAt])
+  @@index([changedById])
+}
+
+model ContactNotificationAttempt {
+  id               String         @id @default(uuid()) @db.Uuid
+  generalContactId String         @db.Uuid
+  generalContact   GeneralContact @relation(fields: [generalContactId], references: [id], onDelete: Restrict)
+  status           DeliveryStatus @default(PENDING)
+  recipientEmail   String         @db.VarChar(320)
+  attemptedAt      DateTime       @default(now()) @db.Timestamptz(3)
+  completedAt      DateTime?      @db.Timestamptz(3)
+  errorCode        String?        @db.VarChar(100)
+
+  @@index([generalContactId, attemptedAt])
+}
+
+model CablewayRequest {
+  id                  String              @id @default(uuid()) @db.Uuid
+  attendanceId        String              @unique @db.Uuid
+  attendance          Attendance          @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+  contactName         String              @db.VarChar(160)
+  contactInfo         String              @db.VarChar(320)
+  installationContext String              @db.Text
+  locationDescription String              @db.Text
+  latitude            Decimal?            @db.Decimal(9, 6)
+  longitude           Decimal?            @db.Decimal(9, 6)
+  consentRecordedAt   DateTime            @db.Timestamptz(3)
+  consentTextVersion  String              @db.VarChar(64)
+  attachments         Attachment[]
+  generatedDocuments  GeneratedDocument[]
+  createdAt           DateTime            @default(now()) @db.Timestamptz(3)
+}
+
+model Attachment {
+  id                String          @id @default(uuid()) @db.Uuid
+  cablewayRequestId String          @db.Uuid
+  cablewayRequest   CablewayRequest @relation(fields: [cablewayRequestId], references: [id], onDelete: Restrict)
+  originalName      String          @db.VarChar(255)
+  mimeType          String          @db.VarChar(80)
+  sizeBytes         Int
+  storageKey        String          @unique @db.VarChar(512)
+  uploadedAt        DateTime        @default(now()) @db.Timestamptz(3)
+
+  @@index([cablewayRequestId, uploadedAt])
+}
+
+model GeneratedDocument {
+  id                String                    @id @default(uuid()) @db.Uuid
+  cablewayRequestId String                    @db.Uuid
+  cablewayRequest   CablewayRequest           @relation(fields: [cablewayRequestId], references: [id], onDelete: Restrict)
+  version           Int
+  fileName          String                    @db.VarChar(255)
+  storageKey        String                    @unique @db.VarChar(512)
+  generatedById     String                    @db.Uuid
+  generatedBy       User                      @relation(fields: [generatedById], references: [id], onDelete: Restrict)
+  generatedAt       DateTime                  @default(now()) @db.Timestamptz(3)
+  deliveryAttempts  DocumentDeliveryAttempt[]
+
+  @@unique([cablewayRequestId, version])
+  @@index([generatedById])
+}
+
+model DocumentDeliveryAttempt {
+  id             String            @id @default(uuid()) @db.Uuid
+  documentId     String            @db.Uuid
+  document       GeneratedDocument @relation(fields: [documentId], references: [id], onDelete: Restrict)
+  sentById       String            @db.Uuid
+  sentBy         User              @relation(fields: [sentById], references: [id], onDelete: Restrict)
+  recipientEmail String            @db.VarChar(320)
+  status         DeliveryStatus    @default(PENDING)
+  attemptedAt    DateTime          @default(now()) @db.Timestamptz(3)
+  completedAt    DateTime?         @db.Timestamptz(3)
+  errorCode      String?           @db.VarChar(100)
+
+  @@index([documentId, attemptedAt])
+  @@index([sentById])
+}
