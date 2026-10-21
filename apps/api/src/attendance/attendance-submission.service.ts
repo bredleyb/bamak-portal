@@ -3,11 +3,17 @@ import {
   InternalServerErrorException,
   ServiceUnavailableException,
 } from '@nestjs/common';
+import type { Prisma } from '../generated/prisma/client';
 import type { CreateCablewayRequestDto } from '../cableway/dto/create-cableway-request.dto';
 import type { CreateGeneralContactDto } from '../contacts/dto/create-general-contact.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 const INITIAL_STATUS_CODE = 'RECEIVED';
+
+type AttendanceSubmissionData = Omit<
+  Prisma.AttendanceCreateInput,
+  'status'
+>;
 
 @Injectable()
 export class AttendanceSubmissionService {
@@ -19,43 +25,18 @@ export class AttendanceSubmissionService {
   ) {
     const version = this.requireConsentVersion(consentVersion);
 
-    return this.prisma.$transaction(async (tx) => {
-      const status = await tx.attendanceStatus.findFirst({
-        where: {
-          code: INITIAL_STATUS_CODE,
-          isActive: true,
+    return await this.createAttendance({
+      type: 'GENERAL_CONTACT',
+      generalContact: {
+        create: {
+          name: dto.name.trim(),
+          contactInfo: dto.contactInfo.trim(),
+          subject: dto.subject.trim(),
+          message: dto.message.trim(),
+          consentRecordedAt: new Date(),
+          consentTextVersion: version,
         },
-        select: { id: true },
-      });
-
-      if (!status) {
-        throw new ServiceUnavailableException(
-          'O recebimento de solicitacoes esta indisponivel.',
-        );
-      }
-
-      const attendance = await tx.attendance.create({
-        data: {
-          type: 'GENERAL_CONTACT',
-          status: { connect: { id: status.id } },
-          generalContact: {
-            create: {
-              name: dto.name.trim(),
-              contactInfo: dto.contactInfo.trim(),
-              subject: dto.subject.trim(),
-              message: dto.message.trim(),
-              consentRecordedAt: new Date(),
-              consentTextVersion: version,
-            },
-          },
-        },
-        select: { id: true, createdAt: true },
-      });
-
-      return {
-        attendanceId: attendance.id,
-        receivedAt: attendance.createdAt,
-      };
+      },
     });
   }
 
@@ -65,6 +46,24 @@ export class AttendanceSubmissionService {
   ) {
     const version = this.requireConsentVersion(consentVersion);
 
+    return await this.createAttendance({
+      type: 'CABLEWAY_REQUEST',
+      cablewayRequest: {
+        create: {
+          contactName: dto.contactName.trim(),
+          contactInfo: dto.contactInfo.trim(),
+          installationContext: dto.installationContext.trim(),
+          locationDescription: dto.locationDescription.trim(),
+          latitude: dto.coordinates?.latitude ?? null,
+          longitude: dto.coordinates?.longitude ?? null,
+          consentRecordedAt: new Date(),
+          consentTextVersion: version,
+        },
+      },
+    });
+  }
+
+  private createAttendance(data: AttendanceSubmissionData) {
     return this.prisma.$transaction(async (tx) => {
       const status = await tx.attendanceStatus.findFirst({
         where: {
@@ -82,20 +81,8 @@ export class AttendanceSubmissionService {
 
       const attendance = await tx.attendance.create({
         data: {
-          type: 'CABLEWAY_REQUEST',
+          ...data,
           status: { connect: { id: status.id } },
-          cablewayRequest: {
-            create: {
-              contactName: dto.contactName.trim(),
-              contactInfo: dto.contactInfo.trim(),
-              installationContext: dto.installationContext.trim(),
-              locationDescription: dto.locationDescription.trim(),
-              latitude: dto.coordinates?.latitude ?? null,
-              longitude: dto.coordinates?.longitude ?? null,
-              consentRecordedAt: new Date(),
-              consentTextVersion: version,
-            },
-          },
         },
         select: { id: true, createdAt: true },
       });
