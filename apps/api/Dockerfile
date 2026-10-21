@@ -1,14 +1,14 @@
 FROM node:24-bookworm-slim AS dependencies
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates && rm -rf /var/lib/apt/lists/*
-COPY package.json package-lock.json ./
+COPY --chown=node:node package.json package-lock.json ./
 RUN npm ci
 
 # Imagem especifica para executar migracoes Prisma.
 # Nao e iniciada automaticamente pela API.
 FROM dependencies AS migration
-COPY prisma ./prisma
-COPY prisma.config.ts ./
+COPY --chown=node:node prisma ./prisma
+COPY --chown=node:node prisma.config.ts ./
 USER node
 CMD ["./node_modules/.bin/prisma", "migrate", "deploy"]
 
