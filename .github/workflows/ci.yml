@@ -135,6 +135,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: Validar workflows com Actionlint
+        run: |
+          docker run --rm --pull=missing --network none \
+            --mount "type=bind,source=$PWD,target=/work,readonly" \
+            --workdir /work rhysd/actionlint:1.7.12 \
+            .github/workflows/ci.yml .github/workflows/deploy.yml
+
       - name: Validar scripts e testar deploy
         run: |
           docker run --rm --network none \

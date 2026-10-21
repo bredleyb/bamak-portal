@@ -1,6 +1,7 @@
 name: Deploy Production
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows:
       - CI
@@ -11,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: bamak-production
@@ -19,12 +21,51 @@ concurrency:
 jobs:
   deploy:
     name: Deploy VPS
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository && vars.PRODUCTION_DEPLOY_ENABLED == 'true' && vars.PRODUCTION_DEPLOY_APPROVED_SHA == github.event.workflow_run.head_sha }}
+    if: >-
+      ${{
+        (github.event_name == 'workflow_run' &&
+         github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.event == 'push' &&
+         github.event.workflow_run.head_repository.full_name == github.repository &&
+         github.event.workflow_run.head_branch == 'main' &&
+         vars.PRODUCTION_DEPLOY_ENABLED == 'true' &&
+         vars.PRODUCTION_DEPLOY_APPROVED_SHA == github.event.workflow_run.head_sha) ||
+        (github.event_name == 'workflow_dispatch' &&
+         github.ref == 'refs/heads/main' &&
+         vars.PRODUCTION_DEPLOY_ENABLED == 'true' &&
+         vars.PRODUCTION_DEPLOY_APPROVED_SHA == github.sha)
+      }}
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 20
 
     steps:
+      - name: Confirmar CI aprovada para publicacao manual
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          DEPLOY_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          main_sha="$(gh api "repos/${REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+
+          if [ "$main_sha" != "$DEPLOY_SHA" ]; then
+            echo "::error::O SHA selecionado nao corresponde ao HEAD da main."
+            exit 1
+          fi
+
+          gh api "repos/${REPOSITORY}/actions/workflows/ci.yml/runs?head_sha=${DEPLOY_SHA}&branch=main&event=push&status=success&per_page=100" \
+            | jq -e --arg sha "$DEPLOY_SHA" \
+              '.workflow_runs | any(.head_sha == $sha and .head_branch == "main" and .event == "push" and .conclusion == "success")' \
+              >/dev/null || {
+                echo "::error::Nao ha CI de push aprovada para o SHA autorizado."
+                exit 1
+              }
+
+          echo "CI aprovada para o commit exato da main."
+
       - name: Configurar acesso SSH
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
@@ -40,7 +81,7 @@ jobs:
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+          DEPLOY_SHA: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
         run: |
           ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=yes "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "deploy ${DEPLOY_SHA}"
