@@ -112,7 +112,7 @@ Os testes locais de migracao e persistencia foram executados em PostgreSQL 17 is
 
 O CI esta configurado para iniciar PostgreSQL temporario, aplicar migracoes, executar os testes SQL e habilitar os testes Jest de integracao.
 
-A verificacao desse novo workflow no GitHub Actions continua necessaria.
+A CI do PR #116 foi aprovada no commit bed5fa3: cinco jobs concluídos, incluindo ambos os Quality Gates do SonarQube e o Actionlint.
 
 **Producao:** a integracao das migracoes ao processo de deploy da VPS exige verificacao previa, estrategia de backup e revisao do procedimento de rollback. Nao se deve presumir que uma reversao de codigo desfaca automaticamente uma migracao de banco.
 
@@ -122,13 +122,19 @@ A validacao contempla testes unitarios de DTOs e servicos, integracao NestJS/Pri
 
 O teste SQL utiliza dados ficticios e ROLLBACK. O teste Jest de integracao exige ativacao explicita e verifica o endereco do banco permitido.
 
+Na verificacao de 21/10/2026, os 67 testes foram aprovados em
+PostgreSQL 17 isolado. A cobertura local da API atingiu 100% de
+instrucoes, 88,46% de ramificacoes, 100% de funcoes e 100% de linhas.
+O SonarQube Cloud aprovou o PR #116, com 98,4% de cobertura de
+codigo novo e 0,0% de duplicacao na API.
+
 Ainda precisam ser tratados ou validados:
 
 - verificar a mesma regra de 10 MB no upload real e na Web;
 - exposicao dos contratos em endpoints e compartilhamento com a Web;
 - upload seguro, rate limiting e autorizacao dos fluxos completos;
-- execucao do CI no Pull Request;
-- migracoes de producao e procedimento de backup;
+- manter a CI e os Quality Gates aprovados nas proximas alteracoes;
+- publicacao autorizada das migracoes em producao, com verificacao posterior;
 - validacao dos estados e campos definitivos com a Bamak.
 
 ## 9. Rastreabilidade

@@ -45,9 +45,15 @@ o backup instalado, a estratégia de recuperação e os demais
 pré-requisitos operacionais.
 
 Se o workflow automático já tiver sido ignorado antes da
-autorização, será necessário planejar sua nova execução
-controlada no GitHub Actions. Não presumir publicação
-automática retroativa.
+autorização, utilizar o acionamento manual `workflow_dispatch`
+na branch `main`. O job manual confere que o SHA solicitado
+é o HEAD atual da `main` e que existe uma execução de CI de
+`push` concluída com sucesso para esse mesmo commit.
+
+A execução manual continua exigindo
+`PRODUCTION_DEPLOY_ENABLED=true` e correspondência exata de
+`PRODUCTION_DEPLOY_APPROVED_SHA`. A habilitação dessas
+variáveis não deve ocorrer antes da autorização operacional.
 
 Esta política introduz uma etapa manual por versão e deve
 ser mantida enquanto não existir um mecanismo equivalente
@@ -147,28 +153,59 @@ Restaurar um commit Git anterior não reverte o esquema SQL.
 Restaurar um dump exige procedimento específico, autorização
 e avaliação das alterações ocorridas depois do backup.
 
-## Verificações pendentes antes da produção
+## Estado operacional verificado em 21/10/2026
 
-- Confirmar instalação e integridade dos executores na VPS.
-- Verificar existência e proteção dos backups reais.
-- Ensaiar restauração em banco isolado a partir de um backup
-  adequado e autorizado, sem expor dados pessoais.
-- Validar conectividade e permissões do serviço migrador.
-- Conferir configuração de automação do deploy.
-- Confirmar aprovação do CI remoto e revisão do Pull Request.
-- Definir janela de publicação e responsável pela recuperação.
+Verificacoes efetivamente realizadas:
 
-O teste automatizado de backup e restauração em PostgreSQL
-descartável verifica o mecanismo, mas não substitui um
-ensaio operacional com o ambiente e o backup apropriados.
+- Executor `/usr/local/sbin/bamak-deploy` atualizado na VPS,
+  com SHA-256 conferido e copia privada da versao anterior.
+- Executor de backup instalado e agendamento systemd
+  identificados como ativos.
+- Backup PostgreSQL de producao com checksum SHA-256 valido
+  e metadados reconhecidos por `pg_restore`.
+- Restauracao do backup concluida com sucesso em PostgreSQL
+  descartavel, sem rede e sem volumes de producao.
+- Container de restauracao removido ao final do ensaio.
+- Cinco migracoes aplicadas e validadas em PostgreSQL 17
+  isolado, sem migracoes pendentes nesse ambiente de testes.
+- CI do PR #116 aprovada no commit `bed5fa3`, com cinco jobs,
+  incluindo Actionlint e ambos os Quality Gates.
+- Workflow de deploy manual validado estaticamente pelo
+  Actionlint e integrado ao fluxo de CI.
 
-## Limites atuais
+Situacao de autorizacao:
 
-Os testes locais validaram as cinco migrações versionadas,
-a idempotência do migrador, a inicialização da API de
-produção com PostgreSQL isolado e 15 cenários simulados
-dos scripts de deploy e preparação.
+- `PRODUCTION_DEPLOY_ENABLED=false`, conforme verificacao
+  informada pelo responsavel do repositorio.
+- `PRODUCTION_DEPLOY_APPROVED_SHA` ainda nao configurada.
+- PR #116 aberto, sem merge.
+- Nenhuma migracao desta Issue aplicada ao banco de producao.
 
-Essas evidências não demonstram instalação dos executores
-na VPS, restauração de dados reais ou autorização para
-executar migrações em produção.
+## Pendencias para a primeira publicacao das migracoes
+
+- Integrar o PR com autorizacao explicita e confirmar a
+  CI de `push` do commit definitivo da `main`.
+- Confirmar a janela de publicacao e a condicao de
+  recuperacao em caso de falha.
+- Autorizar o SHA exato de producao e habilitar
+  pontualmente o acionamento de deploy.
+- Executar a publicacao pelo GitHub Actions, sem substituir
+  o pipeline por comandos manuais de implantacao.
+- Confirmar migracoes, healthchecks, versao publicada
+  e registros operacionais na VPS.
+
+## Limites das evidencias
+
+A restauracao isolada validou o mecanismo de recuperacao
+do backup atual, cujo banco restaurado apresentou zero
+tabelas publicas. Isso nao comprova a recuperacao de
+dados de negocio futuros.
+
+Os testes de migracao e os cenarios simulados de deploy
+nao substituem a primeira aplicacao em producao. O
+Actionlint valida os workflows estaticamente, mas nao
+equivale a uma execucao real de deploy manual.
+
+Revisoes por pares e testes cruzados academicos permanecem
+separados da revisao tecnica individual e dependem das
+orientacoes da disciplina.
