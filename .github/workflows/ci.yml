@@ -142,6 +142,9 @@ jobs:
             --workdir /work rhysd/actionlint:1.7.12 \
             .github/workflows/ci.yml .github/workflows/deploy.yml
 
+      - name: Testar permissoes da imagem Prisma
+        run: sh infra/deploy/test-migration-image-permissions.sh
+
       - name: Validar scripts e testar deploy
         run: |
           docker run --rm --network none \
