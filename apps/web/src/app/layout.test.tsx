@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import RootLayout, { metadata } from "./layout";
+import SiteLayout from "./(site)/layout";
 
 vi.mock("next/font/google", () => ({
   Archivo: () => ({ variable: "mock-font-archivo" }),
@@ -10,9 +11,11 @@ vi.mock("next/font/google", () => ({
 function renderLayout() {
   const html = renderToStaticMarkup(
     <RootLayout params={Promise.resolve({})}>
+      <SiteLayout>
       <main id="conteudo-teste">
         <h1>Conteúdo da página de teste</h1>
       </main>
+          </SiteLayout>
     </RootLayout>,
   );
 
