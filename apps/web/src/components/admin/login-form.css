@@ -1,0 +1,100 @@
+.bamak-admin-login-form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 17px;
+  width: 100%;
+  min-width: 0;
+  max-width: 610px;
+  padding: 36px 34px;
+  border: 1px solid var(--semantic-border-subtle);
+  border-radius: 12px;
+  background: var(--semantic-surface-default);
+}
+
+.bamak-admin-login-form__eyebrow {
+  margin: 0;
+  color: var(--semantic-action-primary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.bamak-admin-login-form__title {
+  margin: 0;
+  color: var(--semantic-content-primary);
+  font-family: var(--font-archivo), Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.32px;
+}
+
+.bamak-admin-login-form__description {
+  margin: 0;
+  color: var(--semantic-content-secondary);
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.bamak-admin-login-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.bamak-admin-login-form__fields .bamak-field {
+  min-height: 112px;
+}
+
+.bamak-admin-login-form__show-password {
+  align-self: flex-end;
+  min-height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--semantic-action-primary);
+  cursor: pointer;
+  font-family: var(--font-source-sans-3), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: right;
+}
+
+.bamak-admin-login-form__show-password:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.bamak-admin-login-form__show-password:disabled {
+  color: var(--semantic-content-disabled);
+  cursor: not-allowed;
+}
+
+.bamak-admin-login-form__submit {
+  width: 100%;
+  min-height: 48px;
+}
+
+@media (max-width: 767px) {
+  .bamak-admin-login-form {
+    padding: 24px 20px;
+  }
+
+  .bamak-admin-login-form__title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bamak-admin-login-form__show-password {
+    transition: none;
+  }
+}
