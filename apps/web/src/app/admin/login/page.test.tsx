@@ -7,8 +7,8 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("ADM-01 — login administrativo", () => {
-  it("usa o logotipo branco da marca", () => {
-    render(<AdminLoginPage />);
+  it("usa o logotipo branco da marca", async () => {
+    render(await AdminLoginPage({}));
 
     const logo = screen.getByAltText("Bamak Equipamentos");
 
@@ -17,8 +17,8 @@ describe("ADM-01 — login administrativo", () => {
     );
   });
 
-  it("mostra o formulário e permite voltar ao site", () => {
-    render(<AdminLoginPage />);
+  it("mostra o formulário e permite voltar ao site", async () => {
+    render(await AdminLoginPage({}));
 
     expect(
       screen.getByRole("heading", { name: "Entrar no painel" }),
@@ -38,5 +38,41 @@ describe("ADM-01 — login administrativo", () => {
       index: false,
       follow: false,
     });
+  });
+
+  it("exibe aviso de sessao expirada pelo parametro da rota", async () => {
+    render(
+      await AdminLoginPage({
+        searchParams: Promise.resolve({
+          reason: "session-expired",
+        }),
+      }),
+    );
+
+    expect(
+      screen.getByText("Sua sessão expirou"),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText("Entre novamente para continuar no painel."),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("textbox", { name: "E-mail" }),
+    ).toBeEnabled();
+  });
+
+  it("nao mostra aviso para parametros desconhecidos", async () => {
+    render(
+      await AdminLoginPage({
+        searchParams: Promise.resolve({
+          reason: "desconhecido",
+        }),
+      }),
+    );
+
+    expect(
+      screen.queryByText("Sua sessão expirou"),
+    ).not.toBeInTheDocument();
   });
 });

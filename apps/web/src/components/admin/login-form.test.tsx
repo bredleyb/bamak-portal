@@ -172,7 +172,7 @@ describe('LoginForm administrativo', () => {
     );
 
     expect(
-      await screen.findByText(/credenciais inválidas/i),
+      await screen.findByText("Não foi possível entrar"),
     ).toBeInTheDocument();
 
     expect(replace).not.toHaveBeenCalled();

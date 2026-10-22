@@ -13,6 +13,10 @@
   background: var(--semantic-surface-default);
 }
 
+/* ADM-01: notificacoes de erro e sessao com 100px no Figma. */
+.bamak-admin-login-form > .bamak-notification {
+  min-height: 100px;
+}
 .bamak-admin-login-form__eyebrow {
   margin: 0;
   color: var(--semantic-action-primary);

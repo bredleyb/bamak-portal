@@ -10,7 +10,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminLoginPage() {
+type AdminLoginPageProps = Readonly<{
+  searchParams?: Promise<{
+    reason?: string | string[];
+  }>;
+}>;
+
+export default async function AdminLoginPage({
+  searchParams,
+}: AdminLoginPageProps) {
+  const query = await searchParams;
+  const sessionExpired = query?.reason === "session-expired";
+
   return (
     <div className="bamak-admin-login-page">
       <aside className="bamak-admin-login-page__brand">
@@ -36,7 +47,7 @@ export default function AdminLoginPage() {
 
       <main className="bamak-admin-login-page__main">
         <div className="bamak-admin-login-page__content">
-          <LoginForm />
+          <LoginForm sessionExpired={sessionExpired} />
 
           <Link href="/" className="bamak-admin-login-page__back">
             ← Voltar ao site

@@ -13,9 +13,9 @@ import "./login-form.css";
 
 const errorMessages = {
   invalid: {
-    title: "Credenciais inválidas",
+    title: "Não foi possível entrar",
     description:
-      "Verifique seu e-mail e senha e tente novamente.",
+      "Confira as credenciais e tente novamente.",
   },
   rateLimit: {
     title: "Muitas tentativas de acesso",
@@ -50,7 +50,13 @@ function validateEmail(value: string): string | undefined {
   return undefined;
 }
 
-export function LoginForm() {
+type LoginFormProps = Readonly<{
+  sessionExpired?: boolean;
+}>;
+
+export function LoginForm({
+  sessionExpired = false,
+}: LoginFormProps) {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -140,7 +146,12 @@ export function LoginForm() {
 
   const currentError = error
     ? errorMessages[error]
-    : null;
+    : sessionExpired
+      ? {
+          title: "Sua sessão expirou",
+          description: "Entre novamente para continuar no painel.",
+        }
+      : null;
 
   return (
     <form
@@ -167,7 +178,7 @@ export function LoginForm() {
 
       {currentError && (
         <Notification
-          tone={error === "rateLimit" ? "warning" : "danger"}
+          tone={error === "rateLimit" ? "warning" : error ? "danger" : "info"}
           title={currentError.title}
           description={currentError.description}
         />
@@ -221,7 +232,7 @@ export function LoginForm() {
         loading={submitting}
         disabled={attempted && Boolean(emailError || passwordError)}
       >
-        {submitting ? "Validando acesso..." : "Entrar no painel"}
+        {submitting ? "Validando acesso…" : "Entrar no painel"}
       </Button>
     </form>
   );
