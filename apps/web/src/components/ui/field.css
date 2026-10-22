@@ -35,6 +35,11 @@
   border: 2px solid var(--semantic-field-border-focus);
 }
 
+/* A borda de 2px ja fornece o indicador de foco do Figma. */
+.bamak-field__input:focus-visible {
+  outline: none;
+}
+
 .bamak-field__input:read-only,
 .bamak-field__input:disabled {
   background: var(--semantic-surface-disabled);
@@ -47,6 +52,11 @@
 
 .bamak-field__input[aria-invalid="true"] {
   border: 2px solid var(--semantic-feedback-danger-content);
+}
+
+/* Mantem o foco visivel quando o campo possui erro. */
+.bamak-field__input:focus-visible[aria-invalid="true"] {
+  border-color: var(--semantic-field-border-focus);
 }
 
 .bamak-field__hint,

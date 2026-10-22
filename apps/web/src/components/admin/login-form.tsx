@@ -36,6 +36,20 @@ const errorMessages = {
 
 type LoginError = keyof typeof errorMessages;
 
+function validateEmail(value: string): string | undefined {
+  const normalized = value.trim();
+
+  if (!normalized) {
+    return "Informe o e-mail de acesso.";
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+    return "Informe um e-mail válido.";
+  }
+
+  return undefined;
+}
+
 export function LoginForm() {
   const router = useRouter();
 
@@ -44,6 +58,7 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<LoginError | null>(null);
+  const [attempted, setAttempted] = useState(false);
 
   const inFlight = useRef(false);
 
@@ -56,9 +71,14 @@ export function LoginForm() {
       return;
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
+    setAttempted(true);
     setError(null);
+
+    if (validateEmail(email) || !password.trim()) {
+      return;
+    }
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     if (!apiUrl) {
       setError("connection");
@@ -109,6 +129,15 @@ export function LoginForm() {
     }
   }
 
+  const emailError = attempted
+    ? validateEmail(email)
+    : undefined;
+
+  const passwordError =
+    attempted && !password.trim()
+      ? "Informe sua senha."
+      : undefined;
+
   const currentError = error
     ? errorMessages[error]
     : null;
@@ -118,6 +147,7 @@ export function LoginForm() {
       className="bamak-admin-login-form"
       onSubmit={(event) => void handleSubmit(event)}
       aria-labelledby="admin-login-title"
+      noValidate
     >
       <p className="bamak-admin-login-form__eyebrow">
         ACESSO DA EQUIPE
@@ -149,8 +179,9 @@ export function LoginForm() {
           name="email"
           type="email"
           value={email}
+          error={emailError}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder="seu e-mail de acesso"
+          placeholder={emailError ? "" : "seu e-mail de acesso"}
           autoComplete="username"
           autoCapitalize="none"
           spellCheck={false}
@@ -163,8 +194,9 @@ export function LoginForm() {
           name="password"
           type={showPassword ? "text" : "password"}
           value={password}
+          error={passwordError}
           onChange={(event) => setPassword(event.target.value)}
-          placeholder="Informe sua senha"
+          placeholder={passwordError ? "" : "Informe sua senha"}
           autoComplete="current-password"
           required
           disabled={submitting}
@@ -187,6 +219,7 @@ export function LoginForm() {
         size="medium"
         className="bamak-admin-login-form__submit"
         loading={submitting}
+        disabled={attempted && Boolean(emailError || passwordError)}
       >
         {submitting ? "Validando acesso..." : "Entrar no painel"}
       </Button>
