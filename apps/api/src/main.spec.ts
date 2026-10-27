@@ -76,6 +76,7 @@ describe('Inicializacao da API', () => {
 
         expect(app.enableCors).toHaveBeenCalledWith({
           origin: expectedOrigin,
+          credentials: true,
         });
 
         expect(app.listen).toHaveBeenCalledWith(
