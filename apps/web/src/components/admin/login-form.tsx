@@ -3,6 +3,7 @@
 import {
   useRef,
   useState,
+  useSyncExternalStore,
   type FormEvent,
 } from "react";
 import { useRouter } from "next/navigation";
@@ -54,10 +55,21 @@ type LoginFormProps = Readonly<{
   sessionExpired?: boolean;
 }>;
 
+// O HTML inicial nao pode permitir envio antes da hidratacao.
+const subscribeHydration = () => () => {};
+const getClientHydration = () => true;
+const getServerHydration = () => false;
+
 export function LoginForm({
   sessionExpired = false,
 }: LoginFormProps) {
   const router = useRouter();
+
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    getClientHydration,
+    getServerHydration,
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -156,6 +168,8 @@ export function LoginForm({
   return (
     <form
       className="bamak-admin-login-form"
+      method="post"
+      action="/admin/login"
       onSubmit={(event) => void handleSubmit(event)}
       aria-labelledby="admin-login-title"
       noValidate
@@ -230,7 +244,7 @@ export function LoginForm({
         size="medium"
         className="bamak-admin-login-form__submit"
         loading={submitting}
-        disabled={attempted && Boolean(emailError || passwordError)}
+        disabled={!hydrated || (attempted && Boolean(emailError || passwordError))}
       >
         {submitting ? "Validando acesso…" : "Entrar no painel"}
       </Button>

@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import userEvent from '@testing-library/user-event';
 import {
   afterEach,
@@ -66,6 +67,41 @@ describe('LoginForm administrativo', () => {
     ).toHaveAttribute('type', 'submit');
   });
 
+  it('nao envia credenciais pela URL no fallback nativo', () => {
+    const { container } = render(<LoginForm />);
+
+    const form = container.querySelector('form');
+
+    expect(form).not.toBeNull();
+    expect(form).toHaveAttribute('method', 'post');
+    expect(form).toHaveAttribute('action', '/admin/login');
+  });
+
+  it('desabilita o envio no HTML antes da hidratacao', () => {
+    const markup = renderToStaticMarkup(<LoginForm />);
+
+    const template = document.createElement('template');
+    template.innerHTML = markup;
+
+    const submit = template.content.querySelector(
+      'button[type="submit"]',
+    );
+
+    expect(submit).not.toBeNull();
+    expect(submit?.hasAttribute('disabled')).toBe(true);
+  });
+
+  it('preserva os textos dos campos da referencia ADM-01', () => {
+    render(<LoginForm />);
+
+    expect(
+      screen.getByRole('textbox', { name: 'E-mail' }),
+    ).toHaveAttribute('placeholder', 'seu e-mail de acesso');
+
+    expect(
+      screen.getByLabelText('Senha'),
+    ).toHaveAttribute('placeholder', 'Informe sua senha');
+  });
   it('permite mostrar e ocultar a senha', async () => {
     const user = userEvent.setup();
     render(<LoginForm />);
