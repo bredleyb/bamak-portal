@@ -36,6 +36,7 @@ type GateStatus =
 
 type AdminSessionGateProps = Readonly<{
   children: ReactNode;
+  allowedRoles?: readonly AdminRole[];
 }>;
 
 function isAdminIdentity(value: unknown): value is AdminIdentity {
@@ -55,6 +56,7 @@ function isAdminIdentity(value: unknown): value is AdminIdentity {
 
 export function AdminSessionGate({
   children,
+  allowedRoles,
 }: AdminSessionGateProps) {
   const { replace } = useRouter();
 
@@ -135,6 +137,21 @@ export function AdminSessionGate({
   }, [replace]);
 
   if (status === "allowed" && verifiedIdentity) {
+    if (
+      allowedRoles &&
+      !allowedRoles.includes(verifiedIdentity.role)
+    ) {
+      return (
+        <div className="mx-auto w-full max-w-2xl px-6 py-10">
+          <Notification
+            tone="danger"
+            title="Acesso negado"
+            description="Sua conta não possui permissão para acessar esta área."
+          />
+        </div>
+      );
+    }
+
     return (
       <AdminIdentityContext.Provider value={verifiedIdentity}>
         {children}

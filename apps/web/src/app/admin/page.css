@@ -668,3 +668,37 @@
     margin-right: max(0px, calc(100% - 1600px));
   }
 }
+/* Marca oficial do rail administrativo compacto. */
+.bamak-admin-overview__rail-brand {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .bamak-admin-overview__rail-brand {
+    display: block;
+    flex: 0 0 32px;
+    width: 46px;
+    height: 32px;
+    margin-top: 1px;
+    margin-bottom: 57px;
+  }
+
+  .bamak-admin-overview__rail-brand img {
+    display: block;
+    width: 46px;
+    height: 32px;
+  }
+
+  .bamak-admin-overview__navigation {
+    width: 46px;
+  }
+
+  .bamak-admin-overview__navigation .bamak-admin-overview__nav-item {
+    min-height: 46px;
+  }
+}
+
+.bamak-admin-overview__rail-brand:focus-visible {
+  outline: 2px solid var(--primitive-brand);
+  outline-offset: 2px;
+}

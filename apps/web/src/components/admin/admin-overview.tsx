@@ -17,11 +17,12 @@ import {
   useAdminIdentity,
   type AdminRole,
 } from "./admin-session-gate";
+import { AdminSettingsContent } from "./admin-settings-content";
 const navigationItems = [
   { label: "Painel", href: "/admin", icon: LayoutDashboard },
   { label: "Atendimentos", href: null, icon: Inbox },
   { label: "Comunicação", href: null, icon: FileText },
-  { label: "Configurações", href: null, icon: Settings2 },
+  { label: "Configurações", href: "/admin/configuracoes", icon: Settings2 },
 ] as const;
 
 const indicators = [
@@ -45,9 +46,11 @@ const indicators = [
 
 function NavigationItems({
   role,
+  page,
   onNavigate,
 }: {
   role: AdminRole;
+  page: "overview" | "settings";
   onNavigate?: () => void;
 }) {
   const visibleItems = navigationItems.filter(
@@ -60,6 +63,9 @@ function NavigationItems({
     <>
       {visibleItems.map((item) => {
         const Icon = item.icon;
+        const currentHref =
+          page === "settings" ? "/admin/configuracoes" : "/admin";
+        const isActive = item.href === currentHref;
 
         const content = (
           <>
@@ -73,8 +79,12 @@ function NavigationItems({
             key={item.label}
             href={item.href}
             onClick={onNavigate}
-            aria-current="page"
-            className="bamak-admin-overview__nav-item bamak-admin-overview__nav-item--active"
+            aria-current={isActive ? "page" : undefined}
+            className={
+              isActive
+                ? "bamak-admin-overview__nav-item bamak-admin-overview__nav-item--active"
+                : "bamak-admin-overview__nav-item"
+            }
           >
             {content}
           </Link>
@@ -93,7 +103,9 @@ function NavigationItems({
   );
 }
 
-export function AdminOverview() {
+export function AdminOverview({
+  page = "overview",
+}: Readonly<{ page?: "overview" | "settings" }>) {
   const { role } = useAdminIdentity();
 
   const roleLabel =
@@ -286,7 +298,13 @@ export function AdminOverview() {
     }
   }
   return (
-    <div className="bamak-admin-overview">
+    <div
+      className={
+        page === "settings"
+          ? "bamak-admin-overview bamak-admin-overview--settings"
+          : "bamak-admin-overview"
+      }
+    >
       <aside className="bamak-admin-overview__sidebar">
         <Link
           href="/admin"
@@ -302,11 +320,24 @@ export function AdminOverview() {
           />
         </Link>
 
+        <Link
+          href="/admin"
+          className="bamak-admin-overview__rail-brand"
+          aria-label="Bamak — ir ao painel"
+        >
+          <Image
+            src="/assets/brand/bamak-symbol-green.svg"
+            alt="Símbolo Bamak"
+            width={46}
+            height={32}
+          />
+        </Link>
+
         <nav
           aria-label="Navegação administrativa"
           className="bamak-admin-overview__navigation"
         >
-          <NavigationItems role={role} />
+          <NavigationItems role={role} page={page} />
         </nav>
 
         <p className="bamak-admin-overview__sidebar-foot">
@@ -362,6 +393,7 @@ export function AdminOverview() {
                 >
                   <NavigationItems
                     role={role}
+                    page={page}
                     onNavigate={closeDrawer}
                   />
                 </nav>
@@ -485,6 +517,10 @@ export function AdminOverview() {
         </header>
 
         <main className="bamak-admin-overview__content">
+          {page === "settings" ? (
+            <AdminSettingsContent />
+          ) : (
+            <>
           <div className="bamak-admin-overview__intro">
             <p className="bamak-admin-overview__eyebrow">
               PAINEL ADMINISTRATIVO
@@ -571,6 +607,8 @@ export function AdminOverview() {
               </button>
             )}
           </div>
+            </>
+          )}
         </main>
       </div>
     </div>
