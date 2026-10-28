@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  createContext,
+  useContext,
   useEffect,
   useState,
   type ReactNode,
@@ -8,13 +10,24 @@ import {
 import { useRouter } from "next/navigation";
 import { Notification } from "../ui/notification";
 
-type AdminRole = "ADMINISTRATOR" | "OPERATOR";
+export type AdminRole = "ADMINISTRATOR" | "OPERATOR";
 
-type AdminIdentity = {
+export type AdminIdentity = {
   userId: string;
   role: AdminRole;
 };
 
+const AdminIdentityContext = createContext<AdminIdentity | null>(null);
+
+export function useAdminIdentity(): AdminIdentity {
+  const identity = useContext(AdminIdentityContext);
+
+  if (!identity) {
+    throw new Error("Identidade administrativa indisponível.");
+  }
+
+  return identity;
+}
 type GateStatus =
   | "checking"
   | "allowed"
@@ -46,6 +59,8 @@ export function AdminSessionGate({
   const { replace } = useRouter();
 
   const [status, setStatus] = useState<GateStatus>("checking");
+  const [verifiedIdentity, setVerifiedIdentity] =
+    useState<AdminIdentity | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -101,6 +116,7 @@ export function AdminSessionGate({
           return;
         }
 
+        setVerifiedIdentity(identity);
         setStatus("allowed");
       } catch {
         // Nao expor detalhes internos da API ou da rede.
@@ -118,8 +134,12 @@ export function AdminSessionGate({
     };
   }, [replace]);
 
-  if (status === "allowed") {
-    return <>{children}</>;
+  if (status === "allowed" && verifiedIdentity) {
+    return (
+      <AdminIdentityContext.Provider value={verifiedIdentity}>
+        {children}
+      </AdminIdentityContext.Provider>
+    );
   }
 
   if (status === "checking") {
