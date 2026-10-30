@@ -16,7 +16,13 @@ const roles: readonly { value: Role; label: string }[] = [
   { value: "ADMINISTRATOR", label: "Administrador" },
 ];
 
-export function AdminRolePicker() {
+type AdminRolePickerProps = Readonly<{
+  disabled?: boolean;
+}>;
+
+export function AdminRolePicker({
+  disabled = false,
+}: AdminRolePickerProps) {
   const id = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -146,6 +152,7 @@ export function AdminRolePicker() {
         <button
           ref={triggerRef}
           type="button"
+          disabled={disabled}
           role="combobox"
           aria-label="Perfil"
           aria-haspopup="listbox"

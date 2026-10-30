@@ -2,8 +2,8 @@
   color: var(--semantic-content-primary);
 }
 
-.bamak-admin-users__card:last-child button {
-  background: var(--primitive-brand);
+.bamak-admin-users__card:last-child .bamak-admin-users__add-trigger {
+  background: var(--semantic-action-primary);
   color: #fff;
 }
 
@@ -150,6 +150,13 @@
   min-width: 0;
 }
 
+
+
+
+
+
+
+
 .bamak-admin-users__create-form h2 {
   margin: 0 0 2px;
   color: var(--semantic-content-primary);
@@ -217,10 +224,12 @@
   cursor: pointer;
 }
 
+
 .bamak-admin-users__card:last-child .bamak-admin-users__role-trigger:focus-visible {
   border: 2px solid var(--semantic-field-border-focus);
   outline: none;
 }
+
 
 .bamak-admin-users__role-trigger .lucide-chevron-down {
   flex: 0 0 auto;
@@ -292,11 +301,29 @@
   min-width: 0;
 }
 
+.bamak-admin-users__card:last-child .bamak-admin-users__create-submit {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--semantic-action-primary);
+  color: #fff;
+}
+
+.bamak-admin-users__card:last-child .bamak-admin-users__create-submit:hover:not(:disabled) {
+  background: var(--semantic-action-primary-background-hover);
+}
+
 .bamak-admin-users__card:last-child .bamak-admin-users__cancel {
-  border: 1px solid var(--primitive-brand);
+  border: 1px solid var(--semantic-action-primary);
+  border-radius: 8px;
   background: var(--semantic-surface-default);
-  color: var(--primitive-brand);
+  color: var(--semantic-action-primary);
+  box-shadow: none;
   cursor: pointer;
+}
+
+.bamak-admin-users__card:last-child .bamak-admin-users__cancel:hover:not(:disabled) {
+  border-color: var(--semantic-action-primary);
+  background: var(--semantic-action-secondary-background-hover);
 }
 
 @media (max-width: 767px) {
@@ -309,4 +336,25 @@
     width: 100%;
     min-width: 0;
   }
+}
+
+/* Estados dos botoes segundo a biblioteca oficial do Figma. */
+.bamak-admin-users__card:last-child .bamak-admin-users__create-submit:active:not(:disabled) {
+  background: var(--semantic-action-primary-background-pressed);
+}
+
+.bamak-admin-users__card:last-child .bamak-admin-users__create-submit:disabled:not(.bamak-button--loading) {
+  border-color: transparent;
+  background: var(--semantic-surface-disabled);
+  color: var(--semantic-content-disabled);
+}
+
+.bamak-admin-users__card:last-child .bamak-admin-users__cancel:active:not(:disabled) {
+  background: var(--semantic-action-secondary-background-pressed);
+}
+
+.bamak-admin-users__card:last-child .bamak-admin-users__cancel:disabled {
+  border-color: transparent;
+  background: var(--semantic-surface-disabled);
+  color: var(--semantic-content-disabled);
 }

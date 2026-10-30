@@ -74,6 +74,7 @@ export function AdminUsersContent() {
   const [listState, setListState] = useState<UsersState>({
     status: "loading",
   });
+  const [refreshVersion, setRefreshVersion] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -148,7 +149,7 @@ export function AdminUsersContent() {
       active = false;
       controller.abort();
     };
-  }, [replace]);
+  }, [replace, refreshVersion]);
 
   return (
     <>
@@ -244,7 +245,11 @@ export function AdminUsersContent() {
         className="bamak-admin-settings__card bamak-admin-users__card"
         aria-label="Administração de usuários"
       >
-        <AdminUserCreateForm />
+        <AdminUserCreateForm
+          onCreated={() => {
+            setRefreshVersion((version) => version + 1);
+          }}
+        />
       </section>
     </>
   );
