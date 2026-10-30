@@ -60,11 +60,6 @@
   cursor: default;
 }
 
-.bamak-admin-overview__sidebar-foot {
-  margin: 24px 0 0;
-  color: var(--semantic-content-secondary);
-  font-size: 14px;
-}
 
 .bamak-admin-overview__workspace {
   min-width: 0;
@@ -270,8 +265,7 @@
     padding: 24px 10px;
   }
 
-  .bamak-admin-overview__brand,
-  .bamak-admin-overview__sidebar-foot {
+  .bamak-admin-overview__brand {
     display: none;
   }
 
@@ -700,5 +694,83 @@
 
 .bamak-admin-overview__rail-brand:focus-visible {
   outline: 2px solid var(--primitive-brand);
+  outline-offset: 2px;
+}
+/* Hierarquia administrativa e retorno das páginas filhas. */
+.bamak-admin-overview__breadcrumb {
+  min-width: 0;
+}
+
+.bamak-admin-overview__breadcrumb ol {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.bamak-admin-overview__breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.bamak-admin-overview__breadcrumb li + li::before {
+  content: "/";
+  margin-inline: 9px;
+  color: var(--semantic-content-secondary);
+}
+
+.bamak-admin-overview__breadcrumb a {
+  color: var(--semantic-content-link);
+  text-decoration: none;
+}
+
+.bamak-admin-overview__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.bamak-admin-overview__breadcrumb a:focus-visible {
+  outline: 3px solid var(--semantic-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.bamak-admin-overview__breadcrumb [aria-current="page"] {
+  color: var(--semantic-content-secondary);
+}
+
+.bamak-admin-overview__section-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.bamak-admin-overview__back-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-left: -12px;
+  margin-right: -12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--semantic-content-link);
+  text-decoration: none;
+}
+
+.bamak-admin-overview__back-link:hover {
+  color: var(--primitive-brand);
+}
+
+.bamak-admin-overview__back-link:focus-visible {
+  outline: 3px solid var(--semantic-focus-ring);
   outline-offset: 2px;
 }

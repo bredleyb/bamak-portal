@@ -54,11 +54,11 @@ describe("LoginForm — validação acessível ADM-01", () => {
 
     expect(
       screen.getByRole("textbox", { name: "E-mail" }),
-    ).toHaveAttribute("placeholder", "");
+    ).not.toHaveAttribute("placeholder");
 
     expect(
       screen.getByLabelText("Senha"),
-    ).toHaveAttribute("placeholder", "");
+    ).not.toHaveAttribute("placeholder");
 
     expect(
       screen.getByRole("textbox", { name: "E-mail" }),

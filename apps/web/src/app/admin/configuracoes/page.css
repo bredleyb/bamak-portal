@@ -92,3 +92,31 @@
   font-size: 24px;
   line-height: 32px;
 }
+
+/* Link para ADM-12, com geometria do botão original. */
+.bamak-admin-settings__card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--primitive-brand);
+  border-radius: 7px;
+  background: var(--primitive-brand);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bamak-admin-settings__card a:focus-visible {
+  outline: 2px solid var(--primitive-brand);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .bamak-admin-settings__card a {
+    width: 100%;
+  }
+}

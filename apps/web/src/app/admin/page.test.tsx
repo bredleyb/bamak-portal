@@ -113,15 +113,9 @@ describe("ADM-02 — rota administrativa protegida", () => {
       }),
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByText("PAINEL ADMINISTRATIVO"),
-    ).toBeInTheDocument();
+    expect(screen.queryByText("PAINEL ADMINISTRATIVO")).not.toBeInTheDocument();
 
-    expect(
-      screen.getByText(
-        "Atendimentos e pendências da operação.",
-      ),
-    ).toBeInTheDocument();
+    expect(screen.queryByText("Atendimentos e pendências da operação.")).not.toBeInTheDocument();
 
     const nav = screen.getByRole("navigation", {
       name: "Navegação administrativa",
@@ -172,7 +166,7 @@ describe("ADM-02 — rota administrativa protegida", () => {
 
     expect(
       screen.getAllByText("Administrador").length,
-    ).toBeGreaterThanOrEqual(2);
+    ).toBeGreaterThanOrEqual(1);
 
     expect(
       screen.getByText("ADM"),
@@ -242,7 +236,7 @@ describe("ADM-02 — rota administrativa protegida", () => {
 
     expect(
       screen.getAllByText("Operador").length,
-    ).toBeGreaterThanOrEqual(2);
+    ).toBeGreaterThanOrEqual(1);
 
     expect(
       screen.getByText("OPR"),

@@ -18,11 +18,16 @@ import {
   type AdminRole,
 } from "./admin-session-gate";
 import { AdminSettingsContent } from "./admin-settings-content";
+import { AdminUsersContent } from "./admin-users-content";
+import {
+  adminRoutes,
+  type AdminPageKey,
+} from "./admin-route-hierarchy";
 const navigationItems = [
-  { label: "Painel", href: "/admin", icon: LayoutDashboard },
+  { label: "Painel", href: adminRoutes.overview.href, icon: LayoutDashboard },
   { label: "Atendimentos", href: null, icon: Inbox },
   { label: "Comunicação", href: null, icon: FileText },
-  { label: "Configurações", href: "/admin/configuracoes", icon: Settings2 },
+  { label: "Configurações", href: adminRoutes.settings.href, icon: Settings2 },
 ] as const;
 
 const indicators = [
@@ -50,7 +55,7 @@ function NavigationItems({
   onNavigate,
 }: {
   role: AdminRole;
-  page: "overview" | "settings";
+  page: AdminPageKey;
   onNavigate?: () => void;
 }) {
   const visibleItems = navigationItems.filter(
@@ -63,8 +68,7 @@ function NavigationItems({
     <>
       {visibleItems.map((item) => {
         const Icon = item.icon;
-        const currentHref =
-          page === "settings" ? "/admin/configuracoes" : "/admin";
+        const currentHref = adminRoutes[page].sectionHref;
         const isActive = item.href === currentHref;
 
         const content = (
@@ -79,6 +83,8 @@ function NavigationItems({
             key={item.label}
             href={item.href}
             onClick={onNavigate}
+            aria-label={item.label}
+            title={item.label}
             aria-current={isActive ? "page" : undefined}
             className={
               isActive
@@ -92,8 +98,8 @@ function NavigationItems({
           <span
             key={item.label}
             aria-disabled="true"
+            title={item.label}
             className="bamak-admin-overview__nav-item bamak-admin-overview__nav-item--pending"
-            title="Funcionalidade em desenvolvimento"
           >
             {content}
           </span>
@@ -105,7 +111,7 @@ function NavigationItems({
 
 export function AdminOverview({
   page = "overview",
-}: Readonly<{ page?: "overview" | "settings" }>) {
+}: Readonly<{ page?: AdminPageKey }>) {
   const { role } = useAdminIdentity();
 
   const roleLabel =
@@ -300,7 +306,7 @@ export function AdminOverview({
   return (
     <div
       className={
-        page === "settings"
+        page !== "overview"
           ? "bamak-admin-overview bamak-admin-overview--settings"
           : "bamak-admin-overview"
       }
@@ -340,9 +346,7 @@ export function AdminOverview({
           <NavigationItems role={role} page={page} />
         </nav>
 
-        <p className="bamak-admin-overview__sidebar-foot">
-          {roleLabel}
-        </p>
+
       </aside>
 
       <div className="bamak-admin-overview__workspace">
@@ -444,9 +448,26 @@ export function AdminOverview({
             />
           </div>
 
-          <p className="bamak-admin-overview__breadcrumb">
-            Portal Bamak / Administração
-          </p>
+          <nav
+            className="bamak-admin-overview__breadcrumb"
+            aria-label="Trilha administrativa"
+          >
+            <ol>
+              {adminRoutes[page].breadcrumbs.map((crumb) => (
+                <li key={crumb.label}>
+                  {crumb.href ? (
+                    <Link href={crumb.href}>
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span aria-current="page">
+                      {crumb.label}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
 
           <div
             ref={accountContainerRef}
@@ -519,18 +540,14 @@ export function AdminOverview({
         <main className="bamak-admin-overview__content">
           {page === "settings" ? (
             <AdminSettingsContent />
+          ) : page === "users" ? (
+            <AdminUsersContent />
           ) : (
             <>
           <div className="bamak-admin-overview__intro">
-            <p className="bamak-admin-overview__eyebrow">
-              PAINEL ADMINISTRATIVO
-            </p>
 
             <h1>Visão geral</h1>
 
-            <p className="bamak-admin-overview__description">
-              Atendimentos e pendências da operação.
-            </p>
           </div>
 
           <section
@@ -584,9 +601,6 @@ export function AdminOverview({
                 Pendências operacionais
               </h2>
 
-              <p>
-                Situações que exigem acompanhamento.
-              </p>
 
               <div className="bamak-admin-overview__empty">
                 <p>

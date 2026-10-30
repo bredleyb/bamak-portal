@@ -24,9 +24,9 @@ const errorMessages = {
       "Aguarde antes de tentar entrar novamente.",
   },
   connection: {
-    title: "Não foi possível conectar à API",
+    title: "Não foi possível acessar o serviço",
     description:
-      "Verifique sua conexão e tente novamente.",
+      "Tente novamente em instantes.",
   },
   unexpected: {
     title: "Não foi possível concluir o acesso",
@@ -174,9 +174,6 @@ export function LoginForm({
       aria-labelledby="admin-login-title"
       noValidate
     >
-      <p className="bamak-admin-login-form__eyebrow">
-        ACESSO DA EQUIPE
-      </p>
 
       <h1
         id="admin-login-title"
@@ -185,10 +182,6 @@ export function LoginForm({
         Entrar no painel
       </h1>
 
-      <p className="bamak-admin-login-form__description">
-        Utilize suas credenciais de acesso à área
-        administrativa.
-      </p>
 
       {currentError && (
         <Notification
@@ -206,7 +199,6 @@ export function LoginForm({
           value={email}
           error={emailError}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder={emailError ? "" : "seu e-mail de acesso"}
           autoComplete="username"
           autoCapitalize="none"
           spellCheck={false}
@@ -221,7 +213,6 @@ export function LoginForm({
           value={password}
           error={passwordError}
           onChange={(event) => setPassword(event.target.value)}
-          placeholder={passwordError ? "" : "Informe sua senha"}
           autoComplete="current-password"
           required
           disabled={submitting}

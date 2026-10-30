@@ -55,13 +55,12 @@ describe("ADM-11 — rota de Configurações", () => {
 
     expect(
       await screen.findByRole("heading", {
-        name: "Configurações essenciais",
+        name: "Configurações",
       }),
     ).toBeInTheDocument();
 
     for (const name of [
       "Segurança da conta",
-      "Envio de notificações",
       "Usuários e permissões",
     ]) {
       expect(
@@ -96,7 +95,7 @@ describe("ADM-11 — rota de Configurações", () => {
 
     expect(
       screen.queryByRole("heading", {
-        name: "Configurações essenciais",
+        name: "Configurações",
       }),
     ).not.toBeInTheDocument();
   });
@@ -118,7 +117,7 @@ describe("ADM-11 — rota de Configurações", () => {
 
     expect(
       screen.queryByRole("heading", {
-        name: "Configurações essenciais",
+        name: "Configurações",
       }),
     ).not.toBeInTheDocument();
   });

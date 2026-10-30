@@ -36,7 +36,6 @@ export default async function AdminLoginPage({
 
         <div className="bamak-admin-login-page__brand-copy">
           <h2>Portal Bamak</h2>
-          <p>Atendimentos, publicações e documentos internos.</p>
           <span>ACESSO RESTRITO</span>
         </div>
 

@@ -47,7 +47,7 @@ describe("ADM-11 — fidelidade visual ao Figma", () => {
     render(<AdminSettingsPage />);
 
     await screen.findByRole("heading", {
-      name: "Configurações essenciais",
+      name: "Configurações",
     });
 
     const railBrand = document.querySelector(

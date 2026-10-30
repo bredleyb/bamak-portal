@@ -91,16 +91,16 @@ describe('LoginForm administrativo', () => {
     expect(submit?.hasAttribute('disabled')).toBe(true);
   });
 
-  it('preserva os textos dos campos da referencia ADM-01', () => {
+  it('evita repetir os rótulos nos placeholders', () => {
     render(<LoginForm />);
 
     expect(
       screen.getByRole('textbox', { name: 'E-mail' }),
-    ).toHaveAttribute('placeholder', 'seu e-mail de acesso');
+    ).not.toHaveAttribute('placeholder');
 
     expect(
       screen.getByLabelText('Senha'),
-    ).toHaveAttribute('placeholder', 'Informe sua senha');
+    ).not.toHaveAttribute('placeholder');
   });
   it('permite mostrar e ocultar a senha', async () => {
     const user = userEvent.setup();
@@ -257,7 +257,7 @@ describe('LoginForm administrativo', () => {
     );
 
     expect(
-      await screen.findByText(/não foi possível conectar/i),
+      await screen.findByText(/não foi possível acessar o serviço/i),
     ).toBeInTheDocument();
 
     expect(
