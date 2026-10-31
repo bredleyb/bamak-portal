@@ -191,7 +191,7 @@ A primeira versão deve contemplar:
 | RNF-04 | Ambiente padronizado | Docker para desenvolvimento e entrega. | Arquivos de ambiente |
 | RNF-05 | Cobertura backend | Pelo menos 75%. | Relatório do pipeline |
 | RNF-06 | Cobertura frontend | Pelo menos 25%. | Relatório do pipeline |
-| RNF-07 | TDD | Aplicado às regras centrais quando viável. | Histórico de testes e commits |
+| RNF-07 | TDD | Obrigatório na linha Web Apps; registrar os ciclos de teste, implementação e refatoração nas entregas pertinentes. | Histórico rastreável de testes, commits e PRs |
 | RNF-08 | Testes de fluxo | Fluxos críticos com integração ou ponta a ponta. | Relatório de testes |
 | RNF-09 | CI/CD | GitHub Actions executa lint, testes e build. | Pipeline aprovado |
 | RNF-10 | Análise estática | SonarCloud sem bloqueio do quality gate. | Dashboard do SonarCloud |

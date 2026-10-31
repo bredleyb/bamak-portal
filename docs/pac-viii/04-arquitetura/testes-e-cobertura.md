@@ -4,7 +4,7 @@
 
 Registrar a infraestrutura de testes do Portal Bamak, os resultados efetivamente obtidos e os critérios de evolução da cobertura, conforme a Issue #90.
 
-Os testes acompanham cada incremento funcional. TDD deverá ser aplicado quando pertinente.
+Os testes acompanham cada incremento funcional. **TDD é exigência acadêmica da linha Web Apps**; a aplicação do processo e seus ciclos devem ser evidenciados pelos testes, commits e PRs pertinentes. A existência de cobertura, isoladamente, não demonstra que TDD foi praticado.
 
 ## Ferramentas
 
@@ -117,7 +117,7 @@ A auditoria incluindo dependências de desenvolvimento identificou cinco alertas
 
 ## Evidências da Issue #96 — 31/10/2026
 
-A branch `feat/admin-auth-rbac` e a PR #119 implementam autenticação administrativa, autorização por perfil e gestão de acessos. As evidências a seguir distinguem o commit publicado do incremento local posterior.
+A branch histórica `feat/admin-auth-rbac` e a PR #119 implementaram autenticação administrativa, autorização por perfil e gestão de acessos. A [PR #119](https://github.com/bredleyb/bamak-portal/pull/119) foi integrada à `main` no commit `bd44bfe6`. As verificações locais abaixo foram registradas antes do merge; a CI de `main` posterior é descrita em seguida.
 
 | Verificação | Resultado |
 |---|---|
@@ -131,11 +131,11 @@ A branch `feat/admin-auth-rbac` e a PR #119 implementam autenticação administr
 
 A nona migração `20261031043000_admin_access_event_created` acrescenta o tipo CREATED. A conta e seu evento são gravados na mesma transação, após revalidação do Administrador sob bloqueio transacional. O teste simula falha de INSERT da auditoria e confirma que a conta não foi criada.
 
-A CI do commit publicado `6f74226`, [execução #41167176931](https://github.com/bredleyb/bamak-portal/actions/runs/41167176931), concluiu os cinco jobs com sucesso, incluindo os dois jobs SonarQube. API: 201 testes gerais aprovados, 15 ignorados nessa etapa e 97,34% de cobertura de linhas. Web: 274 testes aprovados e 89,79% de cobertura de linhas. Suítes PostgreSQL específicas da CI: 11/11 testes de acessos e 4/4 de troca de senha aprovados.
+A [CI #41169874724](https://github.com/bredleyb/bamak-portal/actions/runs/41169874724), do commit de merge `bd44bfe6`, concluiu os cinco jobs com sucesso, incluindo SonarQube API e Web. No job API: **205 testes gerais aprovados**, **24 ignorados** e **97,20% de cobertura de linhas**; nas suítes PostgreSQL separadas, **20/20 testes de acessos** e **4/4 testes de senhas** aprovados. No job Web: **274/274 testes aprovados** e **89,32% de cobertura de linhas**. Resultados extraídos dos logs dos jobs API e Web da execução indicada.
 
-**Limite temporal:** a nova migração e os testes de criação/concorrência posteriores ao commit `6f74226` possuem evidência local de execução; a validação em CI deve ser conferida para o commit que os incluir. O banco de desenvolvimento e o ambiente de produção não foram utilizados na etapa de integração descartável.
+**Limite temporal:** os testes e a nona migração da Issue #96 estão versionados no commit integrado e tiveram sua CI executada. A aprovação dos jobs não comprova aplicação das migrações na VPS nem release funcional. O [workflow de deploy posterior ao merge](https://github.com/bredleyb/bamak-portal/actions/runs/41170068752) foi ignorado (`skipped`); a produção requer verificação operacional específica e deploy autorizado.
 
-A revisão por pares e os testes cruzados acadêmicos estão temporariamente suspensos, com acompanhamento na Issue #105. Sua retomada dependerá da organização e disponibilidade de revisores, sem impedir as verificações técnicas individuais. Nenhuma revisão externa foi declarada realizada.
+A revisão por pares e os testes cruzados acadêmicos são obrigatórios na disciplina PAC VIII e permanecem com evidências pendentes, acompanhadas na [Issue #105](https://github.com/bredleyb/bamak-portal/issues/105). Disponibilidade de revisores e organização da atividade são dependências operacionais; não há evidência de dispensa institucional. Nenhuma revisão externa é declarada realizada.
 
 ## Padrões para os próximos incrementos
 
