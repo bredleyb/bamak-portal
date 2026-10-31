@@ -148,6 +148,7 @@ describe('Criacao administrativa de usuarios via HTTP', () => {
         password: 'SenhaFicticia123!',
         role: 'OPERATOR',
       }),
+      userId,
     );
 
     expect(JSON.stringify(response.body)).not.toContain(

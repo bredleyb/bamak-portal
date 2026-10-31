@@ -47,12 +47,21 @@ export class AdminUsersController {
   @Post()
   @Header('Cache-Control', 'no-store')
   async createUser(
-    @Req() request: Request,
+    @Req() request: AuthenticatedAdminRequest,
     @Body() body: CreateAdminUserDto,
   ) {
     assertTrustedOrigin(request);
 
-    const user = await this.creationService.createUser(body);
+    const actorId = request.adminIdentity?.userId;
+
+    if (!actorId) {
+      throw new UnauthorizedException('Sessao invalida.');
+    }
+
+    const user = await this.creationService.createUser(
+      body,
+      actorId,
+    );
 
     return { user };
   }

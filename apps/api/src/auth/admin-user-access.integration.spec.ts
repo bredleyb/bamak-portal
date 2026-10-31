@@ -105,6 +105,72 @@ describeDatabase('AdminUserAccessService com PostgreSQL real', () => {
     expect(activeCount).toBe(1);
   }
 
+  it('preserva administrador ativo em desativacoes cruzadas', async () => {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await resetAdministrators();
+
+      const outcomes = await Promise.allSettled([
+        subject.setActive(ids[0], false, ids[1]),
+        subject.setActive(ids[1], false, ids[0]),
+      ]);
+
+      expect(
+        outcomes.filter((outcome) => outcome.status === 'fulfilled'),
+      ).toHaveLength(1);
+
+      const failures = outcomes.filter(
+        (outcome): outcome is PromiseRejectedResult =>
+          outcome.status === 'rejected',
+      );
+
+      expect(failures).toHaveLength(1);
+      expect(failures[0].reason).toBeInstanceOf(
+        UnauthorizedException,
+      );
+
+      await assertSingleActiveAdministrator();
+
+      expect(
+        await prisma.adminAccessEvent.count({
+          where: { eventType: 'DEACTIVATED' },
+        }),
+      ).toBe(1);
+    }
+  });
+
+  it('preserva administrador ativo em rebaixamentos cruzados', async () => {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await resetAdministrators();
+
+      const outcomes = await Promise.allSettled([
+        subject.changeRole(ids[0], 'OPERATOR', ids[1]),
+        subject.changeRole(ids[1], 'OPERATOR', ids[0]),
+      ]);
+
+      expect(
+        outcomes.filter((outcome) => outcome.status === 'fulfilled'),
+      ).toHaveLength(1);
+
+      const failures = outcomes.filter(
+        (outcome): outcome is PromiseRejectedResult =>
+          outcome.status === 'rejected',
+      );
+
+      expect(failures).toHaveLength(1);
+      expect(failures[0].reason).toBeInstanceOf(
+        ForbiddenException,
+      );
+
+      await assertSingleActiveAdministrator();
+
+      expect(
+        await prisma.adminAccessEvent.count({
+          where: { eventType: 'ROLE_CHANGED' },
+        }),
+      ).toBe(1);
+    }
+  });
+
   it('serializa duas desativacoes da mesma conta', async () => {
     for (let attempt = 0; attempt < 3; attempt++) {
       await resetAdministrators();

@@ -94,7 +94,7 @@ O armazenamento S3, o controle efetivo de acesso aos arquivos, a geracao do PDF 
 
 User representa os perfis administrativos por enumeracao, sem tabela Role independente. Senhas devem ser armazenadas exclusivamente como hash; a modelagem nao cria usuarios produtivos com credenciais fixas.
 
-Na Issue #96, Session armazena o hash do token opaco e o controle de validade/revogacao. LoginAttemptBucket registra limites de tentativa sem manter o IP em texto puro. AdminAccessEvent registra ROLE_CHANGED, ACTIVATED e DEACTIVATED, vinculando autor, usuario afetado, valores anteriores/novos e instante. O evento e a alteracao ocorrem na mesma transacao. A integridade referencial restringe a exclusao de contas com historico vinculado. O registro inicial de criacao de usuario ainda nao integra essa trilha especifica.
+Na Issue #96, Session armazena o hash do token opaco e o controle de validade/revogacao. LoginAttemptBucket registra limites de tentativa sem manter o IP em texto puro. AdminAccessEvent registra CREATED, ROLE_CHANGED, ACTIVATED e DEACTIVATED, vinculando autor, usuario afetado, valores anteriores/novos e instante. A criacao de usuario e o evento CREATED ocorrem na mesma transacao. A verificacao do Administrador ocorre apos a aquisicao do bloqueio transacional compartilhado com alteracoes de perfil/ativacao. Falhas de auditoria desfazem a operacao. A integridade referencial restringe a exclusao de contas com historico vinculado.
 
 CommunicationPost registra tipo, estado, datas e autoria. Uma restricao SQL exige publishedAt para registros publicados.
 
@@ -109,6 +109,10 @@ As migracoes sao versionadas em apps/api/prisma/migrations.
 3. attendance_integrity: triggers de tipos de atendimento e limite de anexos.
 4. attachment_size_decimal_mb: limite de 10 MB decimais por imagem.
 5. attendance_completeness: integridade obrigatoria dos formularios com gatilhos diferidos.
+6. admin_sessions: sessoes administrativas, tokens com hash e revogacao.
+7. admin_login_rate_limit: contadores persistentes de tentativas de login.
+8. admin_access_events: trilha transacional de alteracoes de perfil e ativacao.
+9. admin_access_event_created: evento de concessao inicial de acesso (CREATED).
 
 Os testes locais de migracao e persistencia foram executados em PostgreSQL 17 isolado, com credenciais fora do Git.
 

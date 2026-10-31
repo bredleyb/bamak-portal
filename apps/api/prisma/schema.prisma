@@ -17,6 +17,7 @@ enum AdminAccessEventType {
   ROLE_CHANGED
   ACTIVATED
   DEACTIVATED
+  CREATED
 }
 
 model User {

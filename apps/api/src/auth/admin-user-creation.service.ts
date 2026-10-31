@@ -1,6 +1,8 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { PasswordService } from './password.service';
@@ -13,9 +15,17 @@ export interface CreateAdminUserInput {
   role: AdminRole;
 }
 
-function isUniqueConstraintViolation(
-  error: unknown,
-): boolean {
+const PUBLIC_USER_SELECT = {
+  id: true,
+  name: true,
+  email: true,
+  role: true,
+  isActive: true,
+  createdAt: true,
+  updatedAt: true,
+} as const;
+
+function isUniqueConstraintViolation(error: unknown): boolean {
   return (
     typeof error === 'object' &&
     error !== null &&
@@ -31,33 +41,69 @@ export class AdminUserCreationService {
     private readonly passwords: PasswordService,
   ) {}
 
-  async createUser(input: CreateAdminUserInput) {
+  async createUser(input: CreateAdminUserInput, actorId: string) {
     const name = input.name.trim();
     const email = input.email.trim().toLowerCase();
 
-    // A senha nunca deve ser normalizada nem gravada em texto puro.
+    // O hash e calculado antes da transacao para minimizar
+    // a duracao do bloqueio sobre operacoes administrativas.
     const passwordHash = await this.passwords.hashPassword(
       input.password,
     );
 
     try {
-      return await this.prisma.user.create({
-        data: {
-          name,
-          email,
-          passwordHash,
-          role: input.role,
-          isActive: true,
-        },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-          isActive: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+      return await this.prisma.$transaction(async (tx) => {
+        // Mesma chave utilizada pela alteracao de perfil e
+        // ativacao. Serializa operacoes sobre permissoes.
+        await tx.$queryRaw<{ locked: string }[]>`
+          SELECT pg_advisory_xact_lock(710245, 96)::text
+            AS "locked"
+        `;
+
+        // Revalidar a autorizacao depois de obter o bloqueio.
+        // O ator pode ter perdido privilegios durante o hash.
+        const actor = await tx.user.findUnique({
+          where: { id: actorId },
+          select: {
+            role: true,
+            isActive: true,
+          },
+        });
+
+        if (!actor || !actor.isActive) {
+          throw new UnauthorizedException('Sessao invalida.');
+        }
+
+        if (actor.role !== 'ADMINISTRATOR') {
+          throw new ForbiddenException('Acesso negado.');
+        }
+
+        const user = await tx.user.create({
+          data: {
+            name,
+            email,
+            passwordHash,
+            role: input.role,
+            isActive: true,
+          },
+          select: PUBLIC_USER_SELECT,
+        });
+
+        // A concessao inicial e auditada na mesma transacao.
+        // Falha na auditoria desfaz tambem a criacao da conta.
+        await tx.adminAccessEvent.create({
+          data: {
+            actorId,
+            targetUserId: user.id,
+            eventType: 'CREATED',
+            previousRole: null,
+            newRole: input.role,
+            previousIsActive: null,
+            newIsActive: true,
+          },
+        });
+
+        return user;
       });
     } catch (error: unknown) {
       if (isUniqueConstraintViolation(error)) {

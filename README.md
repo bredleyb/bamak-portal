@@ -4,7 +4,7 @@ Este repositório reúne o **Portal Bamak**, projeto de **Trabalho de Conclusão
 
 A solução pretende organizar a apresentação da empresa, suas aplicações e produtos, os conteúdos de Comunicação e a entrada de solicitações comerciais. O atendimento técnico e comercial permanece sob responsabilidade da equipe da Bamak.
 
-> **Situação do projeto (31/10/2026):** PAC VII concluído e PAC VIII em execução. O design hi-fi está consolidado no Figma. A infraestrutura Next.js, NestJS, PostgreSQL, Docker e GitHub Actions possui publicação técnica anterior na VPS. A Issue #96 implementa localmente autenticação, controle de acessos e auditoria administrativa na PR #119, ainda em rascunho. O primeiro deploy dessas alterações, os três fluxos de negócio e o aceite institucional permanecem pendentes. **O ambiente publicado não representa o lançamento oficial da Bamak.**
+> **Situação do projeto (31/10/2026):** PAC VII concluído e PAC VIII em execução. O design hi-fi está consolidado no Figma. A infraestrutura Next.js, NestJS, PostgreSQL, Docker e GitHub Actions possui publicação técnica anterior na VPS. A autenticação e a gestão de acessos da Issue #96 estão implementadas na branch e registradas na PR #119. O commit `6f74226` passou na CI; alterações posteriores de segurança, auditoria e testes foram validadas localmente e exigem nova verificação de CI antes da integração. O deploy dessas alterações, os três fluxos de negócio e o aceite institucional permanecem pendentes. **O ambiente publicado ainda não representa o lançamento oficial da Bamak.**
 
 **Documentação principal:** [RFC v2](docs/pac-viii/02-escopo/rfc-v2-pac-viii.md) · [Requisitos e fluxos](docs/pac-viii/03-requisitos/requisitos-user-stories-fluxos-metricas.md) · [Arquitetura](docs/pac-viii/04-arquitetura/arquitetura-web-apps.md) · [Issues](https://github.com/bredleyb/bamak-portal/issues)
 
@@ -47,13 +47,13 @@ No Cabo Aéreo, a localização textual é suficiente; o mapa Leaflet/OpenStreet
 | Frente | Estado e evidências |
 |---|---|
 | Frontend Next.js | Fundamentos visuais, componentes compartilhados, login e interfaces administrativas de usuários/acessos implementados na branch da Issue #96. |
-| API NestJS | Sessões administrativas, hash de senhas, login/logout, RBAC, troca de senha, criação e atualização de usuários e auditoria de alterações de perfil/ativação. |
-| PostgreSQL e Prisma | Modelo de domínio versionado; oito migrações aplicadas em banco local e PostgreSQL descartável. A migração de auditoria ainda não foi publicada na VPS. |
-| Testes locais | Em 31/10/2026, 28 testes unitários/HTTP e 11 testes de integração PostgreSQL relativos à gestão de acessos foram aprovados após o reforço da autorização. |
-| CI e análise estática | Cinco jobs e SonarQube Cloud. O commit `51d1587` passou na CI anterior; a inclusão dos novos testes PostgreSQL na CI ainda aguarda publicação e execução. |
+| API NestJS | Autenticação por sessões opacas, RBAC, troca de senha, criação e gestão de usuários. O incremento local reforça a autorização transacional na criação e audita a concessão inicial de acesso. |
+| PostgreSQL e Prisma | Modelo de domínio versionado. Nove migrações executadas com sucesso em PostgreSQL 17 descartável; a nona adiciona o evento `CREATED` e ainda não foi publicada. As migrações da Issue #96 permanecem pendentes de deploy autorizado na VPS. |
+| Testes locais | Em 31/10/2026: 44/44 testes unitários/HTTP selecionados aprovados; 20/20 testes de integração em PostgreSQL descartável aprovados, abrangendo concorrência, auditoria e rollback. |
+| CI e análise estática | O commit `6f74226` passou nos cinco jobs da CI e nos dois checks SonarCloud. A CI aprovou 201 testes gerais da API, 274 testes Web e as suítes PostgreSQL existentes. A suíte de criação acrescentada posteriormente exige validação na CI do commit que a incluir. |
 | Infraestrutura | Publicação técnica anterior na VPS, com HTTPS e healthcheck. Deploy da Issue #96 sujeito a revisão operacional, backup e autorização por SHA. |
 | Fluxos de negócio | Contato geral, Cabo Aéreo e Comunicação permanecem dependentes das respectivas Issues funcionais. |
-| Validação e aceite | Testes funcionais locais realizados para acessos. Revisão por pares, CI do novo incremento, validação extensionista e aceite institucional pendentes. |
+| Validação e aceite | Testes funcionais e automatizados de acessos aprovados nos ambientes especificados. Revisão por pares e testes cruzados acadêmicos temporariamente suspensos, acompanhados na Issue #105. Permanecem pendentes a CI do incremento local, a validação extensionista e o aceite institucional. |
 
 As evidências devem ser interpretadas conforme o commit e o ambiente de execução. A [PR #119](https://github.com/bredleyb/bamak-portal/pull/119) reúne o incremento de autenticação e controle administrativo. A reorganização histórica foi integrada pela [PR #79](https://github.com/bredleyb/bamak-portal/pull/79).
 ### Fundamentos visuais implementados
@@ -122,9 +122,9 @@ O arquivo `.env.example` contém **credenciais exclusivamente locais e ilustrati
 
 A CI em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executa cinco jobs em Pull Requests para a `main` e em pushes na `main`: `API`, `Web`, `Scripts de deploy`, `SonarQube API` e `SonarQube Web`. As verificações incluem instalação reproduzível de dependências, auditoria das dependências de produção, lint, build, validação Prisma, testes dos scripts de deploy e análise estática no SonarQube Cloud.
 
-A `main` exige Pull Request, atualização da branch e os checks obrigatórios de API, Web e Scripts de deploy. O desenvolvimento é individual; revisões reais por colegas e testes cruzados continuam sendo atividades acadêmicas pendentes, sem presumir aprovação por pares inexistente. Defeitos reproduzíveis devem ser registrados como Issues.
+A `main` exige Pull Request, atualização da branch e checks obrigatórios de API, Web e Scripts de deploy. O desenvolvimento é individual. A revisão por pares e os testes cruzados acadêmicos estão temporariamente suspensos e serão retomados conforme a disponibilidade prevista na Issue #105; essa suspensão não interrompe a implementação e os testes automatizados. Defeitos reproduzíveis devem ser registrados como Issues.
 
-A linha Web Apps exige 75% de cobertura no backend e 25% no frontend, além de testes, segurança e análise estática. No commit `51d1587`, a CI anterior aprovou os cinco jobs e a API registrou 97,7% de linhas cobertas; parte dos testes com PostgreSQL ainda era ignorada naquela execução. O ajuste local do workflow para executar esses cenários precisa passar por nova CI. Os resultados históricos da Issue #89 permanecem documentados separadamente. Os riscos de dependências são acompanhados na Issue #109.
+A linha Web Apps exige 75% de cobertura no backend e 25% no frontend, além de testes e análise estática independente do lint. Na execução de CI #41167176931 do commit `6f74226`, os cinco jobs passaram: API com 201 testes gerais aprovados, 15 ignorados nessa etapa e 97,34% de cobertura de linhas; Web com 274 testes e 89,79% de cobertura de linhas. As suítes PostgreSQL específicas passaram com 11 testes de acessos e 4 de senhas. O incremento posterior acrescentou testes de criação e concorrência, sujeitos a nova validação de CI antes da integração à main.
 
 O arquivo [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) exige `PRODUCTION_DEPLOY_ENABLED=true` e `PRODUCTION_DEPLOY_APPROVED_SHA` correspondente ao SHA autorizado, além da CI aprovada. A primeira publicação técnica foi registrada na [execução 39181397560](https://github.com/bredleyb/bamak-portal/actions/runs/39181397560), no domínio provisório [bamak.bbauer.systems](https://bamak.bbauer.systems). Publicações com migrações devem seguir o procedimento de backup, preparação e verificação operacional documentado no PAC VIII. O lançamento oficial depende das funcionalidades finais e do aceite da Bamak.
 
@@ -166,9 +166,9 @@ Os documentos do PAC VII são preservados como registros daquela fase. Alteraç�
 ## Próximas entregas
 
 - Submeter conteúdo, fotografias, decisões de interface e protótipos de referência à validação da Bamak, registrando eventuais ajustes aprovados.
-- Concluir a revisão, os testes automatizados e a publicação controlada da autenticação e dos acessos administrativos da Issue #96; implementar incrementalmente as demais áreas e os fluxos **FL-01, FL-02 e FL-03**.
+- Concluir os testes, a documentação e a integração controlada da autenticação e dos acessos administrativos da Issue #96; implementar progressivamente as demais áreas e os fluxos **FL-01, FL-02 e FL-03**.
 - Integrar armazenamento privado, geração e envio controlado de PDF, serviços de e-mail e observabilidade, preservando a análise estática já integrada à CI.
-- Realizar revisões por colegas, testes cruzados, validações de MVPs, correções e registro das evidências acadêmicas.
+- Retomar as revisões por colegas e os testes cruzados acadêmicos quando a atividade for reorganizada (Issue #105); registrar evidências reais, validações dos MVPs e correções pertinentes.
 - Evoluir a publicação técnica automatizada para uma release estável, com testes de negócio, backups e recuperação verificados, controles de segurança e aceite institucional antes do lançamento oficial.
 
 O acompanhamento das tarefas e prioridades ocorre nas [Issues do repositório](https://github.com/bredleyb/bamak-portal/issues) e no GitHub Project do PAC VIII.
