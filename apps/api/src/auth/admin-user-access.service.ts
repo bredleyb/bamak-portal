@@ -47,6 +47,16 @@ function assertCanManageAccess(
   }
 }
 
+function getAccessEventType(
+  data: AccessChange,
+): 'ROLE_CHANGED' | 'ACTIVATED' | 'DEACTIVATED' {
+  if ('role' in data) {
+    return 'ROLE_CHANGED';
+  }
+
+  return data.isActive ? 'ACTIVATED' : 'DEACTIVATED';
+}
+
 @Injectable()
 export class AdminUserAccessService {
   constructor(private readonly prisma: PrismaService) {}
@@ -152,11 +162,7 @@ export class AdminUserAccessService {
         data: {
           actorId,
           targetUserId: userId,
-          eventType: roleChanged
-            ? 'ROLE_CHANGED'
-            : data.isActive
-              ? 'ACTIVATED'
-              : 'DEACTIVATED',
+          eventType: getAccessEventType(data),
           previousRole: roleChanged ? existing.role : null,
           newRole: roleChanged ? data.role : null,
           previousIsActive: roleChanged
