@@ -248,6 +248,53 @@ describe('AdminUserAccessService', () => {
     });
   });
 
+  it('audita a desativacao com valores anterior e novo', async () => {
+    const operator = {
+      ...admin,
+      role: 'OPERATOR' as Role,
+    };
+
+    const { subject, createAudit } = setup(operator);
+
+    await subject.setActive(userId, false, actorId);
+
+    expect(createAudit).toHaveBeenCalledWith({
+      data: {
+        actorId,
+        targetUserId: userId,
+        eventType: 'DEACTIVATED',
+        previousRole: null,
+        newRole: null,
+        previousIsActive: true,
+        newIsActive: false,
+      },
+    });
+  });
+
+  it('audita a reativacao com valores anterior e novo', async () => {
+    const inactiveOperator = {
+      ...admin,
+      role: 'OPERATOR' as Role,
+      isActive: false,
+    };
+
+    const { subject, createAudit } = setup(inactiveOperator);
+
+    await subject.setActive(userId, true, actorId);
+
+    expect(createAudit).toHaveBeenCalledWith({
+      data: {
+        actorId,
+        targetUserId: userId,
+        eventType: 'ACTIVATED',
+        previousRole: null,
+        newRole: null,
+        previousIsActive: false,
+        newIsActive: true,
+      },
+    });
+  });
+
   it('nao audita uma operacao sem mudanca', async () => {
     const { subject, createAudit, update } = setup(admin);
 
