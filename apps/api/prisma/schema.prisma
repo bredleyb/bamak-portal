@@ -13,6 +13,12 @@ enum UserRole {
   OPERATOR
 }
 
+enum AdminAccessEventType {
+  ROLE_CHANGED
+  ACTIVATED
+  DEACTIVATED
+}
+
 model User {
   generatedDocuments       GeneratedDocument[]
   documentDeliveryAttempts DocumentDeliveryAttempt[]
@@ -28,8 +34,27 @@ model User {
   authoredPosts CommunicationPost[]
   statusChanges AttendanceStatusChange[]
   sessions Session[]
+  accessEventsAsActor AdminAccessEvent[] @relation("AccessEventActor")
+  accessEventsAsTarget AdminAccessEvent[] @relation("AccessEventTarget")
 
   @@index([role, isActive])
+}
+
+model AdminAccessEvent {
+  id               String               @id @default(uuid()) @db.Uuid
+  actorId          String               @db.Uuid
+  actor            User                 @relation("AccessEventActor", fields: [actorId], references: [id], onDelete: Restrict)
+  targetUserId     String               @db.Uuid
+  targetUser       User                 @relation("AccessEventTarget", fields: [targetUserId], references: [id], onDelete: Restrict)
+  eventType        AdminAccessEventType
+  previousRole     UserRole?
+  newRole          UserRole?
+  previousIsActive Boolean?
+  newIsActive      Boolean?
+  createdAt        DateTime             @default(now()) @db.Timestamptz(3)
+
+  @@index([targetUserId, createdAt])
+  @@index([actorId, createdAt])
 }
 
 model Application {

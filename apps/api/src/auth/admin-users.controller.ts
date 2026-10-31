@@ -8,6 +8,7 @@ import {
   Post,
   Req,
   Header,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import type { Request } from 'express';
@@ -20,6 +21,10 @@ import { CreateAdminUserDto } from './dto/create-admin-user.dto';
 import { SetAdminUserActiveDto } from './dto/set-admin-user-active.dto';
 import { UpdateAdminUserRoleDto } from './dto/update-admin-user-role.dto';
 import { RequireRoles } from './require-roles.decorator';
+
+type AuthenticatedAdminRequest = Request & {
+  adminIdentity?: { userId: string };
+};
 
 @Controller('admin/users')
 @UseGuards(AdminAccessGuard)
@@ -55,16 +60,23 @@ export class AdminUsersController {
   @Patch(':id/role')
   @Header('Cache-Control', 'no-store')
   async changeRole(
-    @Req() request: Request,
+    @Req() request: AuthenticatedAdminRequest,
     @Param('id', new ParseUUIDPipe({ version: '4' }))
     userId: string,
     @Body() body: UpdateAdminUserRoleDto,
   ) {
     assertTrustedOrigin(request);
 
+    const actorId = request.adminIdentity?.userId;
+
+    if (!actorId) {
+      throw new UnauthorizedException('Sessao invalida.');
+    }
+
     const user = await this.accessService.changeRole(
       userId,
       body.role,
+      actorId,
     );
 
     return { user };
@@ -73,16 +85,23 @@ export class AdminUsersController {
   @Patch(':id/active')
   @Header('Cache-Control', 'no-store')
   async setActive(
-    @Req() request: Request,
+    @Req() request: AuthenticatedAdminRequest,
     @Param('id', new ParseUUIDPipe({ version: '4' }))
     userId: string,
     @Body() body: SetAdminUserActiveDto,
   ) {
     assertTrustedOrigin(request);
 
+    const actorId = request.adminIdentity?.userId;
+
+    if (!actorId) {
+      throw new UnauthorizedException('Sessao invalida.');
+    }
+
     const user = await this.accessService.setActive(
       userId,
       body.isActive,
+      actorId,
     );
 
     return { user };

@@ -12,7 +12,7 @@ O schema Prisma contem 16 modelos e cinco enumeracoes.
 
 | Dominio | Modelos | Responsabilidade |
 |---|---|---|
-| Acesso | User | Identidade administrativa, hash de senha, perfil e ativacao |
+| Acesso | User, Session, LoginAttemptBucket, AdminAccessEvent | Identidade administrativa, hash de senha, sessões, limitação de login e histórico de mudanças de acesso |
 | Conteudo consultivo | Application, ProductCategory, Product, ProductImage | Aplicacoes, catalogo, categorias e imagens de produtos |
 | Conteudo publico | FaqItem, CommunicationPost | FAQ e comunicacoes com estado de publicacao |
 | Atendimentos | AttendanceStatus, Attendance, GeneralContact, CablewayRequest | Entrada comum, estado e dados especificos de cada formulario |
@@ -93,6 +93,8 @@ O armazenamento S3, o controle efetivo de acesso aos arquivos, a geracao do PDF 
 ## 6. Comunicacao e usuarios
 
 User representa os perfis administrativos por enumeracao, sem tabela Role independente. Senhas devem ser armazenadas exclusivamente como hash; a modelagem nao cria usuarios produtivos com credenciais fixas.
+
+Na Issue #96, Session armazena o hash do token opaco e o controle de validade/revogacao. LoginAttemptBucket registra limites de tentativa sem manter o IP em texto puro. AdminAccessEvent registra ROLE_CHANGED, ACTIVATED e DEACTIVATED, vinculando autor, usuario afetado, valores anteriores/novos e instante. O evento e a alteracao ocorrem na mesma transacao. A integridade referencial restringe a exclusao de contas com historico vinculado. O registro inicial de criacao de usuario ainda nao integra essa trilha especifica.
 
 CommunicationPost registra tipo, estado, datas e autoria. Uma restricao SQL exige publishedAt para registros publicados.
 

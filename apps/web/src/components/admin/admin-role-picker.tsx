@@ -18,16 +18,25 @@ const roles: readonly { value: Role; label: string }[] = [
 
 type AdminRolePickerProps = Readonly<{
   disabled?: boolean;
+  value?: Role;
+  onValueChange?: (value: Role) => void;
+  label?: string;
+  autoFocus?: boolean;
 }>;
 
 export function AdminRolePicker({
   disabled = false,
+  value: controlledValue,
+  onValueChange,
+  label = "Perfil",
+  autoFocus = false,
 }: AdminRolePickerProps) {
   const id = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const [value, setValue] = useState<Role>("OPERATOR");
+  const [internalValue, setInternalValue] = useState<Role>("OPERATOR");
+  const value = controlledValue ?? internalValue;
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -67,7 +76,10 @@ export function AdminRolePicker({
   }, [open]);
 
   function selectRole(index: number) {
-    setValue(roles[index].value);
+    if (controlledValue === undefined) {
+      setInternalValue(roles[index].value);
+    }
+    onValueChange?.(roles[index].value);
     setActiveIndex(index);
     setOpen(false);
     triggerRef.current?.focus();
@@ -133,7 +145,7 @@ export function AdminRolePicker({
   return (
     <div className="bamak-admin-users__role-picker">
       <span className="bamak-admin-users__role-label">
-        Perfil
+        {label}
       </span>
 
       <div
@@ -152,9 +164,10 @@ export function AdminRolePicker({
         <button
           ref={triggerRef}
           type="button"
+          autoFocus={autoFocus}
           disabled={disabled}
           role="combobox"
-          aria-label="Perfil"
+          aria-label={label}
           aria-haspopup="listbox"
           aria-expanded={open}
           aria-controls={open ? listId : undefined}
@@ -190,7 +203,7 @@ export function AdminRolePicker({
           <div
             id={listId}
             role="listbox"
-            aria-label="Perfil"
+            aria-label={label}
             className="bamak-admin-users__role-listbox"
           >
             {roles.map((role, index) => (

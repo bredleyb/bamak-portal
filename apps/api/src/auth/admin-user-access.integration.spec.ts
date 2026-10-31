@@ -1,6 +1,7 @@
 import {
-  ConflictException,
+  ForbiddenException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
@@ -58,6 +59,15 @@ describeDatabase('AdminUserAccessService com PostgreSQL real', () => {
   });
 
   async function resetAdministrators() {
+    await prisma.adminAccessEvent.deleteMany({
+      where: {
+        OR: [
+          { actorId: { in: ids } },
+          { targetUserId: { in: ids } },
+        ],
+      },
+    });
+
     await prisma.user.deleteMany({
       where: { id: { in: ids } },
     });
@@ -95,62 +105,55 @@ describeDatabase('AdminUserAccessService com PostgreSQL real', () => {
     expect(activeCount).toBe(1);
   }
 
-  function assertOneSuccessOneConflict(
-    outcomes: PromiseSettledResult<unknown>[],
-  ) {
-    const successes = outcomes.filter(
-      (result) => result.status === 'fulfilled',
-    );
-
-    const failures = outcomes.filter(
-      (result) => result.status === 'rejected',
-    );
-
-    expect(successes).toHaveLength(1);
-    expect(failures).toHaveLength(1);
-
-    const failure = failures[0] as PromiseRejectedResult;
-
-    expect(failure.reason).toBeInstanceOf(
-      ConflictException,
-    );
-  }
-
-  it('impede duas desativacoes simultaneas', async () => {
+  it('serializa duas desativacoes da mesma conta', async () => {
     for (let attempt = 0; attempt < 3; attempt++) {
       await resetAdministrators();
 
       const outcomes = await Promise.allSettled([
-        subject.setActive(ids[0], false),
-        subject.setActive(ids[1], false),
+        subject.setActive(ids[0], false, ids[1]),
+        subject.setActive(ids[0], false, ids[1]),
       ]);
 
-      assertOneSuccessOneConflict(outcomes);
+      expect(
+        outcomes.every((result) => result.status === 'fulfilled'),
+      ).toBe(true);
+
       await assertSingleActiveAdministrator();
+
+      expect(
+        await prisma.adminAccessEvent.count({
+          where: { targetUserId: ids[0] },
+        }),
+      ).toBe(1);
     }
   });
 
-  it('impede dois rebaixamentos simultaneos', async () => {
+  it('serializa dois rebaixamentos da mesma conta', async () => {
     for (let attempt = 0; attempt < 3; attempt++) {
       await resetAdministrators();
 
       const outcomes = await Promise.allSettled([
-        subject.changeRole(ids[0], 'OPERATOR'),
-        subject.changeRole(ids[1], 'OPERATOR'),
+        subject.changeRole(ids[0], 'OPERATOR', ids[1]),
+        subject.changeRole(ids[0], 'OPERATOR', ids[1]),
       ]);
 
-      assertOneSuccessOneConflict(outcomes);
+      expect(
+        outcomes.every((result) => result.status === 'fulfilled'),
+      ).toBe(true);
+
       await assertSingleActiveAdministrator();
+
+      expect(
+        await prisma.adminAccessEvent.count({
+          where: { targetUserId: ids[0] },
+        }),
+      ).toBe(1);
     }
   });
-
   it('permite alteracao valida e omite hash na resposta', async () => {
     await resetAdministrators();
 
-    const result = await subject.changeRole(
-      ids[0],
-      'OPERATOR',
-    );
+    const result = await subject.changeRole(ids[0], 'OPERATOR', ids[1]);
 
     expect(result.role).toBe('OPERATOR');
     expect(result.id).toBe(ids[0]);
@@ -159,17 +162,201 @@ describeDatabase('AdminUserAccessService com PostgreSQL real', () => {
     await assertSingleActiveAdministrator();
   });
 
+  it('persiste autor e mudanca no banco descartavel', async () => {
+    await resetAdministrators();
+
+    await subject.changeRole(
+      ids[0],
+      'OPERATOR',
+      ids[1],
+    );
+
+    const events = await prisma.adminAccessEvent.findMany({
+      where: { targetUserId: ids[0] },
+    });
+
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({
+      actorId: ids[1],
+      targetUserId: ids[0],
+      eventType: 'ROLE_CHANGED',
+      previousRole: 'ADMINISTRATOR',
+      newRole: 'OPERATOR',
+    });
+    expect(events[0].createdAt).toBeInstanceOf(Date);
+  });
+
+  it('desfaz a alteracao se o INSERT de auditoria falhar', async () => {
+    await resetAdministrators();
+
+    await prisma.$executeRawUnsafe(`
+      CREATE FUNCTION bamak_test_reject_access_event()
+      RETURNS trigger AS $$
+      BEGIN
+        RAISE EXCEPTION 'BAMAK_TEST_AUDIT_FAILURE';
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+
+    try {
+      await prisma.$executeRawUnsafe(`
+        CREATE TRIGGER bamak_test_reject_access_event_trigger
+        BEFORE INSERT ON "AdminAccessEvent"
+        FOR EACH ROW
+        EXECUTE FUNCTION bamak_test_reject_access_event()
+      `);
+
+      await expect(
+        subject.changeRole(ids[0], 'OPERATOR', ids[1]),
+      ).rejects.toThrow();
+
+      const stored = await prisma.user.findUnique({
+        where: { id: ids[0] },
+        select: { role: true, isActive: true },
+      });
+
+      expect(stored).toEqual({
+        role: 'ADMINISTRATOR',
+        isActive: true,
+      });
+
+      expect(
+        await prisma.adminAccessEvent.count({
+          where: { targetUserId: ids[0] },
+        }),
+      ).toBe(0);
+    } finally {
+      await prisma.$executeRawUnsafe(`
+        DROP TRIGGER IF EXISTS
+          bamak_test_reject_access_event_trigger
+        ON "AdminAccessEvent"
+      `);
+
+      await prisma.$executeRawUnsafe(`
+        DROP FUNCTION IF EXISTS
+          bamak_test_reject_access_event()
+      `);
+    }
+  });
+  it('nao cria evento quando o acesso permanece inalterado', async () => {
+    await resetAdministrators();
+
+    await subject.changeRole(
+      ids[0],
+      'ADMINISTRATOR',
+      ids[1],
+    );
+
+    await subject.setActive(ids[0], true, ids[1]);
+
+    const events = await prisma.adminAccessEvent.count({
+      where: { targetUserId: ids[0] },
+    });
+
+    expect(events).toBe(0);
+  });
+
+  it('audita a desativacao com valores anterior e novo', async () => {
+    await resetAdministrators();
+
+    await subject.setActive(ids[0], false, ids[1]);
+
+    const stored = await prisma.user.findUnique({
+      where: { id: ids[0] },
+      select: { isActive: true },
+    });
+
+    expect(stored?.isActive).toBe(false);
+
+    const events = await prisma.adminAccessEvent.findMany({
+      where: { targetUserId: ids[0] },
+    });
+
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({
+      actorId: ids[1],
+      targetUserId: ids[0],
+      eventType: 'DEACTIVATED',
+      previousIsActive: true,
+      newIsActive: false,
+    });
+  });
+  it('impede alterar a propria conta', async () => {
+    await resetAdministrators();
+
+    await expect(
+      subject.changeRole(ids[1], 'OPERATOR', ids[1]),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+
+    await expect(
+      subject.setActive(ids[1], false, ids[1]),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+
+    expect(
+      await prisma.adminAccessEvent.count(),
+    ).toBe(0);
+  });
+
+  it('revalida permissoes apos rebaixamento ou desativacao', async () => {
+    await resetAdministrators();
+
+    await subject.changeRole(ids[0], 'OPERATOR', ids[1]);
+
+    await expect(
+      subject.setActive(ids[1], false, ids[0]),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+
+    await resetAdministrators();
+
+    await subject.setActive(ids[0], false, ids[1]);
+
+    await expect(
+      subject.changeRole(ids[1], 'OPERATOR', ids[0]),
+    ).rejects.toBeInstanceOf(UnauthorizedException);
+
+    const remaining = await prisma.user.findUniqueOrThrow({
+      where: { id: ids[1] },
+      select: { role: true, isActive: true },
+    });
+
+    expect(remaining).toEqual({
+      role: 'ADMINISTRATOR',
+      isActive: true,
+    });
+  });
+
+  it('rejeita autor inexistente antes de alterar dados', async () => {
+    await resetAdministrators();
+
+    const missingActor =
+      '33333333-3333-4333-8333-333333333333';
+
+    await expect(
+      subject.changeRole(ids[0], 'OPERATOR', missingActor),
+    ).rejects.toBeInstanceOf(UnauthorizedException);
+
+    expect(
+      await prisma.adminAccessEvent.count(),
+    ).toBe(0);
+
+    const target = await prisma.user.findUniqueOrThrow({
+      where: { id: ids[0] },
+      select: { role: true },
+    });
+
+    expect(target.role).toBe('ADMINISTRATOR');
+  });
   it('retorna NotFoundException para usuario inexistente', async () => {
     await resetAdministrators();
 
     const missingId = '33333333-3333-4333-8333-333333333333';
 
     await expect(
-      subject.changeRole(missingId, 'OPERATOR'),
+      subject.changeRole(missingId, 'OPERATOR', ids[1]),
     ).rejects.toBeInstanceOf(NotFoundException);
 
     await expect(
-      subject.setActive(missingId, false),
+      subject.setActive(missingId, false, ids[1]),
     ).rejects.toBeInstanceOf(NotFoundException);
   });
 });

@@ -1,5 +1,7 @@
 import {
   ConflictException,
+  ForbiddenException,
+  UnauthorizedException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -24,17 +26,26 @@ type AccessChange =
 export class AdminUserAccessService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async changeRole(userId: string, role: AdminRole) {
-    return this.updateAccess(userId, { role });
+  async changeRole(
+    userId: string,
+    role: AdminRole,
+    actorId: string,
+  ) {
+    return this.updateAccess(userId, { role }, actorId);
   }
 
-  async setActive(userId: string, isActive: boolean) {
-    return this.updateAccess(userId, { isActive });
+  async setActive(
+    userId: string,
+    isActive: boolean,
+    actorId: string,
+  ) {
+    return this.updateAccess(userId, { isActive }, actorId);
   }
 
   private async updateAccess(
     userId: string,
     data: AccessChange,
+    actorId: string,
   ) {
     return this.prisma.$transaction(async (tx) => {
       // Bloqueio global para alteracoes de perfil e ativacao.
@@ -44,6 +55,30 @@ export class AdminUserAccessService {
         SELECT pg_advisory_xact_lock(710245, 96)::text
           AS "locked"
       `;
+
+      // A autorizacao deve continuar valida depois
+      // da aquisicao do bloqueio transacional.
+      const actor = await tx.user.findUnique({
+        where: { id: actorId },
+        select: {
+          role: true,
+          isActive: true,
+        },
+      });
+
+      if (!actor || !actor.isActive) {
+        throw new UnauthorizedException('Sessao invalida.');
+      }
+
+      if (actor.role !== 'ADMINISTRATOR') {
+        throw new ForbiddenException('Acesso negado.');
+      }
+
+      if (actorId === userId) {
+        throw new ForbiddenException(
+          'Nao e permitido alterar o proprio acesso.',
+        );
+      }
 
       const existing = await tx.user.findUnique({
         where: { id: userId },
@@ -92,11 +127,35 @@ export class AdminUserAccessService {
         }
       }
 
-      return tx.user.update({
+      const updated = await tx.user.update({
         where: { id: userId },
         data,
         select: PUBLIC_USER_SELECT,
       });
+
+      const roleChanged = 'role' in data;
+
+      await tx.adminAccessEvent.create({
+        data: {
+          actorId,
+          targetUserId: userId,
+          eventType: roleChanged
+            ? 'ROLE_CHANGED'
+            : data.isActive
+              ? 'ACTIVATED'
+              : 'DEACTIVATED',
+          previousRole: roleChanged ? existing.role : null,
+          newRole: roleChanged ? data.role : null,
+          previousIsActive: roleChanged
+            ? null
+            : existing.isActive,
+          newIsActive: roleChanged
+            ? null
+            : data.isActive,
+        },
+      });
+
+      return updated;
     });
   }
 }

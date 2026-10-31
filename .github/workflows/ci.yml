@@ -77,6 +77,37 @@ jobs:
           RUN_DB_INTEGRATION: "1"
         run: npm run test:cov -- --runInBand --ci
 
+      # Bancos exclusivos da CI. Nenhuma conexao com a VPS.
+      - name: Preparar bancos isolados de autenticacao
+        env:
+          PGPASSWORD: bamak
+        run: |
+          set -euo pipefail
+          psql -h 127.0.0.1 -p 5432 -U bamak -d bamak -v ON_ERROR_STOP=1 -c "CREATE ROLE bamak_test LOGIN PASSWORD 'bamak_test_ci_only';"
+          psql -h 127.0.0.1 -p 5432 -U bamak -d bamak -v ON_ERROR_STOP=1 -c "CREATE DATABASE bamak_admin_access_test OWNER bamak_test;"
+          psql -h 127.0.0.1 -p 5432 -U bamak -d bamak -v ON_ERROR_STOP=1 -c "CREATE DATABASE bamak_password_test OWNER bamak_test;"
+
+      - name: Migrar banco isolado de acessos
+        env:
+          DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_admin_access_test?schema=public
+        run: npx prisma migrate deploy
+
+      - name: Testar acessos e auditoria com PostgreSQL
+        env:
+          DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_admin_access_test?schema=public
+          BAMAK_TEST_DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_admin_access_test?schema=public
+        run: npm run test -- --runInBand --ci --runTestsByPath src/auth/admin-user-access.integration.spec.ts
+
+      - name: Migrar banco isolado de senhas
+        env:
+          DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_password_test?schema=public
+        run: npx prisma migrate deploy
+
+      - name: Testar troca de senha com PostgreSQL
+        env:
+          DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_password_test?schema=public
+          BAMAK_TEST_DATABASE_URL: postgresql://bamak_test:bamak_test_ci_only@127.0.0.1:5432/bamak_password_test?schema=public
+        run: npm run test -- --runInBand --ci --runTestsByPath src/auth/password-change.integration.spec.ts
       - name: Publicar cobertura da API
         if: always()
         uses: actions/upload-artifact@v4

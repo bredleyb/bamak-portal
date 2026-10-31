@@ -4,16 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AdminBackLink } from "./admin-back-link";
 import { AdminUserCreateForm } from "./admin-user-create-form";
+import { AdminUserAccessEditor, type AdminUser } from "./admin-user-access-editor";
+import { useAdminIdentity } from "./admin-session-gate";
 
-type AdminUser = {
-  id: string;
-  name: string;
-  email: string;
-  role: "ADMINISTRATOR" | "OPERATOR";
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
+
 
 type UsersState =
   | { status: "loading" }
@@ -70,6 +64,7 @@ function formatUpdatedAt(value: string): string {
 
 export function AdminUsersContent() {
   const { replace } = useRouter();
+  const { userId: currentUserId } = useAdminIdentity();
 
   const [listState, setListState] = useState<UsersState>({
     status: "loading",
@@ -228,13 +223,13 @@ export function AdminUsersContent() {
                     </time>
                   </div>
 
-                  <button
-                    type="button"
-                    className="bamak-admin-users__review"
-                    disabled
-                  >
-                    Revisar permissões
-                  </button>
+                  <AdminUserAccessEditor
+                    user={user}
+                    isOwnAccount={user.id === currentUserId}
+                    onUpdated={() => {
+                      setRefreshVersion((version) => version + 1);
+                    }}
+                  />
                 </li>
               ))}
             </ul>

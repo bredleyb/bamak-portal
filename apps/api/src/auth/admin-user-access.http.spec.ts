@@ -146,6 +146,7 @@ describe('Alteracao de acessos administrativos via HTTP', () => {
     expect(changeRole).toHaveBeenCalledWith(
       targetId,
       'OPERATOR',
+      actorId,
     );
     expect(response.headers['cache-control']).toContain(
       'no-store',
@@ -162,7 +163,7 @@ describe('Alteracao de acessos administrativos via HTTP', () => {
     expect(response.body).toEqual({
       user: { ...updatedUser, isActive: false },
     });
-    expect(setActive).toHaveBeenCalledWith(targetId, false);
+    expect(setActive).toHaveBeenCalledWith(targetId, false, actorId);
     expect(response.headers['cache-control']).toContain(
       'no-store',
     );
@@ -286,10 +287,12 @@ describe('Alteracao de acessos administrativos via HTTP', () => {
     expect(changeRole).toHaveBeenCalledWith(
       targetId,
       'OPERATOR',
+      actorId,
     );
     expect(setActive).toHaveBeenCalledWith(
       targetId,
       false,
+      actorId,
     );
   });
 

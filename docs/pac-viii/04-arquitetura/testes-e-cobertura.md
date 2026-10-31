@@ -115,6 +115,26 @@ Em 19/10/2026, o `npm audit --omit=dev --audit-level=high` da Web não identific
 
 A auditoria incluindo dependências de desenvolvimento identificou cinco alertas de severidade alta associados à cadeia de ferramentas ESLint/Next.js. A correção sugerida pelo npm envolveria alteração incompatível de versão. Os alertas permanecem pendentes de avaliação específica; não foi aplicado `npm audit fix --force`.
 
+## Evidências da Issue #96 — 31/10/2026
+
+A branch `feat/admin-auth-rbac`, associada à PR #119, implementa sessões administrativas, controle de perfis, gestão de acessos e auditoria transacional.
+
+Verificações locais confirmadas após o reforço de autorização:
+
+| Verificação | Resultado |
+|---|---|
+| Testes unitários e HTTP selecionados da gestão de acessos | 28/28 aprovados, em duas suítes |
+| Integração real com PostgreSQL 17 descartável | 11/11 aprovados, em uma suíte |
+| Migrações aplicadas no banco descartável | 8/8 |
+| Oxlint type-aware | Zero erros e zero avisos |
+| Build da API e Prisma Client | Aprovados |
+| Auditoria funcional local | Desativação e reativação de conta fictícia registradas com autor e ordem confirmados |
+
+Os cenários reais cobrem concorrência, mudança de perfil, bloqueio da própria conta, revalidação de permissões, autor inexistente, ausência de evento em operação sem mudança e rollback quando a persistência do evento falha. O banco de desenvolvimento e o banco de produção não foram utilizados como ambiente dessas suítes.
+
+A CI anterior do commit `51d1587` concluiu cinco jobs com sucesso. Naquela execução, a API registrou 195 testes aprovados e oito ignorados, com cobertura global de linhas de 97,7%. A branch local recebeu cinco etapas para preparar bancos PostgreSQL separados e executar explicitamente os testes de acesso e troca de senha. **A nova configuração ainda aguarda sua primeira execução no GitHub Actions.**
+
+Revisão por pares, testes cruzados acadêmicos e publicação da Issue #96 permanecem pendentes. Os resultados registrados aqui se referem às verificações efetivamente executadas e não atestam o funcionamento dos três fluxos públicos completos.
 ## Padrões para os próximos incrementos
 
 ### Componentes Web

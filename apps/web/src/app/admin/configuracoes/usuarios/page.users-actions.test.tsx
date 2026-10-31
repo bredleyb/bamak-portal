@@ -84,7 +84,7 @@ describe("ADM-12 — ações individuais das contas", () => {
     vi.unstubAllEnvs();
   });
 
-  it("apresenta Revisar permissões por conta sem habilitar a operação", async () => {
+  it("habilita a revisão de outras contas administrativas", async () => {
     render(<AdminUsersPage />);
 
     await screen.findByText("Ana Exemplo");
@@ -97,7 +97,7 @@ describe("ADM-12 — ações individuais das contas", () => {
       });
 
       expect(action).not.toBeNull();
-      expect(action).toBeDisabled();
+      expect(action).toBeEnabled();
     }
   });
 
