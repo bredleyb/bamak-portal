@@ -115,6 +115,28 @@ Em 19/10/2026, o `npm audit --omit=dev --audit-level=high` da Web não identific
 
 A auditoria incluindo dependências de desenvolvimento identificou cinco alertas de severidade alta associados à cadeia de ferramentas ESLint/Next.js. A correção sugerida pelo npm envolveria alteração incompatível de versão. Os alertas permanecem pendentes de avaliação específica; não foi aplicado `npm audit fix --force`.
 
+## Evidências da Issue #96 — 31/10/2026
+
+A branch `feat/admin-auth-rbac` e a PR #119 implementam autenticação administrativa, autorização por perfil e gestão de acessos. As evidências a seguir distinguem o commit publicado do incremento local posterior.
+
+| Verificação | Resultado |
+|---|---|
+| Testes unitários/HTTP selecionados após reforço da criação | 44/44 aprovados em quatro suítes |
+| Integração PostgreSQL 17 descartável após reforço | 20/20 aprovados em duas suítes |
+| Migrações aplicadas no banco descartável | 9/9; schema atualizado |
+| Oxlint type-aware | Zero erros e avisos |
+| Prisma Validate, geração do Client e build API | Aprovados |
+| Actionlint | Aprovado |
+| Segurança verificada | Concorrência cruzada, perda de privilégios durante hash, auditoria CREATED e rollback da criação |
+
+A nona migração `20261031043000_admin_access_event_created` acrescenta o tipo CREATED. A conta e seu evento são gravados na mesma transação, após revalidação do Administrador sob bloqueio transacional. O teste simula falha de INSERT da auditoria e confirma que a conta não foi criada.
+
+A CI do commit publicado `6f74226`, [execução #41167176931](https://github.com/bredleyb/bamak-portal/actions/runs/41167176931), concluiu os cinco jobs com sucesso, incluindo os dois jobs SonarQube. API: 201 testes gerais aprovados, 15 ignorados nessa etapa e 97,34% de cobertura de linhas. Web: 274 testes aprovados e 89,79% de cobertura de linhas. Suítes PostgreSQL específicas da CI: 11/11 testes de acessos e 4/4 de troca de senha aprovados.
+
+**Limite temporal:** a nova migração e os testes de criação/concorrência posteriores ao commit `6f74226` possuem evidência local de execução; a validação em CI deve ser conferida para o commit que os incluir. O banco de desenvolvimento e o ambiente de produção não foram utilizados na etapa de integração descartável.
+
+A revisão por pares e os testes cruzados acadêmicos estão temporariamente suspensos, com acompanhamento na Issue #105. Sua retomada dependerá da organização e disponibilidade de revisores, sem impedir as verificações técnicas individuais. Nenhuma revisão externa foi declarada realizada.
+
 ## Padrões para os próximos incrementos
 
 ### Componentes Web

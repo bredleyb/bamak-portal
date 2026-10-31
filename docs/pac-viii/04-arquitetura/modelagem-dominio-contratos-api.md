@@ -12,7 +12,7 @@ O schema Prisma contem 16 modelos e cinco enumeracoes.
 
 | Dominio | Modelos | Responsabilidade |
 |---|---|---|
-| Acesso | User | Identidade administrativa, hash de senha, perfil e ativacao |
+| Acesso | User, Session, LoginAttemptBucket, AdminAccessEvent | Identidade administrativa, hash de senha, sessões, limitação de login e histórico de mudanças de acesso |
 | Conteudo consultivo | Application, ProductCategory, Product, ProductImage | Aplicacoes, catalogo, categorias e imagens de produtos |
 | Conteudo publico | FaqItem, CommunicationPost | FAQ e comunicacoes com estado de publicacao |
 | Atendimentos | AttendanceStatus, Attendance, GeneralContact, CablewayRequest | Entrada comum, estado e dados especificos de cada formulario |
@@ -94,6 +94,8 @@ O armazenamento S3, o controle efetivo de acesso aos arquivos, a geracao do PDF 
 
 User representa os perfis administrativos por enumeracao, sem tabela Role independente. Senhas devem ser armazenadas exclusivamente como hash; a modelagem nao cria usuarios produtivos com credenciais fixas.
 
+Na Issue #96, Session armazena o hash do token opaco e o controle de validade/revogacao. LoginAttemptBucket registra limites de tentativa sem manter o IP em texto puro. AdminAccessEvent registra CREATED, ROLE_CHANGED, ACTIVATED e DEACTIVATED, vinculando autor, usuario afetado, valores anteriores/novos e instante. A criacao de usuario e o evento CREATED ocorrem na mesma transacao. A verificacao do Administrador ocorre apos a aquisicao do bloqueio transacional compartilhado com alteracoes de perfil/ativacao. Falhas de auditoria desfazem a operacao. A integridade referencial restringe a exclusao de contas com historico vinculado.
+
 CommunicationPost registra tipo, estado, datas e autoria. Uma restricao SQL exige publishedAt para registros publicados.
 
 A consulta publica devera filtrar exclusivamente os conteudos publicados. A existencia da restricao SQL nao substitui a implementacao desse filtro no servico de leitura.
@@ -107,6 +109,10 @@ As migracoes sao versionadas em apps/api/prisma/migrations.
 3. attendance_integrity: triggers de tipos de atendimento e limite de anexos.
 4. attachment_size_decimal_mb: limite de 10 MB decimais por imagem.
 5. attendance_completeness: integridade obrigatoria dos formularios com gatilhos diferidos.
+6. admin_sessions: sessoes administrativas, tokens com hash e revogacao.
+7. admin_login_rate_limit: contadores persistentes de tentativas de login.
+8. admin_access_events: trilha transacional de alteracoes de perfil e ativacao.
+9. admin_access_event_created: evento de concessao inicial de acesso (CREATED).
 
 Os testes locais de migracao e persistencia foram executados em PostgreSQL 17 isolado, com credenciais fora do Git.
 

@@ -1,0 +1,206 @@
+.bamak-admin-login-page {
+  display: grid;
+  grid-template-columns: minmax(350px, 36.458333%) minmax(0, 1fr);
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--semantic-surface-subtle);
+}
+
+.bamak-admin-login-page__brand {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 70px 32px 55px 65px;
+  background: var(--primitive-brand);
+  color: #fff;
+}
+
+.bamak-admin-login-page__logo {
+  display: block;
+  width: 180px;
+  height: auto;
+}
+
+.bamak-admin-login-page__brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: clamp(100px, 27vh, 249px);
+}
+
+.bamak-admin-login-page__brand-copy h2 {
+  margin: 0;
+  font-family: var(--font-archivo), Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.6px;
+}
+
+.bamak-admin-login-page__brand-copy p {
+  max-width: 420px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.bamak-admin-login-page__brand-copy span {
+  margin-top: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.bamak-admin-login-page__compact-title {
+  display: none;
+}
+
+.bamak-admin-login-page__main {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 24px 22px;
+}
+
+.bamak-admin-login-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 610px;
+}
+
+.bamak-admin-login-page__back {
+  color: var(--semantic-action-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.bamak-admin-login-page__back:hover {
+  text-decoration: underline;
+}
+
+.bamak-admin-login-page__copyright {
+  margin: 0;
+  color: var(--semantic-content-secondary);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+/*
+ * Monitores ultrawide
+ *
+ * Mantem o enquadramento do Figma de 1440px como
+ * area de composicao central, seguindo a convencao
+ * max-width: 1440px do site institucional.
+ *
+ * Os fundos continuam preenchendo toda a viewport.
+ * Somente a posicao dos conteudos e limitada.
+ */
+@media (min-width: 1441px) {
+  .bamak-admin-login-page {
+    grid-template-columns:
+      calc(50% - 195px)
+      minmax(0, 1fr);
+  }
+
+  .bamak-admin-login-page__brand {
+    position: relative;
+    padding-left: calc(50vw - 655px);
+  }
+
+  .bamak-admin-login-page__brand-copy {
+    position: absolute;
+    top: 50%;
+    left: calc(50vw - 655px);
+    width: 420px;
+    margin-top: 0;
+    transform: translateY(-50%);
+  }
+
+  .bamak-admin-login-page__main {
+    justify-content: flex-start;
+    padding-left: 152.5px;
+  }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .bamak-admin-login-page {
+    grid-template-columns: 350px minmax(0, 1fr);
+  }
+
+  .bamak-admin-login-page__brand {
+    padding-left: 37px;
+  }
+
+  .bamak-admin-login-page__brand-copy {
+    margin-top: clamp(100px, 24vh, 213px);
+  }
+
+  .bamak-admin-login-page__logo {
+    width: 160px;
+  }
+
+  .bamak-admin-login-page__content {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 899px) {
+  .bamak-admin-login-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bamak-admin-login-page__brand {
+    flex: 0 0 190px;
+    padding: 39px 46px;
+  }
+
+  .bamak-admin-login-page__brand-copy {
+    display: none;
+  }
+
+  .bamak-admin-login-page__compact-title {
+    display: block;
+    margin: 18px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .bamak-admin-login-page__main {
+    align-items: flex-start;
+    flex: 1;
+    padding: 34px 24px 32px;
+  }
+
+  .bamak-admin-login-page__content {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 599px) {
+  .bamak-admin-login-page__brand {
+    flex-basis: 150px;
+    padding: 24px 20px;
+  }
+
+  .bamak-admin-login-page__logo {
+    width: 154px;
+  }
+
+  .bamak-admin-login-page__main {
+    padding: 20px;
+  }
+
+  .bamak-admin-login-page__content {
+    max-width: 350px;
+  }
+}

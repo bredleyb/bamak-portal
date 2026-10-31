@@ -141,10 +141,12 @@ A rota `/admin/login` é a entrada de autenticação para usuários ainda não a
 Responsável por:
 
 - login;
-- emissão e renovação de token;
+- emissão de sessão com token opaco aleatório e armazenamento do hash;
 - logout;
 - hash de senha;
 - proteção das rotas administrativas.
+
+**Implementação da Issue #96:** cookie de sessão HttpOnly, SameSite=Strict e Secure em produção; expiração após 12 horas; revogação no logout ou na troca de senha; autorização por perfil consultado no backend. Alterações de perfil e ativação usam bloqueio transacional e auditoria com autor identificado. O Administrador não altera o próprio perfil ou ativação por essa interface ou API.
 
 ### Users
 
@@ -154,7 +156,8 @@ Responsável por:
 - perfil Administrador ou Operador;
 - ativação e desativação;
 - alteração de senha;
-- controle de acesso.
+- controle de acesso;
+- registro transacional de alterações administrativas de perfil e ativação.
 
 ### Applications
 

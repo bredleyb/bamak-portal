@@ -197,7 +197,7 @@ A primeira versão deve contemplar:
 | RNF-10 | Análise estática | SonarCloud sem bloqueio do quality gate. | Dashboard do SonarCloud |
 | RNF-11 | Observabilidade | Logs estruturados, healthcheck e Sentry. | Ambiente publicado |
 | RNF-12 | HTTPS | Obrigatório em produção. | URL pública |
-| RNF-13 | Autenticação segura | Senhas com hash e JWT protegido. | Testes e revisão |
+| RNF-13 | Autenticação segura | Senhas com hash e sessões/tokens protegidos, com expiração e revogação. | Testes e revisão |
 | RNF-14 | Autorização | Rotas protegidas por perfil. | Testes de acesso |
 | RNF-15 | Validação de entrada | Frontend e backend. | Testes |
 | RNF-16 | Upload seguro | Formato, tamanho e quantidade validados. | Testes de upload |

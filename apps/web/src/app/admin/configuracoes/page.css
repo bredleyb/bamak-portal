@@ -1,0 +1,122 @@
+.bamak-admin-settings__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--semantic-border-subtle);
+  border-radius: 8px;
+  background: var(--semantic-surface-default);
+}
+
+.bamak-admin-settings__card h2 {
+  margin: 0;
+  color: var(--semantic-content-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.bamak-admin-settings__card p {
+  margin: 0;
+  color: var(--semantic-content-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.bamak-admin-settings__card button {
+  min-width: 250px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--primitive-brand);
+  border-radius: 7px;
+  background: var(--semantic-surface-default);
+  color: var(--primitive-brand);
+  font: inherit;
+  font-weight: 600;
+}
+
+.bamak-admin-settings__card:last-child button {
+  background: var(--primitive-brand);
+  color: #fff;
+}
+
+.bamak-admin-settings__card button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.bamak-admin-settings__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.bamak-admin-settings__field label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.bamak-admin-settings__field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--semantic-border-subtle);
+  border-radius: 6px;
+  background: var(--semantic-surface-default);
+  color: var(--semantic-content-primary);
+  font: inherit;
+  font-size: 14px;
+}
+
+.bamak-admin-settings__field input:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .bamak-admin-settings__card button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+/* Fidelidade visual específica da ADM-11. */
+.bamak-admin-overview--settings .bamak-admin-overview__intro {
+  gap: 6px;
+}
+
+.bamak-admin-overview--settings .bamak-admin-overview__intro h1 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+/* Link para ADM-12, com geometria do botão original. */
+.bamak-admin-settings__card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--primitive-brand);
+  border-radius: 7px;
+  background: var(--primitive-brand);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bamak-admin-settings__card a:focus-visible {
+  outline: 2px solid var(--primitive-brand);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .bamak-admin-settings__card a {
+    width: 100%;
+  }
+}

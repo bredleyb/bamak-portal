@@ -464,7 +464,7 @@ Arquitetura cliente-servidor em camadas, com separação entre:
 | Backend | NestJS + TypeScript |
 | Banco | PostgreSQL |
 | ORM | Prisma |
-| Autenticação | JWT |
+| Autenticação | Sessões com token opaco e cookie HttpOnly; Secure em produção e SameSite=Strict |
 | Ambiente | Docker |
 | Mapa | Leaflet + OpenStreetMap |
 | Armazenamento de arquivos | Serviço compatível com S3 |
