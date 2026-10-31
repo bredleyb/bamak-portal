@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Field } from "../ui/field";
 import { Notification } from "../ui/notification";
+import { isValidAdminEmail } from "./admin-email-validation";
 import "./login-form.css";
 
 const errorMessages = {
@@ -44,7 +45,7 @@ function validateEmail(value: string): string | undefined {
     return "Informe o e-mail de acesso.";
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+  if (!isValidAdminEmail(normalized)) {
     return "Informe um e-mail válido.";
   }
 

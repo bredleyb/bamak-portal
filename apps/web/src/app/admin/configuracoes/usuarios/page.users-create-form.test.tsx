@@ -209,4 +209,29 @@ describe("ADM-12 — formulário de criação de usuário", () => {
       }),
     ).toBeEnabled();
   });
+  it("prioriza o foco no primeiro campo inválido", async () => {
+    const { user, form } = await openCreationForm();
+
+    const name = within(form).getByRole("textbox", { name: "Nome" });
+    const email = within(form).getByRole("textbox", { name: "E-mail" });
+    const password = within(form).getByLabelText("Senha inicial");
+    const submit = within(form).getByRole("button", {
+      name: "Criar usuário",
+    });
+
+    await user.click(submit);
+    expect(name).toHaveFocus();
+
+    await user.type(name, "Usuário Fictício");
+    await user.click(submit);
+    expect(email).toHaveFocus();
+
+    await user.type(email, "usuario@example.invalid");
+    await user.click(submit);
+    expect(password).toHaveFocus();
+
+    expect(
+      fetchMock.mock.calls.filter(([, options]) => options?.method === "POST"),
+    ).toHaveLength(0);
+  });
 });

@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { PasswordService } from './password.service';
 import { SessionService } from './session.service';
+import { isValidAdminEmail } from './admin-email-validation';
 
 const DUMMY_PASSWORD_HASH =
   'scrypt-v1$16384$8$1$' +
@@ -35,7 +36,7 @@ export class LoginService {
     if (
       normalizedEmail.length === 0 ||
       normalizedEmail.length > 320 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
+      !isValidAdminEmail(normalizedEmail)
     ) {
       throw new UnauthorizedException(INVALID_CREDENTIALS);
     }
