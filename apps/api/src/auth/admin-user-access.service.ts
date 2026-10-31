@@ -22,6 +22,31 @@ type AccessChange =
   | { role: AdminRole }
   | { isActive: boolean };
 
+type AdministrativeActor = {
+  role: AdminRole;
+  isActive: boolean;
+} | null;
+
+function assertCanManageAccess(
+  actor: AdministrativeActor,
+  actorId: string,
+  userId: string,
+): void {
+  if (!actor?.isActive) {
+    throw new UnauthorizedException('Sessao invalida.');
+  }
+
+  if (actor.role !== 'ADMINISTRATOR') {
+    throw new ForbiddenException('Acesso negado.');
+  }
+
+  if (actorId === userId) {
+    throw new ForbiddenException(
+      'Nao e permitido alterar o proprio acesso.',
+    );
+  }
+}
+
 @Injectable()
 export class AdminUserAccessService {
   constructor(private readonly prisma: PrismaService) {}
@@ -66,19 +91,7 @@ export class AdminUserAccessService {
         },
       });
 
-      if (!actor || !actor.isActive) {
-        throw new UnauthorizedException('Sessao invalida.');
-      }
-
-      if (actor.role !== 'ADMINISTRATOR') {
-        throw new ForbiddenException('Acesso negado.');
-      }
-
-      if (actorId === userId) {
-        throw new ForbiddenException(
-          'Nao e permitido alterar o proprio acesso.',
-        );
-      }
+      assertCanManageAccess(actor, actorId, userId);
 
       const existing = await tx.user.findUnique({
         where: { id: userId },

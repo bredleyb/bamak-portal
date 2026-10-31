@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import { Field } from "../ui/field";
 import { Notification } from "../ui/notification";
 import { AdminRolePicker } from "./admin-role-picker";
+import { isValidAdminEmail } from "./admin-email-validation";
 
 type AdminUserCreateFormProps = Readonly<{
   onCreated: () => void;
@@ -35,7 +36,7 @@ function validateEmail(value: string): string | undefined {
 
   if (
     !email ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    !isValidAdminEmail(email)
   ) {
     return "Informe um e-mail válido.";
   }
@@ -132,6 +133,19 @@ export function AdminUserCreateForm({
     setOpen(false);
   }
 
+  function focusFirstInvalidField(
+    invalidName: string | undefined,
+    invalidEmail: string | undefined,
+  ) {
+    if (invalidName) {
+      nameRef.current?.focus();
+    } else if (invalidEmail) {
+      emailRef.current?.focus();
+    } else {
+      passwordRef.current?.focus();
+    }
+  }
+
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>,
   ) {
@@ -149,14 +163,7 @@ export function AdminUserCreateForm({
     const invalidPassword = validatePassword(password);
 
     if (invalidName || invalidEmail || invalidPassword) {
-      if (invalidName) {
-        nameRef.current?.focus();
-      } else if (invalidEmail) {
-        emailRef.current?.focus();
-      } else {
-        passwordRef.current?.focus();
-      }
-
+      focusFirstInvalidField(invalidName, invalidEmail);
       return;
     }
 
