@@ -115,6 +115,10 @@ Em 19/10/2026, o `npm audit --omit=dev --audit-level=high` da Web não identific
 
 A auditoria incluindo dependências de desenvolvimento identificou cinco alertas de severidade alta associados à cadeia de ferramentas ESLint/Next.js. A correção sugerida pelo npm envolveria alteração incompatível de versão. Os alertas permanecem pendentes de avaliação específica; não foi aplicado `npm audit fix --force`.
 
+### Acompanhamento posterior das dependências
+
+A [Issue #109](https://github.com/bredleyb/bamak-portal/issues/109) acompanha os avisos transitivos de desenvolvimento, incluindo a verificação de avisos retirados, advisories não revisados e dependências sem correção upstream identificada. A investigação distingue desenvolvimento, CI e imagens finais. A auditoria de dependências de produção passou no escopo da execução de CI #41235377511; isso não encerra a investigação das dependências de desenvolvimento.
+
 ## Evidências da Issue #96 — 31/10/2026
 
 A branch histórica `feat/admin-auth-rbac` e a PR #119 implementaram autenticação administrativa, autorização por perfil e gestão de acessos. A [PR #119](https://github.com/bredleyb/bamak-portal/pull/119) foi integrada à `main` no commit `bd44bfe6`. As verificações locais abaixo foram registradas antes do merge; a CI de `main` posterior é descrita em seguida.
@@ -136,6 +140,14 @@ A [CI #41169874724](https://github.com/bredleyb/bamak-portal/actions/runs/411698
 **Limite temporal:** os testes e a nona migração da Issue #96 estão versionados no commit integrado e tiveram sua CI executada. A aprovação dos jobs não comprova aplicação das migrações na VPS nem release funcional. O [workflow de deploy posterior ao merge](https://github.com/bredleyb/bamak-portal/actions/runs/41170068752) foi ignorado (`skipped`); a produção requer verificação operacional específica e deploy autorizado.
 
 A revisão por pares e os testes cruzados acadêmicos são obrigatórios na disciplina PAC VIII e permanecem com evidências pendentes, acompanhadas na [Issue #105](https://github.com/bredleyb/bamak-portal/issues/105). Disponibilidade de revisores e organização da atividade são dependências operacionais; não há evidência de dispensa institucional. Nenhuma revisão externa é declarada realizada.
+
+## Resultado posterior da CI da branch principal — 31/10/2026
+
+Na [execução #41235377511](https://github.com/bredleyb/bamak-portal/actions/runs/41235377511), associada ao commit [`03c052c`](https://github.com/bredleyb/bamak-portal/commit/03c052c79f62128b1dd31a09dbfd50fbab0bcb35), os cinco jobs da CI concluíram com sucesso: API, Web, Scripts de deploy, SonarQube API e SonarQube Web.
+
+Conforme os resultados consolidados na [Issue #102](https://github.com/bredleyb/bamak-portal/issues/102), foram aprovados **220 testes gerais da API**, **20 testes de integração de acessos**, **4 testes de integração de senhas** e **288 testes da Web**: **532 testes aprovados**, sem falhas registradas nessa execução. Ambos os Quality Gates SonarQube Cloud passaram. Permanecem apontamentos de manutenção já classificados e o acompanhamento independente de dependências da Issue #109.
+
+A evidência se limita ao commit, aos ambientes e à configuração daquela execução. A aprovação da CI não comprova testes ponta a ponta em navegador real, revisão por pares, publicação desse commit na VPS ou aceite da Bamak. As suítes específicas de banco executadas na CI utilizam PostgreSQL descartável, sem acesso ao banco de produção.
 
 ## Padrões para os próximos incrementos
 

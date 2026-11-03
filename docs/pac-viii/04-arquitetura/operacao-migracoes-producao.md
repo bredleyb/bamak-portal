@@ -2,12 +2,9 @@
 
 ## Objetivo
 
-Estabelecer o procedimento de publicação segura das migrações de
-domínio da Issue #95, sem confundir a aprovação dos testes locais
-com a autorização para alterar o banco de produção.
+Estabelecer o procedimento de publicação segura das migrações Prisma do Portal Bamak, distinguindo testes, autorização de mudanças e comprovação do estado real do banco de produção.
 
-Este documento é um procedimento operacional. Sua criação não
-comprova que os pré-requisitos estejam instalados na VPS.
+A implantação das primeiras migrações de domínio da Issue #95 integra o histórico operacional. Novas versões exigem verificações e autorização próprias, conforme a versão efetivamente publicada.
 
 ## Componentes
 
@@ -59,33 +56,22 @@ Esta política introduz uma etapa manual por versão e deve
 ser mantida enquanto não existir um mecanismo equivalente
 de pré-verificação da infraestrutura de produção.
 
-## Bloqueio antes do merge
+## Preparação e controle antes de novas publicações
 
-Não integrar a Issue #95 à `main` enquanto não estiver
-confirmado que o executor instalado na VPS entende as migrações.
+A Issue #95 foi integrada à `main` e suas cinco migrações iniciais estão aplicadas na VPS, conforme inspeção de 02/11/2026. As condições abaixo aplicam-se a publicações futuras que incluam migrações.
 
-O workflow `.github/workflows/deploy.yml` pode iniciar uma
-publicação após CI bem-sucedida na `main`, quando
-`PRODUCTION_DEPLOY_ENABLED=true`.
+O workflow `.github/workflows/deploy.yml` pode iniciar uma publicação após CI bem-sucedida na `main` somente quando a autorização por SHA e a habilitação de produção forem satisfeitas.
 
-Antes de autorizar o merge, o responsável operacional deve:
+Antes de autorizar uma nova versão, o responsável operacional deve:
 
-1. Confirmar os resultados do Pull Request e da análise estática.
-2. Controlar a automação de produção para impedir uma publicação
-   prematura durante a preparação operacional.
-3. Confirmar que `/usr/local/sbin/bamak-deploy` será atualizado
-   com a versão revisada antes da próxima publicação.
-4. Confirmar que `/usr/local/sbin/bamak-backup-postgres` está
-   instalado, executável e corresponde a uma versão revisada.
-5. Confirmar que o Docker Compose da VPS está operacional e
-   que o PostgreSQL possui volume persistente.
-6. Confirmar que `COMPOSE_PROFILES` não habilita globalmente
-   o perfil `migrations`.
-7. Registrar a versão atualmente publicada e verificar o
-   mecanismo de recuperação disponível.
+1. Confirmar o SHA, os testes e a análise estática do commit a publicar.
+2. Identificar a versão implantada, as migrações aplicadas e as diferenças em relação ao commit aprovado.
+3. Conferir a integridade e a compatibilidade dos executores instalados na VPS, inclusive `/usr/local/sbin/bamak-deploy` e `/usr/local/sbin/bamak-backup-postgres`.
+4. Confirmar Docker Compose, volume persistente do PostgreSQL e isolamento do perfil `migrations`.
+5. Verificar backup recente, checksum, estratégia de recuperação e impacto de alterações de esquema.
+6. Estabelecer autorização explícita do SHA exato e uma janela apropriada de publicação.
 
-A instalação e as verificações na VPS exigem acesso
-administrativo autorizado. Não executá-las no CI de testes.
+Instalações e verificações administrativas na VPS exigem autorização própria e não devem ser executadas nos jobs de CI destinados a testes.
 
 ## Instalação dos executores
 
@@ -153,7 +139,9 @@ Restaurar um commit Git anterior não reverte o esquema SQL.
 Restaurar um dump exige procedimento específico, autorização
 e avaliação das alterações ocorridas depois do backup.
 
-## Estado operacional verificado em 21/10/2026
+## Registro operacional de 21/10/2026 (histórico)
+
+O estado abaixo corresponde à preparação e à autorização anteriores ao deploy efetivado em 21/10/2026. As afirmações sobre PR aberta e ausência de migrações em produção descrevem apenas aquele momento.
 
 Verificacoes efetivamente realizadas:
 
@@ -181,30 +169,33 @@ Situacao de autorizacao:
 - PR #116 aberto, sem merge.
 - Nenhuma migracao desta Issue aplicada ao banco de producao.
 
-## Pendencias para a primeira publicacao das migracoes
+## Estado verificado da versão publicada em 02/11/2026
 
-- Integrar o PR com autorizacao explicita e confirmar a
-  CI de `push` do commit definitivo da `main`.
-- Confirmar a janela de publicacao e a condicao de
-  recuperacao em caso de falha.
-- Autorizar o SHA exato de producao e habilitar
-  pontualmente o acionamento de deploy.
-- Executar a publicacao pelo GitHub Actions, sem substituir
-  o pipeline por comandos manuais de implantacao.
-- Confirmar migracoes, healthchecks, versao publicada
-  e registros operacionais na VPS.
+A última publicação bem-sucedida examinada no GitHub Actions ocorreu em 21/10/2026. A execução do job, o checkout da VPS e o registro de último deploy bem-sucedido apontaram o commit `d752d599fb71ba0adad66624a7fca999125e300b`. As execuções posteriores consultadas não publicaram novos commits.
+
+Na inspeção de 02/11/2026, o PostgreSQL de produção apresentava cinco migrações Prisma concluídas, enquanto a `main` consultada continha nove migrações versionadas. Quatro migrações permaneciam pendentes de publicação. Nenhuma migração foi executada durante a inspeção.
+
+Na versão da `main` consultada, havia nove migrações Prisma versionadas, com quatro ainda pendentes na VPS em 02/11/2026. Nenhuma migração foi executada durante a inspeção.
+
+Na inspeção de 02/11/2026, os serviços estavam ativos e os healthchecks disponíveis apresentavam resultado satisfatório. As medições pontuais de recursos não constituem testes de desempenho sob carga.
+
+A configuração de retenção e rotação dos logs permanece sujeita à revisão operacional, em conjunto com a implementação de observabilidade prevista na [Issue #103](https://github.com/bredleyb/bamak-portal/issues/103).
+
+## Verificações após a publicação autorizada
+
+Após cada publicação, verificar o commit efetivamente implantado, o estado das migrações Prisma e os healthchecks dos serviços. Registrar os resultados reais e investigar eventuais divergências antes de considerar a implantação concluída.
 
 ## Limites das evidencias
 
-A restauracao isolada validou o mecanismo de recuperacao
-do backup atual, cujo banco restaurado apresentou zero
-tabelas publicas. Isso nao comprova a recuperacao de
-dados de negocio futuros.
+A restauracao isolada realizada em 19/10/2026 validou a
+recuperacao daquele dump, cujo banco restaurado apresentou
+zero tabelas publicas. O teste nao comprova a recuperacao de
+dados de negocio existentes em backups posteriores.
 
 Os testes de migracao e os cenarios simulados de deploy
-nao substituem a primeira aplicacao em producao. O
-Actionlint valida os workflows estaticamente, mas nao
-equivale a uma execucao real de deploy manual.
+nao substituem a verificacao real de cada publicacao em
+producao. O Actionlint valida workflows estaticamente, sem
+comprovar a execucao do deploy nem o estado final dos servicos.
 
 Revisoes por pares e testes cruzados academicos permanecem
 separados da revisao tecnica individual e dependem das
