@@ -34,13 +34,13 @@ O agendamento utiliza `systemd`, com execução diária prevista para 06:00 UTC 
 
 ### 3.2. Backups nativos da Hostinger
 
-A VPS possui agendamento automático semanal habilitado, sem contratação da modalidade diária adicional.
+A VPS dispõe de agendamento automático semanal no painel da Hostinger, sem contratação da modalidade diária adicional.
 
-Na última verificação do painel, em 19/10/2026, ainda não havia backups automáticos disponíveis. O histórico apresentava somente operações anteriores de criação da VPS e criação/exclusão de snapshot.
+**Registro histórico (19/10/2026):** na inspeção daquela data, ainda não havia cópias automáticas disponíveis no painel. O histórico registrava apenas operações anteriores relacionadas à VPS e a snapshots.
 
-A existência de um agendamento habilitado não comprova a disponibilidade de um backup recuperável.
+**Verificação de 02/11/2026:** foi identificada no painel da Hostinger uma cópia automática semanal disponível, com armazenamento separado do servidor principal e substituição periódica das cópias antigas, conforme a política apresentada pelo provedor.
 
-A primeira cópia automática disponível deverá ser verificada posteriormente.
+Essa observação confirma a existência da cópia indicada no painel. A recuperação integral da VPS não foi ensaiada; a duração de 30 minutos exibida para restauração constitui estimativa do provedor, sem medição operacional independente. O armazenamento permanece dependente do mesmo fornecedor.
 
 ### 3.3. Inventário de componentes e abrangência
 
@@ -58,7 +58,7 @@ O inventário foi conferido com o `compose.production.yaml` e a implementação 
 
 O backup lógico do PostgreSQL não equivale a uma cópia completa da infraestrutura.
 
-O agendamento semanal da Hostinger constitui uma proteção complementar prevista, ainda sem cópia recuperável confirmada.
+A cópia semanal identificada no painel da Hostinger constitui proteção complementar disponível, sujeita à retenção, à política do provedor e à recuperação integral ainda não ensaiada.
 
 A estratégia de recuperação deverá ser reavaliada quando o sistema passar a armazenar dados pessoais reais e arquivos privados.
 
@@ -101,9 +101,18 @@ Em 19/10/2026, o dump `postgres-20261019T020806Z-71936.dump`, gerado na VPS, foi
 - consulta final retornando zero tabelas públicas, conforme o conteúdo original;
 - remoção do contêiner temporário confirmada por inspeção com `docker ps -a --filter name=bamak-restauracao`, sem contêineres encontrados.
 
-A evidência confirma a recuperação do dump efetivamente produzido na VPS. Como o banco ainda não possui tabelas de negócio, a recuperação de registros permanece demonstrada separadamente pelo teste integrado da CI.
+A evidência de 19/10 confirma a recuperação daquele dump efetivamente produzido na VPS. Naquela data, o banco restaurado não continha tabelas de negócio; a recuperação de registros fictícios foi demonstrada separadamente pelo teste integrado da CI.
 
 A recuperação integral da VPS ainda não foi testada.
+
+### 4.1. Verificações complementares em 02/11/2026
+
+- O serviço automático de backup PostgreSQL estava ativo, com a última execução concluída com sucesso em 02/11/2026.
+- Foram identificados dumps diários de 29/10 a 02/11/2026. O arquivo mais recente passou na verificação SHA-256, e `pg_restore --list` reconheceu seu índice sem erro. Nenhum novo ensaio de restauração foi realizado.
+- Os backups locais permanecem armazenados na mesma partição do servidor, o que limita sua proteção contra falhas da infraestrutura.
+- O painel da Hostinger apresentou uma cópia semanal disponível. Sua restauração integral ainda não foi ensaiada.
+
+As evidências anteriores de restauração isolada e recuperação de registros fictícios em CI permanecem válidas apenas para os respectivos arquivos, dados e ambientes de teste.
 
 ## 5. Procedimento de recuperação
 
@@ -169,7 +178,7 @@ Não há RPO ou RTO formalmente validado.
 
 A retenção local aproximada de 14 dias limita a disponibilidade histórica dos dumps.
 
-A recuperação integral permanece dependente dos backups da Hostinger, cuja primeira cópia ainda precisa ser confirmada.
+A recuperação integral permanece dependente dos mecanismos da Hostinger. A disponibilidade de uma cópia semanal foi observada em 02/11/2026, sem ensaio de restauração integral, sem RPO/RTO validados e sem cópia independente do provedor comprovada.
 
 A implementação de novos volumes, anexos privados e documentos PDF exigirá revisão deste procedimento.
 
@@ -195,11 +204,10 @@ A documentação deverá permitir que a empresa compreenda as limitações da so
 
 ## 8. Pendências de validação
 
-- Acompanhar as execuções automáticas posteriores e eventuais falhas do timer PostgreSQL.
-- Verificar a disponibilidade efetiva do backup semanal Hostinger.
-- Completar o inventário dos componentes sujeitos a backup.
-- Consolidar o procedimento reproduzível de recuperação.
-- Reavaliar a recuperação e complementar os testes após a implementação de dados de domínio.
-- Reavaliar a proteção de anexos e PDFs nas Issues #99 e #100.
+- Monitorar a continuidade das execuções automáticas e eventuais falhas do timer PostgreSQL.
+- Ensaiar, em ambiente isolado, a restauração de um dump posterior à aplicação das migrações de domínio, sem afetar o banco de produção.
+- Avaliar a recuperação integral da VPS e definir RPO/RTO com responsáveis e procedimentos autorizados.
+- Avaliar uma cópia protegida independente da Hostinger antes da operação com dados reais.
+- Revisar proteção, retenção e recuperação de anexos e PDFs privados quando os módulos correspondentes forem implementados.
 
 Referências: Issue #88 e PR #113.
