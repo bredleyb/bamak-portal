@@ -14,7 +14,7 @@ const informationLinks = [
   { label: "Perguntas frequentes", href: "/faq" },
   {
     label: "Política de privacidade",
-    href: "/politica-de-privacidade",
+    href: "/privacidade",
   },
 ] as const;
 
@@ -61,7 +61,7 @@ export function SiteFooter() {
             </p>
 
             <p>
-              Equipamentos e peças para atividades agrícolas
+              Máquinas e equipamentos para a indústria, energia e agronegócio.
             </p>
 
             <p>Schroeder, Santa Catarina</p>
@@ -87,7 +87,7 @@ export function SiteFooter() {
               Atendimento
             </h2>
 
-            <p>WhatsApp · canal comercial</p>
+            <p>WhatsApp comercial</p>
 
             <a href="tel:+554733741273">
               (47) 3374-1273
@@ -143,7 +143,7 @@ export function SiteFooter() {
             © {year} Bamak Equipamentos LTDA
           </p>
 
-          <Link href="/politica-de-privacidade">
+          <Link href="/privacidade">
             Política de privacidade
           </Link>
         </div>
