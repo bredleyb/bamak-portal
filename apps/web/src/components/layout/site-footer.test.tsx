@@ -46,7 +46,7 @@ describe('SiteFooter', () => {
 
     expect(
       screen.getByText(
-        'Equipamentos e peças para atividades agrícolas',
+        'Máquinas e equipamentos para a indústria, energia e agronegócio.',
       ),
     ).toBeInTheDocument();
 
@@ -104,7 +104,7 @@ describe('SiteFooter', () => {
     const footer = screen.getByRole('contentinfo');
 
     expect(
-      within(footer).getByText('WhatsApp · canal comercial'),
+      within(footer).getByText('WhatsApp comercial'),
     ).toBeInTheDocument();
 
     expect(
@@ -147,7 +147,7 @@ describe('SiteFooter', () => {
       }),
     ).toHaveAttribute(
       'href',
-      '/politica-de-privacidade',
+      '/privacidade',
     );
   });
 
@@ -196,7 +196,7 @@ describe('SiteFooter', () => {
     for (const link of links) {
       expect(link).toHaveAttribute(
         'href',
-        '/politica-de-privacidade',
+        '/privacidade',
       );
     }
   });
@@ -209,5 +209,21 @@ describe('SiteFooter', () => {
         `© ${new Date().getFullYear()} Bamak Equipamentos LTDA`,
       ),
     ).toBeInTheDocument();
+  });
+});
+
+describe('Issue #94 — rota de privacidade', () => {
+  it('utiliza a rota canônica nos dois links do rodapé', () => {
+    render(<SiteFooter />);
+
+    const links = screen.getAllByRole('link', {
+      name: 'Política de privacidade',
+    });
+
+    expect(links).toHaveLength(2);
+
+    for (const link of links) {
+      expect(link).toHaveAttribute('href', '/privacidade');
+    }
   });
 });

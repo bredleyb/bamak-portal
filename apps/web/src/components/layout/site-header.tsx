@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import {
   useEffect,
@@ -21,28 +22,119 @@ const destinations = [
 ] as const;
 
 export function SiteHeader() {
+  const pathname = usePathname() ?? "";
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuDialogRef = useRef<HTMLDivElement>(null);
+
+  function isCurrent(href: string) {
+    return (
+      pathname === href ||
+      (href !== "/" && pathname.startsWith(`${href}/`))
+    );
+  }
 
   useEffect(() => {
-    if (!menuOpen) {
-      return;
-    }
+    if (!menuOpen) return;
 
-    function handleEscape(event: KeyboardEvent) {
+    const dialog = menuDialogRef.current;
+    const getFocusable = () =>
+      Array.from(
+        dialog?.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled])",
+        ) ?? [],
+      ).filter((element) => element.tabIndex >= 0);
+
+    dialog
+      ?.querySelector<HTMLElement>(".bamak-site-header__mobile-navigation")
+      ?.querySelector<HTMLAnchorElement>("a[href]")
+      ?.focus();
+
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        event.preventDefault();
         setMenuOpen(false);
         menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusables = getFocusable();
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (!first || !last) return;
+
+      const outside = !dialog?.contains(document.activeElement);
+
+      if (
+        event.shiftKey &&
+        (document.activeElement === first || outside)
+      ) {
+        event.preventDefault();
+        last.focus();
+      } else if (
+        !event.shiftKey &&
+        (document.activeElement === last || outside)
+      ) {
+        event.preventDefault();
+        first.focus();
       }
     }
 
-    window.addEventListener("keydown", handleEscape);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const background = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".bamak-site-content, .bamak-site-footer",
+      ),
+    );
+
+    const previous = background.map((element) => ({
+      element,
+      wasInert: element.hasAttribute("inert"),
+    }));
+
+    for (const { element } of previous) {
+      element.setAttribute("inert", "");
+    }
+
+    return () => {
+      for (const { element, wasInert } of previous) {
+        if (!wasInert) {
+          element.removeAttribute("inert");
+        }
+      }
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+
+    const desktop = window.matchMedia("(min-width: 1200px)");
+
+    function handleDesktopBreakpoint(event: MediaQueryListEvent) {
+      if (event.matches) {
+        setMenuOpen(false);
+      }
+    }
+
+    desktop.addEventListener("change", handleDesktopBreakpoint);
+
+    return () => {
+      desktop.removeEventListener("change", handleDesktopBreakpoint);
+    };
+  }, []);
 
   function closeMenu() {
     setMenuOpen(false);
@@ -50,7 +142,20 @@ export function SiteHeader() {
 
   return (
     <header className="bamak-site-header">
-      <div className="bamak-site-header__inner">
+      <a
+        href="#conteudo-principal"
+        className="bamak-site-header__skip-link"
+      >
+        Ir para conteúdo
+      </a>
+      <div
+        ref={menuDialogRef}
+        role={menuOpen ? "dialog" : undefined}
+        aria-label={menuOpen ? "Menu de navegação" : undefined}
+        aria-modal={menuOpen ? "true" : undefined}
+        className="bamak-site-header__dialog-shell"
+      >
+        <div className="bamak-site-header__inner">
         <Link
           href="/"
           aria-label="Ir para início"
@@ -75,6 +180,8 @@ export function SiteHeader() {
               key={destination.href}
               href={destination.href}
               className="bamak-site-header__link"
+              tabIndex={menuOpen ? -1 : undefined}
+              aria-current={isCurrent(destination.href) ? "page" : undefined}
             >
               {destination.label}
             </Link>
@@ -84,6 +191,8 @@ export function SiteHeader() {
         <Link
           href="/contato"
           className="bamak-site-header__contact"
+          tabIndex={menuOpen ? -1 : undefined}
+          aria-current={isCurrent("/contato") ? "page" : undefined}
         >
           Contato
         </Link>
@@ -105,19 +214,29 @@ export function SiteHeader() {
             )}
           </span>
         </button>
-      </div>
+        </div>
 
-      {menuOpen && (
-        <nav
+        {menuOpen && (
+          <nav
           id={menuId}
           aria-label="Navegação móvel"
           className="bamak-site-header__mobile-navigation"
         >
+          <Link
+            href="/"
+            className="bamak-site-header__mobile-link"
+            aria-current={isCurrent("/") ? "page" : undefined}
+            onClick={closeMenu}
+          >
+            Início
+          </Link>
+
           {destinations.map((destination) => (
             <Link
               key={destination.href}
               href={destination.href}
               className="bamak-site-header__mobile-link"
+              aria-current={isCurrent(destination.href) ? "page" : undefined}
               onClick={closeMenu}
             >
               {destination.label}
@@ -125,14 +244,25 @@ export function SiteHeader() {
           ))}
 
           <Link
+            href="/privacidade"
+            className="bamak-site-header__mobile-link"
+            aria-current={isCurrent("/privacidade") ? "page" : undefined}
+            onClick={closeMenu}
+          >
+            Política de privacidade
+          </Link>
+
+          <Link
             href="/contato"
             className="bamak-site-header__mobile-contact"
+            aria-current={isCurrent("/contato") ? "page" : undefined}
             onClick={closeMenu}
           >
             Contato
           </Link>
-        </nav>
-      )}
+          </nav>
+        )}
+      </div>
     </header>
   );
 }

@@ -8,7 +8,13 @@ export default function SiteLayout({
   return (
     <>
       <SiteHeader />
-      <div className="flex-1">{children}</div>
+      <div
+        id="conteudo-principal"
+        tabIndex={-1}
+        className="flex-1 bamak-site-content"
+      >
+        {children}
+      </div>
       <SiteFooter />
     </>
   );
