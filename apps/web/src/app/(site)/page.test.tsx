@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Home from './page';
 
@@ -70,6 +70,20 @@ describe('PUB-01 — Home pública', () => {
     expect(
       screen.getByRole('heading', { name: 'Fale com a Bamak' }),
     ).toBeInTheDocument();
+  });
+
+  it('oferece contato principal e FAQ secundário na seção final', () => {
+    render(<Home />);
+
+    const contato = screen.getByRole('region', { name: 'Fale com a Bamak' });
+    expect(within(contato).getByRole('link', { name: 'Entrar em contato' }))
+      .toHaveAttribute('href', '/contato');
+    expect(within(contato).getByRole('link', { name: 'Consultar perguntas frequentes' }))
+      .toHaveAttribute('href', '/faq');
+    expect(within(contato).getByText('ou'))
+      .toHaveAttribute('aria-hidden', 'true');
+    expect(within(contato).getAllByRole('link').map((a) => a.textContent))
+      .toEqual(['Entrar em contato', 'Consultar perguntas frequentes']);
   });
 
   it('identifica três fotografias reservadas sem apresentá-las como reais', () => {

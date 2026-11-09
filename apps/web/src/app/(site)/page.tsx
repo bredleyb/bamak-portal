@@ -155,7 +155,7 @@ export default function Home() {
 
       <section className="bamak-home__contact" aria-labelledby="home-contact-title">
         <div className="bamak-home__container bamak-home__contact-grid">
-          <div>
+          <div className="bamak-home__contact-copy">
             <h2 id="home-contact-title" className="bamak-home__section-title">
               Fale com a Bamak
             </h2>
@@ -164,12 +164,23 @@ export default function Home() {
               de algum equipamento? Descreva&nbsp;sua&nbsp;necessidade para a equipe da Bamak.
             </p>
           </div>
-          <Link
-            className="bamak-home__button bamak-home__button--contact"
-            href="/contato"
-          >
-            Entrar em contato
-          </Link>
+          <div className="bamak-home__contact-actions">
+            <Link
+              className="bamak-home__button bamak-home__button--contact"
+              href="/contato"
+            >
+              Entrar em contato
+            </Link>
+            <span className="bamak-home__contact-or" aria-hidden="true">
+              ou
+            </span>
+            <Link
+              className="bamak-home__button bamak-home__button--faq"
+              href="/faq"
+            >
+              Consultar perguntas frequentes
+            </Link>
+          </div>
         </div>
       </section>
     </main>
